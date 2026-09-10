@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Campanucci Lab — Neuroscience &amp; Electrophysiology · University of Saskatchewan</title>
 <meta name="description" content="The Campanucci Lab (Dr. Veronica Campanucci, College of Medicine, University of Saskatchewan) studies neuronal activity: cystic fibrosis CFTR modulators, honey bee neurobiology, and diabetes.">
+<!-- TAB ICON, inlined as a data: URI. Not a favicon.ico, and that is not a
+     style preference: the site is served from a repository SUBPATH
+     (/Campanucci_Lab_USask/), so a browser's implicit probe goes to the
+     DOMAIN root, campanuccilab.github.io/favicon.ico, which this repository
+     can never serve. Committing a favicon.ico here would change nothing. A
+     data: URI is subpath-agnostic, keeps the no-external-dependency rule
+     (AI-README §2) and the offline double-click property, and adds no file.
+     The mark is an action potential — resting baseline, upstroke, repolarisation
+     through baseline to an undershoot, recovery — in --accent on --bg. Those
+     are the only two palette values identical in BOTH themes, so one tile
+     reads correctly against light and dark browser chrome.
+     ⚠️ Every '#' is percent-encoded as %23. A raw # ends the URI at the
+     fragment and the tab silently goes blank again.
+     ⚠️ The xmlns is an XML NAMESPACE IDENTIFIER, not a fetched resource —
+     nothing ever requests it. It will appear in §2's "list every off-machine
+     URL" audit; it is not a third remote host. Test-Published.ps1's
+     plain-http check already excludes it by name. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23101114'/%3E%3Cpath%20d='M3%2020H10.5L13%204L16%2026L18.5%2020H29'%20fill='none'%20stroke='%23cbb998'%20stroke-width='3.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>*{margin:0}body{margin:0}</style>
 </head>
 <body><!--
@@ -88,7 +106,7 @@
        background, lower it if they start looking like plates. Four blocks,
        same as --veil. */
     --veil-soft:rgba(255,255,255,.58);
-    /* One step firmer than veil-soft, for the two places the owner found still
+    /* One step firmer than veil-soft, for the two places that measured still
        too low-contrast: the Techniques heading and the Reach out column. Same
        edgeless mask, just a denser fill — deliberately still short of `--veil`,
        which is an opaque-looking panel. Four blocks, same as the others. */
@@ -138,7 +156,7 @@
   }
 
   *{box-sizing:border-box}
-  /* One section at a time, restored at the user's request. Native snap scrolling
+  /* One section at a time, and that is deliberate. Native snap scrolling
      stays interruptible; navigation links use the existing smooth anchor handler. */
   /* `scrollbar-gutter` keeps the scrollbar's strip reserved even while the
      lightbox holds `overflow:hidden` on the body. Without it the bar vanishes
@@ -311,8 +329,8 @@
   @supports not ((-webkit-background-clip:text) or (background-clip:text)){
     .sheen-title{color:var(--g-md)}
   }
-  /* ONE SLOW, CONSTANT CRAWL — `linear`, no easing and no pause, at the owner's
-     request. A sweep-then-rest version was tried and rejected: the stop-start
+  /* ONE SLOW, CONSTANT CRAWL — `linear`, no easing and no pause. A
+     sweep-then-rest version was tried and rejected: the stop-start
      kept pulling the eye back to the heading, which is exactly what you do not
      want from something that runs forever on a page people are reading. 12s is
      long enough that the movement is felt rather than watched (the highlight
@@ -420,7 +438,7 @@
      9:16 ones). Which band it shows is the whole question: centred, it cut
      heads off images 3, 4 and 6. `--focus` moves that band, per photo.
      ⛔ `contain` was tried and rejected — it keeps every face but shrinks the
-     photo to a third of the card, which fights the owner's earlier ask to make
+     photo to a third of the card, which fights the earlier decision to make
      these bigger. Cropping in tight is the point; aiming it is the fix.
      ⚠️ Keep `scale(1.07)`. It is headroom for the parallax translate, not
      zoom: "Social gathering" is exactly 4:3, so at scale(1) a ±13px slide
@@ -511,8 +529,8 @@
      its own: every section heading, the welcome copy, the team names.
 
      ⚠️ This is NOT the `--veil` panel that .about-copy and Recent work use.
-     That one is a real card — fill, border, radius, hard edge. The owner asked
-     that these must NOT look enclosed, so this one has no border and no edge
+     That one is a real card — fill, border, radius, hard edge. These must NOT
+     look enclosed by design, so this one has no border and no edge
      at all: the fill is masked by a radial gradient that is solid behind the
      words and has dissolved to nothing before it reaches its own bounds. What
      you see is a soft bloom of contrast, not a shape.
@@ -569,8 +587,7 @@
      group its ancestors create — so an ancestor at `opacity:0.1` does not damp
      it. It paints at FULL strength from the reveal's very first frame, and what
      you see is a soft rectangle forming on the neuron canvas ahead of the
-     heading it belongs to. That is the owner's report: "the text background
-     appears before the section". Verified rather than assumed — hold a
+     heading it belongs to. Verified rather than assumed — hold a
      `.sec-head` at opacity 0.12 and the text is a ghost while the neurons
      behind it are plainly smoothed.
 
@@ -599,7 +616,7 @@
   /* Recent work already carries the real panel — it needs the stronger
      treatment, and two backgrounds stacked would only muddy it. */
   #publications .sec-head::before{content:none}
-  /* --- ONE STEP FIRMER, in the two places the owner asked for -----------
+  /* --- ONE STEP FIRMER, in the two places that needed it ----------------
      Techniques: its heading sits over a busy stretch of the background.
      Reach out: that column had NO veil at all — it is a bare <div> inside
      .contact-grid, not a .sec-head, so the rule above never reached it.
@@ -954,9 +971,9 @@
   .crow .k{font-family:var(--mono);font-size:12.5px;color:var(--sub);letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
   .map{background:var(--panel-soft);border:1px solid var(--hair);border-radius:16px;min-height:220px;
     position:relative;overflow:hidden;display:grid;place-items:center;text-align:center;padding:24px}
-  /* The live Google embed sits ON TOP of the painted fallback and only fades
-     in once it has actually loaded. Offline, blocked by a CSP, or just slow —
-     the card underneath is what you see, exactly as it was before.
+  /* The live Google embed sits ON TOP of the painted fallback. Offline,
+     blocked by a proxy, or just slow — the card underneath is what you see,
+     exactly as it was before.
      ⚠️ `pointer-events:none` is deliberate and does two jobs: it lets the
      click layer above receive the click, and it stops the iframe swallowing
      the WHEEL when the cursor is over the map. Without it, scrolling with the
@@ -965,10 +982,23 @@
   .map-embed{position:absolute;inset:0;width:100%;height:100%;border:0;
     opacity:0;transition:opacity .45s ease;pointer-events:none}
   .map.map-live .map-embed{opacity:1}
-  .map.map-live .map-fallback{opacity:0;transition:opacity .3s ease}
+  /* ⛔ There is deliberately NO rule that hides .map-fallback, and re-adding
+     one empties the contact card. A FAILED cross-origin request fires `load`
+     just like a successful one, so `.map-live` is NOT evidence the map
+     arrived (measured in Chromium 152 against a refused port and a
+     non-resolving host: both fired `load`, neither fired `error`). Hiding the
+     card on `.map-live` therefore blanked it for every visitor who is online
+     but cannot reach www.google.com — campus or corporate proxy, DNS filter,
+     privacy extension — losing the only on-page copy of the lab's address.
+     The card needs no hiding: .map-embed is absolutely positioned over it and
+     a real map paints opaque, so it covers the card by itself. A failed
+     iframe paints nothing, so the card shows through it. Both verified.
+     Accepted cost: during the .45s fade-in the card blends faintly through
+     the arriving map. That is unavoidable without hiding the card again, and
+     half a second of overlap beats losing the address permanently. */
 
   /* Click layer — the whole card is a link to the real Google Maps page.
-     This is the trade-off the owner chose: a cross-origin iframe either gets
+     This is a deliberate trade-off: a cross-origin iframe either gets
      the clicks or we do, never both, and click-through beats panning a small
      inset map. To go back to a pannable map, delete this element and drop the
      `pointer-events:none` above. */
@@ -1219,7 +1249,7 @@
   /* ===== SEPTEMBER 2026 VISUAL REFRESH =====
      A science-led research feature, simpler photographs, and solid reading
      surfaces. One-section-at-a-time scrolling is restored in the section rules
-     above; the natural-height override was removed at the user's request. */
+     above; the natural-height override went with it. */
   .hero{scroll-margin-top:0}
   .proj-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
   .proj{padding:28px}
@@ -1271,8 +1301,10 @@
   }
 
 /* ========================================================================
-   DESIGN REVIEW — Charcoal / editorial direction, September 2026.
-   This file is a separate candidate. index.html remains the approved site.
+   DESIGN DIRECTION — Charcoal / editorial, September 2026. This is the
+   palette and type direction the site runs on. The blocks below deliberately
+   override the original teal scheme further up the file; later rule, same or
+   greater specificity, so these win. Two palettes in one file is intentional.
    All imagery, animation and offline behavior use the existing local assets.
    ======================================================================== */
 :root,
@@ -1574,7 +1606,8 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 /* All shaded section headings share one responsive inset, including future sections. */
 @media(max-width:640px){:root{--heading-inset:22px 20px}}
 
-/* REVIEW 2 — tactile controls and science exploration, built on Review 1. */
+/* Tactile controls and science exploration — the `r2-`-prefixed rules below.
+   The prefix is historical; [5] and [6] select on it, so do not rename it. */
 .r2-tech-toggle,.r2-explore-button,.r2-filter{font:600 12px var(--sans);color:var(--accent-ink);border:1px solid var(--hair);border-radius:6px;background:transparent;min-height:44px;padding:11px 15px;cursor:pointer;transition:background .2s,border-color .2s}
 .r2-tech-toggle:hover,.r2-explore-button:hover,.r2-filter:hover{border-color:var(--accent-ink);background:color-mix(in srgb,var(--accent) 8%,transparent)}
 .r2-tech-toggle{margin-top:24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left}
@@ -2171,10 +2204,9 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
        A number here that starts with a digit gets counted up when the card
        scrolls into view, so keep the digits FIRST ("870+", not "over 870").
 
-       These are real figures, checked against Google Scholar and PubMed. The
-       old card claimed "800+ Publications" — that was the CITATION count with
-       the wrong label attached, and it overstated the lab's output by roughly
-       35x. If you refresh these, refresh the date in statsNote with them. */
+       These are publication and citation counts, each verified against Google
+       Scholar and PubMed. If you refresh them, refresh the date in statsNote
+       with them. */
     stats: [
       ["870+",  "Citations"],
       ["17",    "h-index"],
@@ -2278,6 +2310,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
     /* [ name , role , what they work on , photo (or "") ] */
     members: [
       ["Lu Thien Minh Vu","Research Technician",    "Electrophysiology, Western blot, PCR, Cell culture, Immunocytochemistry, Histology", "images/Minh.jpeg"],
+      ["Omar Morales","PhD Student",           "Stem cell culture/differentiation, Cell/Organoid culture, Immunohistochemistry, PCR, Western Blot", "images/Omar.jpeg"],
       ["[Member Name]","PhD Student",            "Honey bee neural recording",         ""],
       ["Ashtyn Ekstrand","MSc Student",            "Organ bath, Organoid culture, Immunohistochemistry","images/Ashtyn.webp"],
       ["Frances Dy","MSc Student",    "Electrophysiology, Cell culture, Immunocytochemistry","images/Frances.jpeg"],
@@ -2292,7 +2325,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
   publications: {
     eyebrow: "Selected publications",
     heading: "Recent work",
-    /* Emptied at the owner's request (Aug 2026). An empty intro hides its
+    /* Deliberately empty (Aug 2026). An empty intro hides its
        paragraph entirely rather than leaving a blank gap above the list — see
        `.sec-head p:empty` in [2]. Type a sentence back in here and it returns;
        nothing else needs changing. The point it used to make still holds and is
@@ -2970,7 +3003,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
     }
 
     /* THE SIGNATURE IS WRITTEN EVERY TIME THE SECTION COMES BACK, not once per
-       page load. The owner asked for the whole hung-print sequence to replay on
+       page load. The whole hung-print sequence is meant to replay on
        return, and the CSS half of it (the frame swinging in, the medal popping
        on, the credit rule drawing out) already did — those are plain transitions
        keyed off `.in`, which the reveal observer toggles in BOTH directions. The
@@ -3101,8 +3134,8 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
   var GALKINDS=["rig","calcium","stain","trace","organoid","blot","bee","culture"];
   gg.innerHTML=galItems.map(function(g,i){
     /* a photo path in the SITE block replaces the generated tile; a VIDEO path
-       gives a silent looping clip instead. Recognised by extension, so the
-       owner just types a filename in `gallery.list` and it does the right
+       gives a silent looping clip instead. Recognised by extension, so a
+       filename typed into `gallery.list` does the right
        thing — no extra field to remember. */
     var src=g[2], alt=String(g[0]).replace(/"/g,""), inner;
     /* encodeURI, because real filenames have spaces in them ("Bee_feeding -
@@ -3406,8 +3439,8 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          that develops out of the intro and it is what a visitor is reading
          while the banner text fades in, so it gets time to land before the
          deck starts cycling. FIRST_MS is that opening hold, NEXT_MS the pace
-         after it — two numbers to retune. (The owner set the hold to 9s, then
-         asked for a second back off it: 8s.) */
+         after it — two numbers to retune. (The hold is 8s; 9s read as
+         sluggish.) */
       var FIRST_MS=8000, NEXT_MS=4600;
       if(cards.length>1) (function tick(wait){
         setTimeout(function(){
@@ -3428,7 +3461,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
   /* ==================== [5b] CONTACT MAP (Google embed) =================== */
   /* ⚠️ THIS IS THE ONE EXTERNAL REFERENCE IN THE FILE. Everything else is
      self-contained (AI-README §2) and that is still the rule for anything you
-     add — this single exception was the owner's explicit request.
+     add — this single exception is deliberate and documented.
 
      It is built by script rather than written into the HTML so the exception
      costs as little as possible:
@@ -3436,9 +3469,12 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          section (IntersectionObserver with a 200px margin), so simply opening
          the page never talks to Google;
        - nothing is requested AT ALL when the browser reports it is offline;
-       - if the request is made and fails — no internet, a CSP, a computer that
-         blocks Google — the `load` event never marks it live, so the painted
-         fallback card underneath stays exactly as it always was.
+       - if the request is made and fails — no internet, a proxy, a computer
+         that blocks Google — the painted fallback card underneath is what
+         stays on screen. ⚠️ NOT because `load` fails to fire: a failed
+         cross-origin request fires `load` too, so `.map-live` is added either
+         way. It survives because nothing hides it — see the ⛔ note beside
+         `.map-embed` in [2], which is load-bearing, not decoration.
      The address lives in SITE.contact.mapQuery, so it stays editable from [4]
      like all other content. Setting it to "" turns the embed off entirely.
 
@@ -3926,8 +3962,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
        document. Both observers above fire the moment the destination crosses
        the viewport edge, which is early in that glide, so the banner used to
        play its entrance while the page was still travelling at speed and was
-       fully resolved before it landed. The owner's words: "the section fades
-       in before the animation is done".
+       fully resolved before it landed.
        So the reveals are HELD for the flight and released once the glide
        settles. The destination then arrives blank and resolves, which is the
        point of having an entrance at all. */
@@ -3942,7 +3977,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
       window.removeEventListener("keydown",releaseJump);
       if(neuro && neuro.hurry) neuro.hurry(false);   /* dolly back to lazy */
       /* The entrance after a jump is SLOWER than an ordinary scroll reveal —
-         the owner asked for it to fade in gently once the camera has landed,
+         it fades in gently once the camera has landed,
          rather than snapping in as it does when you simply scroll a section
          into view. The class carries that and is taken off again afterwards,
          so normal scrolling keeps its quick reveals.
@@ -3961,9 +3996,9 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
       if(auraObserver) qsa("section[id]").forEach(function(el){auraObserver.unobserve(el);auraObserver.observe(el);});
     }
     /* ⚠️ THE REVEALS WAIT FOR THE CAMERA, NOT FOR THE SCROLLBAR.
-       Waiting on the scroll position alone was not enough — that was the
-       owner's second report, "the section still appears much quicker before
-       the animation transition finishes". The scrollbar stops almost at once;
+       Waiting on the scroll position alone was not enough: the text still
+       arrived well before the animation transition had finished. The
+       scrollbar stops almost at once;
        the background does not. The dolly eases 2.8% of the REMAINING distance
        per frame, and a jump from the finale back to the top asks it to travel
        CD ~34 -> 1, so it is still visibly flying for seconds afterwards.
@@ -3976,7 +4011,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
        distance AND frame rate, so the same 2s is most of a short move and a
        sliver of a long one), then a fraction of the duration — 1/3 — which
        was proportionally right but still had the text arriving over a camera
-       that was visibly still moving. The owner's answer was to make the
+       that was visibly still moving. The answer was to make the
        CAMERA finish sooner (see camK(), which accelerates during a jump) and
        let the text follow it rather than race it. */
     var JUMP_SETTLED=0.02, JUMP_SLOW_MS=2600;
@@ -4047,7 +4082,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
       beginJump();                          /* hold the reveals for the flight */
       el.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
       /* keeping the hash in the address bar is a nicety, and on a file:// page
-         (which is how the owner opens this) the origin is null and Chrome
+         (which is how this file is usually opened) the origin is null and Chrome
          throws on replaceState — so it must never be allowed to break the
          scroll that already happened above */
       try{ if(history.replaceState) history.replaceState(null,"",href); }catch(_){}
@@ -4073,7 +4108,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
              at the edges. Targets come from scroll; the loop eases toward
              them so snap-scrolling still glides. */
           /* CD_BOOST is the EXTRA pull-back across team -> recent work. It was
-             3.2, which the owner read as too big a jump at that one
+             3.2, which read as too big a jump at that one
              transition; halved to 1.6 so the camera still eases back there,
              just less far. */
           /* CD_FIN is the finale pull-back across join -> contact. A world
@@ -4084,7 +4119,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
              at 1.75*BSC and BSC ~ 9.1*min(W,H), so they land at ~0.47 of the
              short side — right at the frame edge, which is wanted: the space
              should carry on past the window rather than sit inside it.
-             This was 40 (CD ~52) and the owner asked for less; pulling it
+             This was 40 (CD ~52) and was pulled back for less throw; pulling it
              back meant pulling SIB_RIN/SIB_ROUT in by the same factor, or the
              brains would simply have fallen outside the frame. Change one,
              redo the other. */
@@ -4095,7 +4130,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
                TURN   90 deg across team -> recent work
                TURN2  45 deg across techniques -> team
              There is NO turn on join -> contact. It briefly lived there and
-             the owner removed it — that stretch is the finale now and the
+             was removed — that stretch is the finale now and the
              camera is already doing a lot; a turn on top read as too much.
              AURA is how strong the yellow scroll wave is by that point. */
           TURN=0, TURNt=0, TURN2=0, TURN2t=0, AURA=0,
@@ -4487,8 +4522,8 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          drawSoma's irregular outlined cell body with its nucleus and specks,
          drawPuncta. Nothing here is a simplified stand-in; hand-rolled
          strokes gave cells with no soma outline, no taper along the
-         processes, and a different clarity, which is exactly what the owner
-         called out.
+         processes, and a different clarity. That difference is visible, which
+         is why nothing here is simplified.
 
          Two things make that possible. All those routines draw through the
          closure's `x`, so pointing `x` at an offscreen context redirects them
@@ -4786,8 +4821,8 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
                                           without; the surplus buys the outer
                                           ones a second beam.               */
           SIB_RIN=1.15, SIB_ROUT=1.75, /* inner/outer radius, in units of BSC.
-                                          A VOLUME, not a shell: the owner
-                                          asked for a space FILLED with
+                                          A VOLUME, not a shell: the space
+                                          is meant to be FILLED with
                                           brains, so they sit at every depth
                                           and the focus spread below has
                                           something to work with.
@@ -4798,7 +4833,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
           PKT=[], PKT_MAX=16;          /* travelling glow along the beams    */
       /* ⛔ The beams no longer grow a notch per shockwave. That accumulating
          behaviour (ARCW / ARC_STEP / ARC_CAP / bumpArc) was built and then
-         REMOVED at the owner's request: the whole outgrowth now happens in
+         REMOVED deliberately: the whole outgrowth now happens in
          one go at the finale. Don't reintroduce a per-scroll accumulator. */
       /* The sibling sprite bank: the SAME brain, pre-rendered at SIB_ANG yaw
          angles and SIB_BLUR focus levels. Angles are what let a distant brain
@@ -4806,7 +4841,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          swapped for the next angle), and the blur levels are what let it obey
          the same thin-lens focus as everything else.
          SIB_ANG is 16, not 8. At 8 the turn snapped through 45 degrees at a
-         time and the owner read it as robotic; 16 halves the step AND makes
+         time and the turn read as robotic; 16 halves the step AND makes
          the cross-fade in drawSphere convincing, because adjacent frames are
          then close enough to blend without ghosting into a double image.
          Memory is the reason it is not higher still: SIB_ANG x SIB_BLUR
@@ -4833,14 +4868,14 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
       /* A BEAM of light from `from` to `to`.
          ⚠️ This used to be a lightning bolt — a jagged polyline with an
          independent random bend and a fast independent crackle at EVERY
-         vertex. The owner replaced that with a smooth glowing connection, so
+         vertex. That was replaced with a smooth glowing connection, so
          the randomness now lives on the beam as a WHOLE, not per vertex:
            - one bow direction (cu,cv) and one magnitude, shaped by sin(pi*f)
              so the curve is smooth end to end and meets both ends cleanly;
            - one slow sway, along the perpendicular of the bow, again shaped by
              sin(pi*f) so the whole ribbon undulates as one piece.
          Per-vertex randomness is what made it read as electricity. Don't put
-         it back unless the owner asks for lightning again. */
+         it back unless lightning is wanted again. */
       function beamPts(from,to,n,bow,sway){
         var d=v3norm([to[0]-from[0],to[1]-from[1],to[2]-from[2]]),
             up=Math.abs(d[1])<0.9?[0,1,0]:[1,0,0],
@@ -4898,15 +4933,15 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
         /* Brain-to-brain beams, so the far side reads as a NETWORK and not a
            wheel of spokes.
 
-           ⚠️ THESE DO NOT EXIST UNTIL THEY ARE REACHED. The owner does not
-           want links sitting there waiting: a brain only starts reaching out
+           ⚠️ THESE DO NOT EXIST UNTIL THEY ARE REACHED. Links must not sit
+           there waiting: a brain only starts reaching out
            to its neighbours once the beam from the MAIN brain has arrived at
            it. So each link grows FROM whichever of its two brains lights
            first (hence the swap in linkPair — the geometry is built in that
            direction, not just drawn that way), and cannot start before that
            brain's own arrival time.
 
-           Built in two passes, because the owner asked that EVERY brain be on
+           Built in two passes, because EVERY brain must be on
            the network:
              1. the THREE nearest each, deduplicated (was two — see below);
              2. a connectivity pass that welds whatever islands are left.
@@ -5038,8 +5073,8 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          This renders the ACTUAL brain — the same `bCells` with the same
          positions, the same `MINI` morphologies at the same relative size,
          the same axons in `bLinks`, the same near/far depth shading — into an
-         offscreen canvas. It is not a stylised stand-in: the owner asked for
-         the distant brains to match the real one detail for detail, and the
+         offscreen canvas. It is not a stylised stand-in: the distant brains
+         must match the real one detail for detail, and the
          only way to be sure of that is to draw the real one.
          Drawing 14 of these live per frame is impossible, so each angle is
          rendered ONCE and stamped. */
@@ -5812,7 +5847,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
                     life:1900, maxR:Math.hypot(W,H)*0.62,
                     band:120+90*strength, col:COL.AMB});
         /* (The shockwave used to drive the beam outgrowth a notch at a time.
-           The owner removed that — the outgrowth is the finale's job now and
+           That was removed — the outgrowth is the finale's job now and
            happens in one sequence. The wave is just the wave again.) */
       }
       /* A REFRACTING wavefront, not a drawn circle. Inside the band the scene
@@ -5963,7 +5998,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
                   then pulls back further, and it keeps easing back after
                   that so the body goes on shrinking as the aura builds.
 
-                  q3 no longer turns the scene (the owner removed that). It
+                  q3 no longer turns the scene (that was removed). It
                   runs the finale instead: the camera keeps going back until
                   the whole sphere is in frame, and the sibling brains fade
                   up. CD_FIN is large because the sphere is far outside the
@@ -5981,9 +6016,9 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
                  TURN2t= q2s;                  /* 45 deg techniques -> team */
                  SIBt  = q3s;                  /* the other brains appear   */
                  /* The strings come in on recent work -> what's happening,
-                    NOT on the earlier team -> recent work stretch: the owner
-                    wants the outgrowth to start one transition later than the
-                    shockwaves do. */
+                    NOT on the earlier team -> recent work stretch: the
+                    outgrowth starts one transition later than the
+                    shockwaves do, by design. */
                  SPHVt = q4s;
                  /* The finale's own clock. The WHOLE beam sequence is
                     scheduled against it (see drawSphere): the main brain
@@ -5994,7 +6029,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
                } };
     })();
 
-    /* (The cursor water-ripple trail was removed at the owner's request — the
+    /* (The cursor water-ripple trail was removed — the
        pointer no longer disturbs the background at all. Don't reinstate it.
        The refracting-wave machinery it used, drawWave(), is still here and is
        used by the yellow scroll aura below.) */
