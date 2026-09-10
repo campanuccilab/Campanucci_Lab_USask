@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Campanucci Lab — Neuroscience &amp; Electrophysiology · University of Saskatchewan</title>
+<title>Campanucci Lab — Neuroscience &amp;amp; Electrophysiology · University of Saskatchewan</title>
 <meta name="description" content="The Campanucci Lab (Dr. Veronica Campanucci, College of Medicine, University of Saskatchewan) studies neuronal activity: cystic fibrosis CFTR modulators, honey bee neurobiology, and diabetes.">
 <style>*{margin:0}body{margin:0}</style>
 </head>
@@ -1537,6 +1537,36 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 .welcome-grid,#about>.wrap{background:var(--review-reading)}
 .lead-member>div:last-child{background:transparent;padding:0;border-radius:0;min-width:0}
 @media(max-width:640px){.lead-member>div:last-child{padding:0 20px}}
+
+/* Team proportions, 9 Sep 2026.
+   Measured at 1280px before this block: the PI portrait was 275 px tall but the
+   text beside it only 164 px, and .lead-member is align-items:center -- so 55 px
+   of void sat above AND below the biography. Horizontally each list column was
+   539 px wide carrying a 388 px longest line, wasting a further ~150 px.
+   The fix grows the type rather than shrinking the card, because the card is
+   deliberately full width. Do not "tidy" this by re-centring smaller text: that
+   is the state it was in. */
+/* The card stays FULL WIDTH. Capping it to the text's natural measure was tried
+   on 9 Sep 2026 and rejected: a 1040 px card above a full-width member grid
+   throws the whole section out of proportion. Do not reintroduce a max-width
+   here. The dead space is answered by setting the type larger instead, which
+   fills the card in both directions -- at 18 px the biography block is 273 px
+   tall against a 300 px portrait, so the vertical void closes to ~14 px a side. */
+.lead-member{grid-template-columns:300px minmax(0,1fr)}
+.lead-member h3{font-size:30px}
+.lead-member .role{font-size:17px}
+.pi-bio{gap:0}
+.pi-row{grid-template-columns:130px minmax(0,1fr);gap:24px;padding:16px 0}
+.pi-label{font-size:12px}
+.pi-list{gap:8px}
+.pi-list li{font-size:18px;line-height:1.6}
+
+/* Photos in this section are inset and rounded on all four corners. The member
+   avatar previously ran flush to the card edge at border-radius:0, so the card's
+   own 10 px radius was the only rounding and it clipped just the top corners. */
+.lead-member .avatar{width:min(300px,100%);border-radius:14px}
+.member .avatar{width:calc(100% - 24px);margin:12px auto 0;border-radius:12px}
+.member .m-txt{padding:16px 20px 20px}
 
 /* Opaque photo backing also covers the carousel while cards change. */
 .welcome-visual .deck{background:var(--panel);isolation:isolate}
