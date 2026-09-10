@@ -1,0 +1,35 @@
+# Windows shell artifacts
+Thumbs.db
+desktop.ini
+*.tmp
+
+# This repository holds the published site only.
+#
+# The authoring folder on the lab share also contains internal build notes
+# (AI-README.md), the regression suite (tests/), backup tooling, the dated
+# review snapshots in work/, the alternative design candidates, and the
+# archival image masters. None of those are published; index.html itself
+# documents why the masters stay unpublished. They are listed here so that
+# copying the authoring folder over this one never publishes them by accident.
+AI-README.md
+tests/
+work/
+qr/
+backup.ps1
+Backup Website.bat
+design-review.html
+design-review-2.html
+animation-preview.html
+diagnose.html
+index.backup.html
+
+# Archival image masters — kept on the share, never published.
+images/Co-culture.png
+images/ENS.png
+images/SCG.png
+images/Organoid.jpg
+images/Ashtyn.jpeg
+images/Veronica.jpg
+images/Veronica.webp
+images/Veronica2026-master.jpg
+images/Lab12.jpg

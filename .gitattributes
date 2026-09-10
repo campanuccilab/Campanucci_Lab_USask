@@ -1,0 +1,10 @@
+# Normalise text to LF in the repository; images and video are binary and must
+# never be touched by line-ending conversion.
+* text=auto eol=lf
+
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.webp binary
+*.gif  binary
+*.mp4  binary
