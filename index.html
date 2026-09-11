@@ -4961,7 +4961,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          canvases of (SIB_PX*SIB_SS)^2, ~17 MB as set. SIB_PX came down to 150
          to pay for the extra angles — the brains are drawn around 140 px wide
          at the finale, so the source is still ample. */
-      var SIB_ANG=16, SIB_PX=150, SIB_SS=2, SIB_BLUR=[0,2.2,5.5],
+      var SIB_ANG=16, SIB_PX=(window.innerWidth<=960?96:150), SIB_SS=2, SIB_BLUR=[0,2.2,5.5],
           SIB_BANK=[], sibAt=-1;       /* sibAt: next angle to render, -1 idle */
       function v3norm(a){ var l=Math.hypot(a[0],a[1],a[2])||1;
         return [a[0]/l,a[1]/l,a[2]/l]; }
@@ -5393,7 +5393,18 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
       /* the shockwave's yellow, a hotter centre for the core pass, and the
          halo ladder: [width, alpha] */
       var BEAM_GLOW=[255,203,74], BEAM_CORE=[255,240,196],
-          BEAM_PASS=[[22,0.022],[14,0.040],[8.5,0.075],[4.6,0.14],[2.4,0.30]];
+          /* NARROW VIEWPORTS DROP THE TWO WIDEST HALO PASSES. The beam is the
+             same path stroked five times; passes 0 and 1 are 22px and 14px
+             wide at 0.022 and 0.040 alpha, so they cover the most area of any
+             pass for the least visible contribution, and area is exactly what
+             a phone GPU is short of during the finale. The three kept passes
+             carry 0.075/0.14/0.30 — the visible core and its near halo.
+             ⚠️ Not a frame-rate cut: the dolly eases once PER FRAME
+             (CD += (CDt-CD)*camK()), so throttling the loop would slow the
+             camera itself and change the finale's timing. Cut area, not frames. */
+          BEAM_PASS=(window.innerWidth<=960)
+            ? [[8.5,0.075],[4.6,0.14],[2.4,0.30]]
+            : [[22,0.022],[14,0.040],[8.5,0.075],[4.6,0.14],[2.4,0.30]];
       function drawSphere(){
         if(SPHV<=0.004 || ARC<=0.005 || !TEND.length) return;
         var tt=perf(), i, k, T, a, flick, s, pr, rad, dz, dim;
