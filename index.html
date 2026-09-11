@@ -165,7 +165,7 @@
      measured at 1265px -> 1280px here. Nothing moves in normal use, because a
      page this long always has a scrollbar anyway; the gutter is only doing
      something during that one transition. */
-  html{scroll-snap-type:y proximity;scrollbar-gutter:stable}
+  html{scroll-snap-type:none;scrollbar-gutter:stable}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
     line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px}
   a{color:inherit;text-decoration:none}
@@ -1877,6 +1877,23 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
     .deck-dots button{flex:1 1 0;width:auto;min-width:0}
     .deck-dots button::before{inset:9px 42%}
     .deck-dots button.on::before{inset:8px 40%}
+  }
+
+  /* 8. Reveal tempo on narrow viewports (11 Sep 2026, second pass).
+        A .55s fade plus an 80-130ms per-item stagger reads as lag on
+        a phone, where you are already scrolling faster than the animation can
+        resolve. A single transition-duration value applies to every animated
+        property, which is why the r-rise/r-tile/r-frame variants are listed —
+        they each declare their own 2-3 property transition and a shorthand
+        here would not reach them. Delay 0 removes the stagger outright: it
+        reads as elegance on a desktop grid and as waiting on a phone. */
+  @media (max-width:960px){
+    html.pre-reveal .reveal,
+    html.pre-reveal .reveal.r-rise,
+    html.pre-reveal .reveal.r-tile,
+    html.pre-reveal .reveal.r-frame,
+    html.pre-reveal.jump-slow .reveal{transition-duration:.28s;transition-delay:0ms}
+    html.pre-reveal section:not(.hero){transition-duration:.3s}
   }
 </style>
 
@@ -4536,7 +4553,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          pulling CD up dollies the camera back and widens what fits on screen.
          At CD=1 this is identical to the original close-up (scale 1 at z=0). */
       function setCam(){ CAMZ0=S*1.9; F=CAMZ0; CAMZ=CAMZ0*CD; }
-      function resize(){ dpr=Math.min(2,window.devicePixelRatio||1); W=cvn.clientWidth; H=cvn.clientHeight;
+      function resize(){ dpr=Math.min(window.innerWidth<=960?1:2,window.devicePixelRatio||1); W=cvn.clientWidth; H=cvn.clientHeight;
         cvn.width=Math.max(1,W*dpr); cvn.height=Math.max(1,H*dpr); x.setTransform(dpr,0,0,dpr,0,0);
         S=Math.min(W,H)*0.62; CX=W*0.5; CY=H*0.48;
         setCam(); build(); buildBrain(); buildSphere(); }
