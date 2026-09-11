@@ -165,7 +165,7 @@
      measured at 1265px -> 1280px here. Nothing moves in normal use, because a
      page this long always has a scrollbar anyway; the gutter is only doing
      something during that one transition. */
-  html{scroll-snap-type:y mandatory;scrollbar-gutter:stable}
+  html{scroll-snap-type:y proximity;scrollbar-gutter:stable}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
     line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px}
   a{color:inherit;text-decoration:none}
@@ -1782,6 +1782,102 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
 .support-detail-media img{display:block;width:100%;max-height:240px;object-fit:contain}
 .support-detail-media figcaption{font:11px/1.5 var(--sans);color:var(--sub);padding:10px}
 @media(max-width:760px){.support-stage-description{display:block}.support-detail-media{width:100%;max-width:320px;margin-bottom:16px}.support-cf-focus{padding:20px}}
+
+  /* ==========================================================================
+     MOBILE AND NARROW-WINDOW PASS — 11 Sep 2026
+     Appended last on purpose. @media adds no specificity, so these rules win
+     over the identically-specific unconditional ones earlier in the file by
+     source order alone. Moving this block earlier will silently break items
+     3, 4 and 5. Nothing here can match at 961px or wider except where noted.
+     ========================================================================== */
+
+  /* 1. Scroll. Below 961px NOT ONE section fits a screen (measured 1.4x-5.0x
+        the viewport at 375x812; the smallest is still 1104px against a 1024px
+        tablet), so "one section per screen" cannot happen and even proximity
+        snapping pulls against momentum scrolling. Same escape hatch as the
+        max-height:620px one above, keyed on width instead of height.
+        The global rule is now `y proximity` rather than `y mandatory` — with
+        mandatory, a resting position inside an over-tall section is illegal
+        and the browser drags you out of it, which is why the end of every
+        section was unreachable on a trackpad and a phone alike. */
+  @media (max-width:960px){
+    html{scroll-snap-type:none}
+  }
+
+  /* 2. `.r-left`/`.r-right` (lines 1089-1090) park content 40px to the side
+        until it reveals. A narrow viewport has no room on the right for that,
+        so the document gains a horizontal scroll, which AI-README section 4
+        forbids outright. Keep the reveal, drop the sideways travel.
+        `:not(.in)` is LOAD-BEARING: without it this matches the revealed
+        state too (same specificity as line 1092, later in the file) and every
+        card would fade in and then stay stuck 32px low for ever. */
+  @media (max-width:960px){
+    html.pre-reveal .reveal.r-left:not(.in),
+    html.pre-reveal .reveal.r-right:not(.in){transform:translateY(32px)}
+  }
+
+  /* 3. The PI card. Lines 1587/1591 are unconditional and land AFTER the phone
+        block at 1479, so on a phone `.lead-member` computed to `300px 0px` and
+        Dr. Campanucci's whole biography rendered in a zero-width column —
+        the document went 649px wide against a 360px screen and the page panned
+        sideways. This restores the stacked layout line 1491 already asks for.
+        No max-width is introduced and the card stays full width, so the
+        9 Sep 2026 note above line 1587 still holds. */
+  @media (max-width:640px){
+    .lead-member{grid-template-columns:1fr}
+    .pi-row{grid-template-columns:1fr;gap:6px;padding:12px 0}
+  }
+
+  /* 4. The small-label type tier never scaled up on a phone and in six places
+        scaled down. `.sec-head p.eyebrow` (0,2,1) outranks a bare `.eyebrow`
+        (0,1,0), so both selectors are needed or the six section chapter
+        labels are missed. letter-spacing is deliberately NOT set here: it is
+        .18em everywhere today and tracks the em on its own. */
+  @media (max-width:640px){
+    .eyebrow,.sec-head p.eyebrow{font-size:12px}
+    .support-cf-focus .eyebrow,.support-priority .eyebrow{font-size:11.5px}
+    .hero-cta .btn{font-size:13.5px}
+    .hero-cta .btn-support{font-size:13px}
+    .deck-controls button{font-size:12px}
+    .member .bio,.member .role{font-size:14px}
+    .pub .authors,.pub .venue{font-size:13px}
+    .award-meta{font-size:12px}
+    .proj .tag{font-size:11.5px}
+    .crow .k{font-size:11.5px}
+    .more-btn{font-size:12px}
+    .r2-filter{font-size:12px}
+  }
+  /* The nav sub-brand can only grow where the header row has room: at 320px
+     CSS width, 9px pushes the hamburger outside the nav pill. */
+  @media (min-width:360px) and (max-width:640px){
+    header.nav .brand-type small{font-size:9px}
+  }
+
+  /* 5. Tap targets. 44x44 is the smallest comfortable touch box. */
+  @media (max-width:640px){
+    header.nav .theme-btn,header.nav .menu-btn{width:44px;height:44px}
+    .more-btn{min-height:44px}
+    #contact .crow a{display:inline-block;padding:7px 0}
+  }
+
+  /* 6. The lightbox arrows are hidden below 640px (line 1247), which left a
+        phone visitor no way to reach the next photo. Put them back at the
+        bottom where a thumb is, rather than over the image. */
+  @media (max-width:640px){
+    .lb-prev,.lb-next{display:grid;top:auto;bottom:18px;transform:none}
+    .lb-prev{left:24px}
+    .lb-next{right:24px}
+  }
+
+  /* 7. 13 deck dots x 24px overflow a 281px deck, so the last one wrapped to a
+        second row. Let them share the width instead — stays correct if photos
+        are added. */
+  @media (max-width:640px){
+    .deck-dots{flex-wrap:nowrap;gap:0}
+    .deck-dots button{flex:1 1 0;width:auto;min-width:0}
+    .deck-dots button::before{inset:9px 42%}
+    .deck-dots button.on::before{inset:8px 40%}
+  }
 </style>
 
 <!-- ========================= [3] PAGE STRUCTURE ========================= -->
