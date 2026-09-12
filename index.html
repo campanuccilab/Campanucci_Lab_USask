@@ -2132,6 +2132,142 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
 html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transition:none!important}
 #cfCinema .cine-world-copy h3,#cfCinema .cine-final-copy h3{margin:0}
 </style>
+<style id="cf-journey-styles">
+/* A single native-scroll observatory, from microscopy into the living models. */
+#cfJourney{--cfj-top:100px;--cfj-bottom:12px;--cfj-nav:104px;--cfj-height:calc(100svh - var(--cfj-top) - var(--cfj-bottom));--cfj-ink:#f0ede7;--cfj-muted:#c0c1ca;--cfj-gold:#cfbc9b;--cfj-blue:#a6bdd6;--cfj-violet:#bcb0d1;--cf-gold:var(--cfj-gold);--cf-violet:var(--cfj-violet);position:relative;isolation:isolate;width:100%;max-width:100%;color:var(--cfj-ink);view-timeline-name:--cf-journey;view-timeline-axis:block;view-timeline-inset:var(--cfj-top) var(--cfj-bottom)}
+#cfJourney *,#cfSpecimenDetail *{box-sizing:border-box;min-width:0}
+#cfJourney .cf-j-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#cfJourney .cf-j-pin{position:relative;width:100%;isolation:isolate}
+#cfJourney .cf-j-panel,#cfJourney .cf-j-timeline{display:none}
+#cfJourney.is-enhanced{height:900svh;min-height:0}
+#cfJourney.is-enhanced .cf-j-pin{position:sticky;top:var(--cfj-top);height:var(--cfj-height)}
+#cfJourney.is-enhanced .cf-j-intro,#cfJourney.is-enhanced .cf-j-panel{position:absolute;inset:0 0 var(--cfj-nav);display:block;transform-origin:50% 50%;isolation:isolate}
+#cfJourney .cf-j-intro{z-index:2;animation-name:cfj-intro-out}
+#cfJourney .cf-j-panel{z-index:3;animation-name:cfj-world-in}
+#cfJourney .cf-j-intro #cfCinema{--cine-height:100%;height:100%!important;min-height:0;margin:0;view-timeline-name:none}
+#cfJourney.is-enhanced .cf-j-intro #cfCinema .cine-sticky{position:relative;top:auto;width:100%;height:100%;border-radius:18px}
+#cfJourney .cf-j-intro #cfCinema .cine-footer,#cfJourney .cf-j-intro #cfCinema .cine-progress{display:none}
+#cfJourney.is-enhanced .cfj-motion{animation-duration:1s;animation-timing-function:linear;animation-iteration-count:1;animation-fill-mode:both;animation-play-state:paused;animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced.is-native .cfj-motion{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 100%}
+#cfJourney.is-enhanced.is-native #cfCinema .cine-motion{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 20%}
+@keyframes cfj-intro-out{0%,19.5%{opacity:1;transform:scale(1);visibility:visible}23%{opacity:.7;transform:scale(.86);visibility:visible}26%,100%{opacity:0;transform:scale(.66);visibility:hidden}}
+@keyframes cfj-world-in{0%,19.5%{opacity:0;transform:scale(1.3);visibility:hidden}20%{opacity:0;transform:scale(1.3);visibility:visible}26%,100%{opacity:1;transform:scale(1);visibility:visible}}
+#cfJourney .cf-j-layout{height:100%;display:grid;grid-template-columns:minmax(230px,.8fr) minmax(0,1.85fr);gap:clamp(18px,2.5vw,38px);align-items:center}
+#cfJourney .cf-j-copy{position:relative;padding:28px;border:1px solid rgba(207,188,155,.16);border-radius:14px;background:rgba(19,21,27,.9);align-self:center;z-index:3}
+#cfJourney .cf-j-kicker,#cfSpecimenDetail .cf-j-kicker{margin:0 0 17px;color:var(--cfj-gold,#cfbc9b);font:500 12px/1.5 var(--mono,monospace);letter-spacing:.1em;text-transform:uppercase}
+#cfJourney #cfChapterTitle{font:400 clamp(29px,3vw,46px)/1.08 var(--serif,Georgia,serif);letter-spacing:-.04em;color:var(--cfj-ink);margin:0 0 22px}
+#cfJourney .cf-j-body{font:400 15px/1.75 var(--sans,Arial,sans-serif);margin:0;color:var(--cfj-muted)}
+#cfJourney .cf-j-note{font:400 13px/1.65 var(--sans,Arial,sans-serif);margin:18px 0 0;color:#a9aab4}
+#cfJourney .cf-j-status{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding-top:16px;border-top:1px solid rgba(207,188,155,.19);font:500 12px/1.5 var(--sans,Arial,sans-serif);color:var(--cfj-gold)}
+#cfJourney .cf-j-status:before{content:'';width:5px;height:5px;flex:none;border-radius:50%;background:currentColor}
+#cfJourney .cf-j-observatory{position:relative;height:100%;display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0;padding:8px 0}
+#cfJourney .cf-j-stage{position:relative;min-height:0;height:100%;width:100%;overflow:hidden;isolation:isolate;perspective:950px;border-radius:18px;background:radial-gradient(ellipse,rgba(15,17,24,.42),rgba(15,17,24,0) 72%)}
+#cfJourney .cf-j-field{position:absolute;inset:12% 10%;pointer-events:none;opacity:.34}
+#cfJourney .cf-j-field span{position:absolute;inset:0;border:1px solid rgba(166,189,214,.17);border-radius:50%;transform:rotate(-25deg)}
+#cfJourney .cf-j-field span:nth-child(2){inset:12% -8%;transform:rotate(27deg);border-color:rgba(188,176,209,.17)}
+#cfJourney .cf-j-field span:nth-child(3){inset:-7% 20%;transform:rotate(60deg);border-style:dashed;border-color:rgba(207,188,155,.17)}
+#cfJourney .cf-j-world,#cfJourney #cfSpecimens{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 50%}
+#cfJourney .cf-j-connections{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+#cfJourney .cf-j-connections path{fill:none;stroke:var(--cfj-gold);stroke-width:1.25;vector-effect:non-scaling-stroke;opacity:.54}
+#cfJourney .cf-j-connections path.is-planned{stroke:var(--cfj-violet);stroke-dasharray:4 7;opacity:.62}
+#cfJourney .cf-j-connections .cfj-signal,#cfJourney .cf-j-connections .cf-signal{stroke:var(--cfj-ink);stroke-width:2;stroke-dasharray:4 160;opacity:.84}
+#cfJourney .cf-j-stage-caption{font:400 12px/1.6 var(--sans,Arial,sans-serif);text-align:center;color:#b2b3bf;margin:6px auto 0;max-width:64ch;padding:8px 18px;background:rgba(17,19,25,.73);border-radius:7px}
+#cfJourney .cfj-node{--cfj-node-color:var(--cfj-blue);position:absolute;top:0;left:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px;width:132px;min-height:44px;padding:4px 6px 7px;border:0;border-radius:14px;background:transparent;color:var(--cfj-node-color);font-family:var(--sans,Arial,sans-serif);cursor:pointer;transform-origin:50% 50%;text-decoration:none;-webkit-tap-highlight-color:transparent;z-index:1}
+#cfJourney .cfj-node.is-gold,#cfJourney .cfj-node[data-tone='gold'],#cfJourney .cfj-node[data-color='gold']{--cfj-node-color:var(--cfj-gold)}
+#cfJourney .cfj-node.is-violet,#cfJourney .cfj-node[data-tone='violet'],#cfJourney .cfj-node[data-color='violet']{--cfj-node-color:var(--cfj-violet)}
+#cfJourney .cfj-node-art{position:relative;display:grid;place-items:center;flex:none;width:92px;height:92px;border-radius:50%;border:1px solid rgba(166,189,214,.35);background:#141821;overflow:hidden;box-shadow:0 0 0 5px rgba(19,21,28,.66);transition:border-color .22s,box-shadow .22s}
+#cfJourney .cfj-node-art:after{content:'';position:absolute;inset:5px;border:1px solid currentColor;border-radius:50%;opacity:.12;pointer-events:none}
+#cfJourney .cfj-node-art svg{display:block;width:77%;height:77%;overflow:visible}
+#cfJourney .cfj-node-art img,#cfJourney .cfj-node-art video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border:0;border-radius:50%;opacity:1;filter:none;mask-image:none}
+#cfJourney .cfj-node-name{display:block;max-width:100%;padding:3px 6px;color:var(--cfj-ink);background:rgba(16,18,24,.87);border-radius:5px;font-size:12px;line-height:1.35;font-weight:500;text-align:center;text-wrap:balance;white-space:normal}
+#cfJourney .cfj-node-flag,#cfJourney .cfj-node-planned,#cfJourney .cfj-planned-badge{display:block;font:500 10px/1.3 var(--mono,monospace);letter-spacing:.08em;text-transform:uppercase;color:var(--cfj-gold);padding:2px 5px;border:1px dashed rgba(207,188,155,.5);border-radius:3px;background:#15171d}
+#cfJourney .cfj-node.is-planned .cfj-node-art{border-style:dashed}
+#cfJourney .cfj-node:focus-visible{outline:2px solid var(--cfj-gold);outline-offset:3px;background:rgba(19,21,27,.93);z-index:8}
+#cfJourney .cfj-node[aria-pressed='true'] .cfj-node-art{border-color:var(--cfj-gold);box-shadow:0 0 0 5px rgba(207,188,155,.15)}
+#cfJourney .cf-art-membrane{fill:currentColor;fill-opacity:.11;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+#cfJourney .cf-art-nucleus{fill:currentColor;fill-opacity:.58;stroke:currentColor;stroke-width:.7}
+#cfJourney .cf-art-branch{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.88}
+#cfJourney .cf-art-grain{fill:var(--cfj-gold);opacity:.82}
+#cfJourney .cf-art-lumen{fill:#17191e;stroke:currentColor;stroke-width:1.25;opacity:.8}
+#cfJourney .cf-art-muscle-tissue{fill:var(--cfj-gold);fill-opacity:.2;stroke:var(--cfj-gold);stroke-width:1.4}
+#cfJourney.is-enhanced .cf-j-timeline,#cfJourney.is-static .cf-j-timeline{display:block}
+#cfJourney .cf-j-timeline{position:absolute;bottom:0;left:0;right:0;height:var(--cfj-nav);padding:0 12px;z-index:20;isolation:isolate;color:var(--cfj-muted);background:linear-gradient(180deg,rgba(15,17,22,0),rgba(15,17,22,.92) 48%);border-radius:0 0 14px 14px}
+#cfJourney #cfJourneyPosition{position:absolute;top:3px;left:50%;transform:translateX(-50%);max-width:90%;width:max-content;text-align:center;margin:0;padding:5px 13px;border:1px solid rgba(207,188,155,.18);border-radius:24px;background:#17191f;color:var(--cfj-ink);font:500 12px/1.4 var(--sans,Arial,sans-serif)}
+#cfJourney #cfJourneyPosition span{font:500 10px/1.4 var(--mono,monospace);margin-right:9px;letter-spacing:.04em;color:var(--cfj-gold)}
+#cfJourney .cf-j-timeline-arc{position:absolute;left:5%;right:5%;width:90%;height:52px;bottom:13px;overflow:visible;fill:none;pointer-events:none}
+#cfJourney .cf-j-track{stroke:rgba(207,188,155,.22);stroke-width:1.1;vector-effect:non-scaling-stroke}
+#cfJourney .cf-j-track-light{stroke:var(--cfj-gold);stroke-width:1.8;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--cfj-p,0));opacity:.8}
+#cfJourney .cf-j-stops{position:absolute;left:6%;right:6%;bottom:2px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;align-items:end}
+#cfJourney .cf-j-stops button{--cfj-lift:0px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;transform:translateY(var(--cfj-lift));min-width:44px;min-height:44px;padding:5px 5px 6px;margin:0;border:0;border-radius:6px;background:transparent;color:#c0c1c9;font:500 12px/1.3 var(--sans,Arial,sans-serif);cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+#cfJourney .cf-j-stops button:nth-child(2),#cfJourney .cf-j-stops button:nth-child(5){--cfj-lift:-13px}
+#cfJourney .cf-j-stops button:nth-child(3),#cfJourney .cf-j-stops button:nth-child(4){--cfj-lift:-20px}
+#cfJourney .cf-j-stop-dot{display:block;flex:none;width:7px;height:7px;border-radius:50%;background:#242731;border:1px solid #92929e;box-shadow:0 0 0 4px #14161c;transition:background .2s,box-shadow .2s}
+#cfJourney .cf-j-stops button[aria-current='step'],#cfJourney .cf-j-stops button[aria-pressed='true']{color:var(--cfj-gold)}
+#cfJourney .cf-j-stops button[aria-current='step'] .cf-j-stop-dot,#cfJourney .cf-j-stops button[aria-pressed='true'] .cf-j-stop-dot{background:var(--cfj-gold);border-color:var(--cfj-gold);box-shadow:0 0 0 4px #17191f,0 0 0 5px rgba(207,188,155,.5)}
+#cfJourney .cf-j-stops button:focus-visible{outline:2px solid var(--cfj-gold);outline-offset:2px;background:#1b1d25;color:var(--cfj-ink)}
+#cfSpecimenDetail.cf-j-detail{--cfj-gold:#cfbc9b;width:min(820px,calc(100vw - 40px));max-width:820px;max-height:calc(100svh - 48px);margin:auto;padding:34px;border:1px solid rgba(207,188,155,.34);border-radius:16px;color:#f0ede7;background:#17191f;box-shadow:0 28px 80px rgba(0,0,0,.5);overflow:auto;overscroll-behavior:contain}
+#cfSpecimenDetail.cf-j-detail::backdrop{background:rgba(6,8,13,.82)}
+#cfSpecimenDetail .cf-j-detail-close{position:sticky;top:0;margin:-12px -12px -32px auto;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid rgba(207,188,155,.35);border-radius:50%;background:#20232b;color:#eeeae2;font:400 29px/1 var(--sans,Arial,sans-serif);cursor:pointer;z-index:3}
+#cfSpecimenDetail .cf-j-detail-copy{padding-top:10px}
+#cfSpecimenDetail .cf-j-kicker{margin:0 54px 16px 0}
+#cfSpecimenDetail #cfDetailTitle{margin:0 34px 18px 0;font:400 clamp(28px,4vw,42px)/1.1 var(--serif,Georgia,serif);letter-spacing:-.035em;color:#f0ede7}
+#cfSpecimenDetail #cfDetailBody{margin:0;max-width:68ch;font:400 15px/1.75 var(--sans,Arial,sans-serif);color:#c9cad1}
+#cfSpecimenDetail .cfj-detail-figure,#cfSpecimenDetail .cf-detail-media{margin:24px 0 0;padding:0}
+#cfSpecimenDetail #cfDetailMedia img,#cfSpecimenDetail #cfDetailMedia video{display:block;width:100%;max-width:100%;height:auto;max-height:52svh;object-fit:contain;opacity:1;filter:none;mask-image:none;background:#08090c;border-radius:8px}
+#cfSpecimenDetail #cfDetailMedia figcaption{padding:12px 0 0;font:400 12px/1.6 var(--sans,Arial,sans-serif);color:#babcc6}
+#cfSpecimenDetail .cf-j-detail-close:focus-visible{outline:2px solid #cfbc9b;outline-offset:4px}
+.cf-j-appendix{position:relative;margin-top:30px}
+#cfJourney.is-static{height:auto;min-height:0}
+#cfJourney.is-static .cf-j-pin{position:relative;top:auto;height:auto}
+#cfJourney.is-static .cf-j-intro{position:relative;inset:auto;height:auto;opacity:1;transform:none;visibility:visible;animation:none}
+#cfJourney.is-static .cf-j-intro #cfCinema{height:auto!important}
+#cfJourney.is-static .cf-j-intro #cfCinema .cine-static{display:grid}
+#cfJourney.is-static .cf-j-intro #cfCinema .cine-sticky{display:none}
+#cfJourney.is-static .cf-j-panel{position:relative;inset:auto;height:auto;margin-top:30px;opacity:1;transform:none;visibility:visible;animation:none}
+#cfJourney.is-static .cf-j-layout{height:auto;min-height:530px}
+#cfJourney.is-static .cf-j-observatory{min-height:530px}
+#cfJourney.is-static .cf-j-stage{min-height:450px}
+#cfJourney.is-static .cf-j-timeline{position:relative;margin-top:22px}
+#cfJourney.is-static .cfj-motion,#cfJourney.is-static .cine-motion{animation:none!important}
+@media(hover:hover) and (pointer:fine){#cfJourney .cfj-node:hover .cfj-node-art{border-color:var(--cfj-gold);box-shadow:0 0 0 5px rgba(207,188,155,.13)}#cfJourney .cf-j-stops button:hover{color:var(--cfj-ink)}#cfSpecimenDetail .cf-j-detail-close:hover{background:#2c303a}}
+@media(max-width:1050px){#cfJourney .cf-j-layout{grid-template-columns:minmax(220px,.9fr) minmax(0,1.6fr);gap:16px}#cfJourney .cf-j-copy{padding:24px}#cfJourney #cfChapterTitle{font-size:34px}#cfJourney .cf-j-body{font-size:14px;line-height:1.65}#cfJourney .cfj-node{width:120px}#cfJourney .cfj-node-art{width:80px;height:80px}#cfJourney .cf-j-note{font-size:12px}}
+@media(max-width:700px){#cfJourney{--cfj-top:88px;--cfj-bottom:10px;--cfj-nav:94px}#cfJourney.is-enhanced{height:860svh}#cfJourney .cf-j-layout{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:clamp(250px,34svh,285px) minmax(0,1fr);gap:5px;align-items:stretch}#cfJourney .cf-j-copy{align-self:stretch;overflow:auto;overscroll-behavior:contain;padding:24px;border-radius:12px}#cfJourney .cf-j-kicker{margin-bottom:9px;font-size:11px;line-height:1.4;letter-spacing:.06em}#cfJourney #cfChapterTitle{font-size:clamp(26px,6.9vw,33px);line-height:1.06;margin-bottom:12px;letter-spacing:-.035em}#cfJourney #cfChapterTitle br{display:none}#cfJourney .cf-j-body{font-size:14px;line-height:1.55}#cfJourney .cf-j-note{display:none}#cfJourney .cf-j-status{margin-top:12px;padding-top:10px;font-size:11px;line-height:1.4}#cfJourney .cf-j-observatory{padding:0;grid-template-rows:minmax(0,1fr)}#cfJourney .cf-j-stage{border-radius:12px;min-height:0}#cfJourney .cf-j-stage-caption{display:none}#cfJourney .cfj-node{width:94px;gap:5px;padding:3px 2px 5px}#cfJourney .cfj-node-art{width:52px;height:52px;box-shadow:0 0 0 3px rgba(19,21,28,.7)}#cfJourney .cfj-node-art:after{inset:3px}#cfJourney .cfj-node-name{font-size:12px;line-height:1.25;padding:2px 3px}#cfJourney .cfj-node-flag,#cfJourney .cfj-node-planned,#cfJourney .cfj-planned-badge{font-size:9px;line-height:1.3;letter-spacing:.04em;padding:2px 4px}#cfJourney .cf-j-timeline{padding:0;border-radius:0 0 12px 12px}#cfJourney #cfJourneyPosition{top:2px;font-size:11px;line-height:1.4;padding:4px 10px;max-width:96%}#cfJourney .cf-j-timeline-arc{left:4%;width:92%;height:42px;bottom:13px}#cfJourney .cf-j-stops{left:0;right:0;bottom:0}#cfJourney .cf-j-stops button{font-size:12px;line-height:1.3;gap:6px;padding:4px 0;min-width:44px;min-height:44px}#cfJourney .cf-j-stops button:nth-child(2),#cfJourney .cf-j-stops button:nth-child(5){--cfj-lift:-10px}#cfJourney .cf-j-stops button:nth-child(3),#cfJourney .cf-j-stops button:nth-child(4){--cfj-lift:-16px}#cfJourney .cf-j-stop-dot{width:6px;height:6px}#cfJourney.is-static .cf-j-layout{min-height:0;grid-template-rows:auto 360px;gap:14px}#cfJourney.is-static .cf-j-observatory{height:360px;min-height:0}#cfJourney.is-static .cf-j-stage{min-height:360px}#cfJourney.is-static .cf-j-timeline{margin-top:6px}#cfSpecimenDetail.cf-j-detail{width:calc(100vw - 24px);padding:24px;max-height:calc(100svh - 28px);border-radius:12px}#cfSpecimenDetail #cfDetailTitle{font-size:30px}#cfSpecimenDetail #cfDetailBody{font-size:14px;line-height:1.75}.cf-j-appendix{margin-top:24px}}
+@media(max-width:360px){#cfJourney .cf-j-copy{padding:24px}#cfJourney #cfChapterTitle{font-size:26px}#cfJourney .cf-j-kicker{font-size:10px}#cfJourney .cf-j-body{line-height:1.5}#cfJourney .cf-j-status{font-size:10px}#cfJourney .cfj-node{width:88px}#cfJourney .cfj-node-art{width:50px;height:50px}#cfJourney .cf-j-stops button{font-size:12px}}
+@media(max-height:720px) and (max-width:700px){#cfJourney .cf-j-copy{padding:24px}#cfJourney .cf-j-kicker{margin-bottom:6px}#cfJourney #cfChapterTitle{font-size:25px;margin-bottom:9px}#cfJourney .cf-j-status{margin-top:8px;padding-top:7px}#cfJourney .cf-j-body{font-size:14px;line-height:1.5}#cfJourney .cfj-node-art{width:50px;height:50px}#cfJourney .cfj-node{gap:3px}#cfJourney{--cfj-nav:90px}}
+@media(max-height:620px) and (min-width:701px){#cfJourney{--cfj-top:88px;--cfj-nav:90px}#cfJourney .cf-j-copy{padding:24px}#cfJourney #cfChapterTitle{font-size:29px;margin-bottom:14px}#cfJourney .cf-j-kicker{margin-bottom:12px}#cfJourney .cf-j-body{font-size:14px;line-height:1.55}#cfJourney .cf-j-note{display:none}#cfJourney .cf-j-status{margin-top:14px;padding-top:10px}#cfJourney .cfj-node-art{width:64px;height:64px}#cfJourney .cfj-node{width:112px;gap:4px}#cfJourney .cf-j-stage-caption{font-size:11px;line-height:1.4;padding:5px 12px}}
+@media(prefers-reduced-motion:reduce){#cfJourney .cfj-motion,#cfJourney .cine-motion{animation:none!important}#cfJourney .cfj-node-art,#cfJourney .cf-j-stop-dot{transition:none}}
+html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-research.cf-journey-active{opacity:1!important;transition:none!important}
+
+/* Stable specimen media and focus state remain independent of camera motion. */
+#cfJourney .cfj-node-media{position:absolute;inset:0;margin:0;width:100%;height:100%;border:0;overflow:hidden;border-radius:50%;background:#0b0c11}
+#cfJourney .cfj-node.has-media .cfj-node-art>svg{visibility:hidden}
+#cfJourney .cfj-node-media img,#cfJourney .cfj-node-media video{object-position:var(--cfj-object-position,50% 50%)}
+#cfJourney .cfj-node[aria-expanded='true'] .cfj-node-art{border-color:var(--cfj-gold);box-shadow:0 0 0 5px rgba(207,188,155,.15)}
+#cfJourney .cfj-node[aria-hidden='true'],#cfJourney #cfStory[aria-hidden='true'],#cfJourney #cfCinema[aria-hidden='true']{pointer-events:none}
+#cfJourney .cf-j-world{animation-name:cfj-camera}
+@keyframes cfj-camera{0%,34%,42%,50%,58%,66%,74%,82%,90%,100%{transform:scale(1)}38%,54%,70%,86%{transform:scale(1.12)}}
+#cfJourney .cf-j-track-light{animation-name:cfj-arc}
+@keyframes cfj-arc{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+#cfJourney.is-static .cf-j-track-light{stroke-dashoffset:calc(1 - var(--cfj-p,0))}
+#cfSpecimenDetail.cfj-dialog-fallback{position:fixed;inset:24px 0;z-index:10000}
+@media(max-width:700px){#cfJourney.is-static .cf-j-copy{overflow:visible}#cfJourney.is-static .cf-j-layout{grid-template-rows:auto 360px}}
+
+/* A configured video can offer a still preview without a second decoder. */
+#cfJourney .cfj-node.has-poster .cfj-node-art>svg{visibility:hidden}
+#cfJourney .cfj-video-poster{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--cfj-object-position,50% 50%);border-radius:50%;opacity:1;z-index:1}
+#cfJourney .cfj-node-media{z-index:2}
+#cfJourney .cfj-video-badge{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;max-width:calc(100% - 10px);padding:3px 6px;border:1px solid rgba(207,188,155,.34);border-radius:20px;background:#15171e;color:#f0ede7;font:500 10px/1.2 var(--sans,Arial,sans-serif);white-space:nowrap}
+@media(max-height:720px) and (max-width:700px){#cfJourney:not(.is-static) .cf-j-layout{grid-template-rows:230px minmax(0,1fr)}#cfJourney:not(.is-static) .cf-j-copy{padding:20px 24px}#cfJourney:not(.is-static) .cf-j-status{margin-top:7px;padding-top:6px;font-size:10px}}
+#cfJourney .cfj-node{--cfj-art-size:92px}
+#cfJourney .cfj-video-badge{top:calc(var(--cfj-art-size) - 15px);bottom:auto}
+@media(max-width:1050px){#cfJourney .cfj-node{--cfj-art-size:80px}}
+@media(max-width:700px){#cfJourney .cfj-node{--cfj-art-size:52px}}
+@media(max-width:360px),(max-height:720px) and (max-width:700px){#cfJourney .cfj-node{--cfj-art-size:50px}}
+@media(max-height:620px) and (min-width:701px){#cfJourney .cfj-node{--cfj-art-size:64px}}
+.cf-j-appendix .cf-comparison{margin-top:0;padding-top:0;border-top:0}
+.cf-j-appendix:not(.is-enhanced)>.cf-comparison{display:none}
+#cfJourney [hidden],#cfSpecimenDetail [hidden]{display:none!important}
+</style>
 
 <!-- ========================= [3] PAGE STRUCTURE ========================= -->
 <canvas id="neuroBg" aria-hidden="true"></canvas>
@@ -2235,7 +2371,11 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
 <!-- FLAGSHIP CF RESEARCH -->
 <section id="cf-research" aria-labelledby="cfEntranceTitle">
   <div class="wrap">
-<div class="cf-cinema" id="cfCinema" aria-labelledby="cfEntranceTitle">
+<div class="cf-journey" id="cfJourney" aria-labelledby="cfEntranceTitle">
+  <p class="cf-j-sr" id="cfJourneyAnnouncement" aria-live="polite" aria-atomic="true"></p>
+  <div class="cf-j-pin">
+    <div class="cf-j-intro cfj-motion">
+      <div class="cf-cinema" id="cfCinema" aria-labelledby="cfEntranceTitle">
   <h2 class="cine-sr-only" id="cfEntranceTitle">Cystic fibrosis: from cells to connections</h2>
   <p class="cine-sr-only">Explore microscopy from our lab, then discover the models and measurements behind our cystic fibrosis and CFTR-modulator research.</p>
   <div class="cine-static">
@@ -2261,39 +2401,50 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
     </div>
   </div>
 </div>
-<div class="cf-program-card cf-story" id="cfStory" aria-labelledby="cfStoryTitle">
-  <header class="cf-story-header">
-    <div><p class="cf-kicker">Cystic fibrosis &amp; CFTR modulators</p><h3 id="cfStoryTitle">From living cells<br>to connected systems.</h3></div>
-    <p class="cf-story-intro">Explore how we bring models together to ask what changes in cystic fibrosis — and how treatments may affect those connections.</p>
-  </header>
-  <div class="cf-enhanced-only">
-    <div class="cf-story-layout">
-      <aside class="cf-story-editorial">
-        <nav class="cf-chapters" aria-label="Research story chapters">
-          <button type="button" data-cf-chapter="0" aria-pressed="true" aria-controls="cfChapterText"><span>01</span> Living library</button>
-          <button type="button" data-cf-chapter="1" aria-pressed="false" aria-controls="cfChapterText"><span>02</span> Gut connections</button>
-          <button type="button" data-cf-chapter="2" aria-pressed="false" aria-controls="cfChapterText"><span>03</span> Read the signals</button>
-          <button type="button" data-cf-chapter="3" aria-pressed="false" aria-controls="cfChapterText"><span>04</span> Brain questions</button>
-          <button type="button" data-cf-chapter="4" aria-pressed="false" aria-controls="cfChapterText"><span>05</span> Future connections</button>
-        </nav>
-        <div class="cf-chapter-copy" id="cfChapterText" aria-live="polite" aria-atomic="true"><p class="cf-kicker" id="cfChapterKicker">01 / The starting point</p><h4 id="cfChapterTitle">Many models.<br>One shared question.</h4><p id="cfChapterBody">From individual cells to three-dimensional organoids, each preparation gives us a different window into cystic fibrosis.</p><p class="cf-chapter-note" id="cfChapterNote">Select a specimen to meet the models behind the work.</p></div>
-        <div class="cf-story-controls"><button class="cf-step-control" type="button" id="cfPrev" aria-label="Previous research chapter">←</button><span id="cfChapterCount" aria-hidden="true">01 / 05</span><button class="cf-step-control" type="button" id="cfNext" aria-label="Next research chapter">→</button><button class="cf-tour-control" type="button" id="cfTour" aria-pressed="false"><span aria-hidden="true">▷</span> Play story</button></div>
-      </aside>
-      <div class="cf-story-observatory">
-        <div class="cf-stage-meta"><span><i aria-hidden="true"></i> <span id="cfChapterStatus">Current cultures &amp; preparations</span></span><span class="cf-stage-hint">Select to explore</span></div>
-        <div class="cf-stage" id="cfStage" data-chapter="library" role="group" aria-label="Explore the research models" aria-describedby="cfStageCaption">
-          <svg class="cf-connections" id="cfConnections" aria-hidden="true"></svg>
-          <div class="cf-stage-watermark" aria-hidden="true"><span>CF</span><small>Research observatory</small></div>
-          <div id="cfSpecimens"></div>
+    </div>
+    <div class="cf-j-panel cfj-motion" id="cfStory" aria-labelledby="cfStoryTitle">
+      <h3 class="cf-j-sr" id="cfStoryTitle">Explore the cystic fibrosis research story</h3>
+      <div class="cf-j-layout">
+        <div class="cf-j-copy" id="cfChapterText">
+          <p class="cf-j-kicker" id="cfChapterKicker">01 / The starting point</p>
+          <h4 id="cfChapterTitle">Many models.<br>One shared question.</h4>
+          <p class="cf-j-body" id="cfChapterBody">From individual cells to three-dimensional organoids, each preparation gives us a different window into cystic fibrosis.</p>
+          <p class="cf-j-note" id="cfChapterNote">Select a specimen to meet the models behind the work.</p>
+          <span class="cf-j-status" id="cfChapterStatus">Current cultures &amp; preparations</span>
         </div>
-        <p class="cf-stage-caption" id="cfStageCaption">Primary cultures, stem-cell-derived models and tissue preparations offer complementary views.</p>
+        <div class="cf-j-observatory">
+          <div class="cf-j-stage" id="cfStage" data-chapter="library" role="group" aria-label="Explore the research models" aria-describedby="cfStageCaption">
+            <div class="cf-j-field" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="cf-j-world cfj-motion">
+              <svg class="cf-j-connections" id="cfConnections" aria-hidden="true" focusable="false"></svg>
+              <div id="cfSpecimens"></div>
+            </div>
+          </div>
+          <p class="cf-j-stage-caption" id="cfStageCaption">Primary cultures, stem-cell-derived models and tissue preparations offer complementary views.</p>
+        </div>
       </div>
     </div>
-    <div class="cf-specimen-detail" id="cfSpecimenDetail" aria-live="polite" aria-atomic="true">
-      <div class="cf-detail-heading"><p class="cf-kicker" id="cfDetailKind">Current culture</p><h4 id="cfDetailTitle">Human stem cells</h4></div>
-      <div class="cf-detail-body"><p id="cfDetailBody">Human stem cell cultures are part of our living library.</p><div id="cfDetailMedia"></div></div>
-    </div>
-    <div class="cf-comparison">
+    <nav class="cf-j-timeline" aria-label="Cystic fibrosis research journey">
+      <p id="cfJourneyPosition"><span>01 / 06</span> In focus</p>
+      <svg class="cf-j-timeline-arc" viewBox="0 0 1000 76" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="cf-j-track" d="M30 66 Q500 -28 970 66"/><path class="cf-j-track-light cfj-motion" pathLength="1" d="M30 66 Q500 -28 970 66"/></svg>
+      <div class="cf-j-stops">
+        <button type="button" data-cfj-stop="0" aria-label="In focus: cystic fibrosis" aria-current="step" aria-controls="cfCinema"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Focus</span></button>
+        <button type="button" data-cfj-stop="1" aria-label="Living library" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Library</span></button>
+        <button type="button" data-cfj-stop="2" aria-label="Gut connections" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Gut</span></button>
+        <button type="button" data-cfj-stop="3" aria-label="Read the signals" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Signals</span></button>
+        <button type="button" data-cfj-stop="4" aria-label="Brain questions" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Brain</span></button>
+        <button type="button" data-cfj-stop="5" aria-label="Future connections" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Future</span></button>
+      </div>
+    </nav>
+  </div>
+</div>
+<dialog class="cf-j-detail" id="cfSpecimenDetail" aria-labelledby="cfDetailTitle" aria-describedby="cfDetailBody">
+  <button class="cf-j-detail-close" id="cfDetailClose" type="button" aria-label="Close specimen detail"><span aria-hidden="true">×</span></button>
+  <div class="cf-j-detail-copy"><p class="cf-j-kicker" id="cfDetailKind">Current culture</p><h4 id="cfDetailTitle">Human stem cells</h4><p id="cfDetailBody">Human stem cell cultures are part of our living library.</p></div>
+  <div id="cfDetailMedia"></div>
+</dialog>
+<div class="cf-j-appendix cf-program-card cf-story" id="cfJourneyAppendix">
+  <div class="cf-comparison">
       <div class="cf-comparison-intro"><p class="cf-kicker">The question across every model</p><h4>What changes in CF?<br> What changes with treatment?</h4><p>Compare cystic fibrosis with wild-type controls and explore treatment conditions across the research models.</p></div>
       <div class="cf-comparison-controls">
         <div class="cf-selector" role="group" aria-label="Model comparison"><p>01 / Compare models</p><div><button type="button" data-cf-model="wt" aria-pressed="false" aria-controls="cfComparisonModel">Wild-type</button><button type="button" data-cf-model="cf" aria-pressed="true" aria-controls="cfComparisonModel">Cystic fibrosis</button></div></div>
@@ -2301,8 +2452,7 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
         <p class="cf-design-note">Study design · No experimental results shown</p><div class="cf-comparison-explanation" aria-live="polite" aria-atomic="true"><p id="cfComparisonModel"></p><p id="cfComparisonTreatment"></p></div>
       </div>
     </div>
-  </div>
-  <div class="cf-static-fallback">
+<div class="cf-static-fallback">
     <ol>
       <li><h4>Living library</h4><p>Our cultures include human stem cells; DRG, SCG, enteric and hippocampal neurons; intestinal organoids; human-stem-cell-derived brain organoids; and smooth muscle. Intestinal organ-bath work provides a separate tissue preparation.</p></li>
       <li><h4>Gut connections</h4><p>We combine DRG neurons, enteric neurons and intestinal organoids in co-culture to study relationships between these components.</p></li>
@@ -2312,8 +2462,8 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
     </ol>
     <p>Across these models, our research aims to compare cystic fibrosis with wild-type controls and investigate responses across treatment conditions, including Trikafta (ETI) and Alyftrek (VTD).</p>
   </div>
-  <details class="cf-science-note"><summary>About the brain research question &amp; treatment names</summary><div><p>ETI combines elexacaftor, tezacaftor and ivacaftor (Trikafta). VTD combines vanzacaftor, tezacaftor and deutivacaftor (Alyftrek).</p><p>Current U.S. prescribing information describes postmarketing neuropsychiatric reports in people taking these treatments or drugs with the same or similar active ingredients. These reports motivate questions; they do not establish the cellular mechanism being investigated here. The brain research shown above is a planned direction.</p><p><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f354423a-85c2-41c3-a9db-0f3aee135d8d" target="_blank" rel="noopener noreferrer">Trikafta prescribing information ↗</a><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7e635909-c6fd-4f0d-ae77-cdff03653a20" target="_blank" rel="noopener noreferrer">Alyftrek prescribing information ↗</a></p></div></details>
-  <svg class="cf-art-defs" aria-hidden="true" width="0" height="0"><defs>
+<details class="cf-science-note"><summary>About the brain research question &amp; treatment names</summary><div><p>ETI combines elexacaftor, tezacaftor and ivacaftor (Trikafta). VTD combines vanzacaftor, tezacaftor and deutivacaftor (Alyftrek).</p><p>Current U.S. prescribing information describes postmarketing neuropsychiatric reports in people taking these treatments or drugs with the same or similar active ingredients. These reports motivate questions; they do not establish the cellular mechanism being investigated here. The brain research shown above is a planned direction.</p><p><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f354423a-85c2-41c3-a9db-0f3aee135d8d" target="_blank" rel="noopener noreferrer">Trikafta prescribing information ↗</a><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7e635909-c6fd-4f0d-ae77-cdff03653a20" target="_blank" rel="noopener noreferrer">Alyftrek prescribing information ↗</a></p></div></details>
+<svg class="cf-art-defs" aria-hidden="true" width="0" height="0"><defs>
     <radialGradient id="cf-specimen-wash"><stop offset="0" stop-color="currentColor" stop-opacity=".18"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient>
     <symbol id="cf-art-stem" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M19 27C30 9 54 9 63 30S55 63 34 62S8 43 19 27Z"/><path d="M70 18C86 12 109 28 107 48S91 69 73 58S55 30 70 18Z"/><path d="M41 73C48 54 76 50 87 70S83 111 60 109S31 94 41 73Z"/></g><g class="cf-art-nucleus"><ellipse cx="38" cy="36" rx="9" ry="11"/><ellipse cx="85" cy="39" rx="8" ry="10"/><ellipse cx="63" cy="84" rx="10" ry="12"/></g><g class="cf-art-grain"><circle cx="27" cy="25" r="2"/><circle cx="48" cy="45" r="2"/><circle cx="94" cy="48" r="2"/><circle cx="74" cy="75" r="2"/></g></symbol>
     <symbol id="cf-art-drg" viewBox="0 0 120 120"><path class="cf-art-branch" d="M51 55C46 38 53 26 55 15M56 48C71 35 81 39 95 22M63 64C84 69 97 81 108 100M47 67C31 74 21 64 8 67M53 74C44 94 29 101 19 105M50 15L43 7M55 20L66 9M95 22L111 18M98 85L111 80M30 76L24 88"/><path class="cf-art-membrane" d="M43 44C55 35 74 48 75 61S66 85 51 81S31 58 43 44Z"/><ellipse class="cf-art-nucleus" cx="54" cy="60" rx="9" ry="10"/><path class="cf-art-branch" d="M53 80C60 97 70 108 83 113"/></symbol>
@@ -2328,7 +2478,6 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
     <symbol id="cf-art-cardiac" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M22 13L43 9L54 41L76 24L92 40L64 62L84 99L64 112L45 75L25 96L10 79L34 55Z"/></g><g class="cf-art-branch"><path d="M22 31L46 24M29 46L52 38M42 60L62 49M50 77L72 65M57 93L79 82M25 69L36 80M64 43L74 55"/></g><ellipse class="cf-art-nucleus" cx="48" cy="57" rx="5" ry="10"/></symbol>
   </defs></svg>
 </div>
-
 <div class="cf-program-outro"><div><p class="eyebrow">From models to measurements</p><h3>The next step: listen to the cells.</h3><p>Explore the techniques we use to record activity, image connections and measure function.</p></div><a class="btn btn-ghost" href="#techniques">Explore our techniques <span aria-hidden="true">↗</span></a></div>
   </div>
 </section>
@@ -7574,210 +7723,244 @@ var CF_STORY = {
 <script id="cf-story-interactions">
 (function(){
   'use strict';
-  var root=document.getElementById('cfStory');
+  var root=document.getElementById('cfJourney');
   if(!root||typeof CF_STORY==='undefined')return;
-  var data=CF_STORY,stage=document.getElementById('cfStage'),specimens=document.getElementById('cfSpecimens');
-  var wires=document.getElementById('cfConnections'),chapterButtons=Array.from(root.querySelectorAll('[data-cf-chapter]'));
-  var next=document.getElementById('cfNext'),prev=document.getElementById('cfPrev'),tour=document.getElementById('cfTour');
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),chapterIndex=0,selected='',nodes={},connections=[],tourTimer=0,motionTimer=0;
-  var currentModel='cf',currentTreatment='control',playing=false,inView=false,stageInView=false,mediaCache={};
-  var ns='http://www.w3.org/2000/svg';
+  var data=CF_STORY,stage=document.getElementById('cfStage'),world=root.querySelector('.cf-j-world'),host=document.getElementById('cfSpecimens'),wires=document.getElementById('cfConnections');
+  var panel=document.getElementById('cfStory'),intro=document.getElementById('cfCinema'),pin=root.querySelector('.cf-j-pin');
+  var section=root.closest('section'),dialog=document.getElementById('cfSpecimenDetail'),close=document.getElementById('cfDetailClose');
+  if(!stage||!world||!host||!wires||!panel||!pin||!intro||!dialog)return;
+  var buttons=Array.from(root.querySelectorAll('[data-cfj-stop]'));
+  var stops=[0,.28,.44,.60,.76,.94],thresholds=[.23,.38,.54,.70,.86],holds=[.26,.42,.58,.74,.90],ends=[.34,.50,.66,.82,1];
+  var ns='http://www.w3.org/2000/svg',nodes={},media={},detailMedia={},groups=[],chapter=-2,currentStop=0,selected='',mode='',frame=0,near=false,topInset=0,travel=1,progress=0;
+  var observer=null,resizeObserver=null,focusReturn=null,lastWidth=0,lastHeight=0,currentModel='cf',currentTreatment='control';
+  world.classList.add('cfj-motion');world.style.animationName='cfj-camera';
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),shortScreen=window.matchMedia('(max-height: 560px)');
+  var nativeOK=!!(window.CSS&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
+  var forceFallback=new URLSearchParams(location.search).get('cf-motion')==='fallback';
+  var style=document.createElement('style');style.id='cfJourneyFrames';document.head.appendChild(style);
+  var bodies=[
+    'From primary neurons and stem cells to organoids and tissue preparations, each model offers a different window into cystic fibrosis.',
+    'We bring DRG neurons, enteric neurons and intestinal organoids together in co-culture to study how these components interact.',
+    'Electrical recordings, smooth muscle contraction and the intestinal organ bath offer complementary views of function, in separate preparations.',
+    'Planned studies with hippocampal neurons and stem-cell-derived brain organoids will investigate possible mechanisms behind reported symptoms during CFTR-modulator treatment.',
+    'We plan to differentiate human stem cells into neuronal and cardiac muscle cultures, then develop a future SCG–cardiac muscle co-culture.'
+  ];
   function byId(id){return document.getElementById(id);}
-  function put(id,value){byId(id).textContent=value;}
-  function svgNode(tag,attrs){var el=document.createElementNS(ns,tag);Object.keys(attrs).forEach(function(k){el.setAttribute(k,attrs[k]);});return el;}
-  function safePlay(video){var result=video.play();if(result&&result.catch)result.catch(function(){});}
-  function showMedia(id){
-    var m=data.models[id],host=byId('cfDetailMedia');
-    Object.keys(mediaCache).forEach(function(key){mediaCache[key].hidden=key!==id;});
-    if(mediaCache[id]){var cachedVideo=mediaCache[id].querySelector('video');if(cachedVideo&&cachedVideo.paused)safePlay(cachedVideo);return;}
-    if(!m.image&&!m.video)return;
-    var figure=document.createElement('figure');figure.className='cf-detail-media';
-    if(m.video){
-      var video=document.createElement('video');video.autoplay=true;video.loop=true;video.muted=true;video.defaultMuted=true;video.playsInline=true;
-      video.setAttribute('autoplay','');video.setAttribute('loop','');video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('aria-label',m.title);video.preload='metadata';
-      if(m.poster)video.poster=m.poster;video.src=m.video;
-      video.addEventListener('canplay',function(){safePlay(video);});
-      video.addEventListener('ended',function(){video.currentTime=0;safePlay(video);});
-      figure.appendChild(video);safePlay(video);
-    }else{
-      var image=document.createElement('img');image.src=m.image;image.alt=m.imageAlt||m.title;image.loading='lazy';image.decoding='async';figure.appendChild(image);
-    }
-    if(m.credit){var caption=document.createElement('figcaption');caption.textContent=m.credit;figure.appendChild(caption);}
-    host.appendChild(figure);mediaCache[id]=figure;
+  function put(id,text){var el=byId(id);if(el&&el.textContent!==text)el.textContent=text;}
+  function clamp(n){return Math.max(0,Math.min(1,n));}
+  function svg(tag,attrs){var el=document.createElementNS(ns,tag);Object.keys(attrs).forEach(function(k){el.setAttribute(k,attrs[k]);});return el;}
+  function play(v){try{var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}}
+  function mayPlayVideo(v){
+    var id=v.dataset.cfjModel;
+    if(document.hidden)return false;
+    if(v.dataset.cfjDetail==='true')return dialog.open&&!v.closest('[hidden]');
+    return chapter>0&&near&&!dialog.open&&data.chapters[chapter].models.indexOf(id)>=0;
   }
-  function resumeVideos(){Object.keys(mediaCache).forEach(function(id){var figure=mediaCache[id],video=figure.querySelector('video');if(!figure.hidden&&video&&video.paused)safePlay(video);});}
-  function selectSpecimen(id,manual){
-    if(!nodes[id]||data.chapters[chapterIndex].models.indexOf(id)<0)return;
-    if(manual)stopTour();selected=id;
-    Object.keys(nodes).forEach(function(key){nodes[key].setAttribute('aria-pressed',String(key===id));});
-    var m=data.models[id];put('cfDetailKind',m.kind);put('cfDetailTitle',m.title);put('cfDetailBody',m.body);showMedia(id);
-    connections.forEach(function(link){link.line.classList.toggle('is-selected',link.ids.indexOf(id)>=0);});
+  function videoElement(m,id,detail){
+    var v=document.createElement('video');v.dataset.cfjModel=id;v.dataset.cfjDetail=String(detail);v.autoplay=true;v.loop=true;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.preload='metadata';
+    ['autoplay','loop','muted','playsinline'].forEach(function(a){v.setAttribute(a,'');});
+    v.setAttribute('aria-label',m.title);if(m.poster)v.poster=m.poster;v.src=m.video;
+    v.addEventListener('canplay',function(){if(mayPlayVideo(v))play(v);else v.pause();});
+    v.addEventListener('ended',function(){if(mayPlayVideo(v)){v.currentTime=0;play(v);}});
+    return v;
   }
+  function makeMedia(id,detail){
+    var m=data.models[id],cache=detail?detailMedia:media;
+    if(cache[id])return cache[id];
+    if(!m.image&&!m.video)return null;
+    var figure=document.createElement('figure');figure.className=detail?'cfj-detail-figure':'cfj-node-media';
+    if(m.video){var video=videoElement(m,id,detail);figure.appendChild(video);}
+    else{var image=document.createElement('img');image.src=m.image;image.alt=detail?(m.imageAlt||m.title):'';image.loading='lazy';image.decoding='async';figure.appendChild(image);}
+    figure.style.setProperty('--cfj-object-position',m.position||'50% 50%');
+    if(detail&&m.credit){var credit=document.createElement('figcaption');credit.textContent=m.credit;figure.appendChild(credit);}
+    cache[id]=figure;return figure;
+  }
+  function mountStageMedia(id){
+    var m=data.models[id],art=nodes[id].querySelector('.cfj-node-art');
+    if(media[id])return;
+    if(m.video&&chapter<1)return;
+    // Videos are instantiated on first use; the same element survives reverse scrolling.
+    var figure=makeMedia(id,false);if(!figure)return;art.appendChild(figure);nodes[id].classList.add('has-media');
+    var v=figure.querySelector('video');if(v)play(v);
+  }
+  function mediaVisibility(){
+    Object.keys(media).forEach(function(id){var v=media[id].querySelector('video');if(!v)return;
+      var active=mayPlayVideo(v);
+      if(active)play(v);else v.pause();
+    });
+    Object.keys(detailMedia).forEach(function(id){var f=detailMedia[id],v=f.querySelector('video');if(!v)return;if(dialog.open&&!f.hidden&&!document.hidden)play(v);else v.pause();});
+  }
+  function showSpecimen(id){
+    if(chapter<0||data.chapters[chapter].models.indexOf(id)<0)return;
+    selected=id;var m=data.models[id];focusReturn=nodes[id];
+    put('cfDetailKind',m.kind);put('cfDetailTitle',m.title);put('cfDetailBody',m.body);
+    Object.keys(detailMedia).forEach(function(key){detailMedia[key].hidden=key!==id;});
+    var figure=makeMedia(id,true);if(figure){figure.hidden=false;if(!figure.parentElement)byId('cfDetailMedia').appendChild(figure);}
+    nodes[id].setAttribute('aria-expanded','true');
+    if(typeof dialog.showModal==='function')dialog.showModal();else{dialog.setAttribute('open','');dialog.classList.add('cfj-dialog-fallback');}
+    if(close)close.focus({preventScroll:true});mediaVisibility();
+  }
+  function closeDetail(){
+    if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');
+    Object.keys(nodes).forEach(function(id){nodes[id].setAttribute('aria-expanded','false');});
+    if(focusReturn&&focusReturn.tabIndex>=0)focusReturn.focus({preventScroll:true});else buttons[currentStop].focus({preventScroll:true});
+    mediaVisibility();requestRender();
+  }
+  if(close)close.addEventListener('click',closeDetail);
+  dialog.addEventListener('cancel',function(e){e.preventDefault();closeDetail();});
+  dialog.addEventListener('click',function(e){if(e.target===dialog){var r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDetail();}});
   Object.keys(data.models).forEach(function(id){
-    var m=data.models[id],button=document.createElement('button');button.type='button';button.className='cf-specimen is-'+m.color+(m.planned?' is-planned':'');button.dataset.cfSpecimen=id;
-    button.setAttribute('aria-label',m.title+(m.planned?' — planned':''));button.setAttribute('aria-controls','cfSpecimenDetail');button.setAttribute('aria-pressed','false');button.tabIndex=-1;
-    var art=document.createElement('span');art.className='cf-specimen-art';art.setAttribute('aria-hidden','true');
-    var svg=svgNode('svg',{viewBox:'0 0 120 120',focusable:'false'}),use=svgNode('use',{href:'#cf-art-'+m.symbol});svg.appendChild(use);art.appendChild(svg);button.appendChild(art);
-    if(m.planned){var badge=document.createElement('span');badge.className='cf-specimen-flag';badge.textContent='PLANNED';button.appendChild(badge);}
-    var name=document.createElement('span');name.className='cf-specimen-name';name.textContent=m.label;button.appendChild(name);specimens.appendChild(button);nodes[id]=button;
-    button.addEventListener('click',function(){selectSpecimen(id,true);});
-    button.addEventListener('keydown',function(event){
-      var list=data.chapters[chapterIndex].models,at=list.indexOf(id),target=at;
-      if(event.key==='ArrowRight'||event.key==='ArrowDown')target=(at+1)%list.length;
-      else if(event.key==='ArrowLeft'||event.key==='ArrowUp')target=(at+list.length-1)%list.length;
-      else if(event.key==='Home')target=0;else if(event.key==='End')target=list.length-1;else return;
-      event.preventDefault();nodes[list[target]].focus({preventScroll:true});selectSpecimen(list[target],true);
+    var m=data.models[id],button=document.createElement('button');button.type='button';button.className='cfj-node cfj-motion is-'+m.color+(m.planned?' is-planned':'');button.dataset.cfSpecimen=id;
+    button.setAttribute('aria-label',m.title+(m.planned?' — planned':''));button.setAttribute('aria-controls','cfSpecimenDetail');button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-expanded','false');button.tabIndex=-1;
+    var art=document.createElement('span');art.className='cfj-node-art';art.setAttribute('aria-hidden','true');var icon=svg('svg',{viewBox:'0 0 120 120',focusable:'false'});icon.appendChild(svg('use',{href:'#cf-art-'+m.symbol}));art.appendChild(icon);button.appendChild(art);
+    var label=document.createElement('span');label.className='cfj-node-name';label.textContent=m.label;button.appendChild(label);
+    if(m.planned){var flag=document.createElement('span');flag.className='cfj-node-flag';flag.textContent='Planned';button.appendChild(flag);}
+    host.appendChild(button);nodes[id]=button;
+    // Image assets reuse browser cache; video slots are deferred until their chapter.
+    if(m.image&&!m.video)mountStageMedia(id);
+    if(m.video){
+      var source=m.poster||m.image;
+      if(source){var poster=document.createElement('img');poster.className='cfj-video-poster';poster.src=source;poster.alt='';poster.loading='lazy';poster.decoding='async';art.appendChild(poster);button.classList.add('has-poster');}
+      var badge=document.createElement('span');badge.className='cfj-video-badge';badge.textContent='Video';button.appendChild(badge);
+    }
+    button.addEventListener('click',function(){showSpecimen(id);});
+    button.addEventListener('keydown',function(e){
+      if(chapter<0)return;var list=data.chapters[chapter].models,index=list.indexOf(id),to=index;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown')to=(index+1)%list.length;else if(e.key==='ArrowLeft'||e.key==='ArrowUp')to=(index+list.length-1)%list.length;else if(e.key==='Home')to=0;else if(e.key==='End')to=list.length-1;else return;
+      e.preventDefault();nodes[list[to]].focus({preventScroll:true});
     });
   });
-  function curve(a,b){
-    var dx=b.x-a.x,dy=b.y-a.y,d=Math.max(1,Math.sqrt(dx*dx+dy*dy)),gap=Math.min(50,d*.23),ux=dx/d,uy=dy/d;
-    var x1=a.x+ux*gap,y1=a.y+uy*gap,x2=b.x-ux*gap,y2=b.y-uy*gap,bend=Math.min(35,d*.1);
-    return 'M'+x1.toFixed(2)+' '+y1.toFixed(2)+' Q'+((x1+x2)/2-uy*bend).toFixed(2)+' '+((y1+y2)/2+ux*bend).toFixed(2)+' '+x2.toFixed(2)+' '+y2.toFixed(2);
+  function positions(index){
+    if(index===0)return [[17,16],[50,16],[83,16],[17,48],[50,48],[83,48],[17,80],[50,80],[83,80]];
+    return data.chapters[index].positions;
   }
-  function draw(){
-    var width=stage.clientWidth;if(!width)return;
-    var compact=width<370;stage.classList.toggle('is-compact',compact);
-    var height=stage.clientHeight,chapter=data.chapters[chapterIndex],positions=compact?chapter.mobile:chapter.positions,points={};
-    chapter.models.forEach(function(id,index){var button=nodes[id],p=positions[index],x=p[0]*width/100,y=p[1]*height/100;
-      button.style.transform='translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px) translate(-50%,-50%)';
-      var art=button.querySelector('.cf-specimen-art');points[id]={x:x,y:y-(button.offsetHeight-art.offsetHeight)/2};
+  function nodeState(id,index,width,height){
+    var ch=data.chapters[index],at=ch.models.indexOf(id),compact=width<450,scale=index===0?1:(compact?(index===4?1.12:1.22):(index===4?1.35:1.55));
+    if(at>=0){var p=positions(index)[at];return{x:p[0]*width/100,y:p[1]*height/100,scale:scale,opacity:1,angle:0};}
+    var order=Object.keys(data.models).indexOf(id),side=order%2?-1:1;
+    return{x:width*(side<0?-.16:1.16),y:height*(.18+(order%3)*.3),scale:.38,opacity:0,angle:side*10};
+  }
+  function transform(s){return 'translate3d('+s.x.toFixed(2)+'px,'+s.y.toFixed(2)+'px,0) translate(-50%,-50%) scale('+s.scale+') rotate('+s.angle+'deg)';}
+  function frameText(p,s){return (p*100).toFixed(2)+'%{transform:'+transform(s)+';opacity:'+s.opacity+'}';}
+  function curve(a,b,gap){
+    var dx=b.x-a.x,dy=b.y-a.y,d=Math.max(1,Math.hypot(dx,dy)),g=Math.min(gap,d*.28),ux=dx/d,uy=dy/d;
+    var x=a.x+ux*g,y=a.y+uy*g,ex=b.x-ux*g,ey=b.y-uy*g,bend=Math.min(40,d*.12);
+    return 'M'+x.toFixed(2)+' '+y.toFixed(2)+' Q'+((x+ex)/2-uy*bend).toFixed(2)+' '+((y+ey)/2+ux*bend).toFixed(2)+' '+ex.toFixed(2)+' '+ey.toFixed(2);
+  }
+  function layout(){
+    var width=stage.clientWidth,height=stage.clientHeight;if(!width||!height)return;
+    var changed=width!==lastWidth||height!==lastHeight;lastWidth=width;lastHeight=height;
+    if(changed){
+      var css='';
+      Object.keys(nodes).forEach(function(id){
+        var s=nodeState(id,0,width,height),name='cfj-node-'+id;
+        css+='@keyframes '+name+'{'+frameText(0,s)+frameText(holds[0],s)+frameText(ends[0],s);
+        for(var i=1;i<data.chapters.length;i++){s=nodeState(id,i,width,height);css+=frameText(holds[i],s)+frameText(ends[i],s);}
+        css+='}';nodes[id].style.animationName=name;
+      });
+      style.textContent=css;
+      wires.setAttribute('viewBox','0 0 '+width+' '+height);wires.replaceChildren();groups=[];
+      data.chapters.forEach(function(ch,index){
+        var g=svg('g',{'class':'cfj-wire-group cfj-motion'});g.style.animationName='cfj-wires-'+index;
+        var enter=index===0?0:holds[index]-.035,exit=index===4?1:ends[index];
+        css+='@keyframes cfj-wires-'+index+'{0%{opacity:0}'+(Math.max(.001,enter-.01)*100)+'%{opacity:0}'+(enter*100)+'%{opacity:1}'+(exit*100)+'%{opacity:1}'+(Math.min(1,exit+.035)*100)+'%{opacity:0}100%{opacity:'+(index===4?1:0)+'}}';
+        ch.links.forEach(function(link){var a=nodeState(link[0],index,width,height),b=nodeState(link[1],index,width,height);a.y-=14*a.scale;b.y-=14*b.scale;
+          var d=curve(a,b,(width<450?30:52)*a.scale);g.appendChild(svg('path',{d:d,'class':'cfj-link'+(link[2]==='planned'?' is-planned':''),pathLength:100}));
+        });wires.appendChild(g);groups.push(g);
+      });style.textContent=css;
+    }
+    if(mode==='static')paintStatic();
+  }
+  function paintStatic(){
+    if(chapter<0)return;Object.keys(nodes).forEach(function(id){var s=nodeState(id,chapter,lastWidth,lastHeight);nodes[id].style.transform=transform(s);nodes[id].style.opacity=String(s.opacity);});
+    groups.forEach(function(g,i){g.style.opacity=i===chapter?'1':'0';});
+  }
+  function activate(index,announce){
+    if(index===chapter)return;chapter=index;currentStop=index+1;
+    panel.setAttribute('aria-hidden',String(index<0));
+    var hideIntro=mode!=='static'&&index>=0;
+    if(hideIntro&&intro.contains(document.activeElement))buttons[currentStop].focus({preventScroll:true});
+    intro.inert=hideIntro;intro.setAttribute('aria-hidden',String(hideIntro));
+    root.classList.toggle('is-in-models',index>=0);
+    root.dataset.chapter=index<0?'focus':data.chapters[index].id;
+    if(index>=0){
+      var ch=data.chapters[index];
+      put('cfChapterKicker',ch.kicker);put('cfChapterTitle',ch.title);put('cfChapterBody',bodies[index]);put('cfChapterNote',ch.note);put('cfChapterStatus',ch.status);put('cfStageCaption',ch.caption);
+      stage.dataset.chapter=ch.id;
+      if(ch.models.indexOf(selected)<0)selected=ch.defaultModel;
+    }
+    Object.keys(nodes).forEach(function(id){
+      var active=index>=0&&data.chapters[index].models.indexOf(id)>=0;
+      if(!active&&document.activeElement===nodes[id])buttons[currentStop].focus({preventScroll:true});
+      nodes[id].tabIndex=active?0:-1;nodes[id].setAttribute('aria-hidden',String(!active));nodes[id].classList.toggle('is-current',active);
+      if(active)mountStageMedia(id);
+      if(media[id]&&data.models[id].video){media[id].hidden=index<1;nodes[id].classList.toggle('has-media',index>0);}
     });
-    wires.setAttribute('viewBox','0 0 '+width+' '+height);wires.replaceChildren();connections=[];
-    chapter.links.forEach(function(pair){var d=curve(points[pair[0]],points[pair[1]]),planned=pair[2]==='planned';
-      var line=svgNode('path',{d:d,'class':'cf-connection'+(planned?' is-planned':''),pathLength:'100'});
-      var pulse=svgNode('path',{d:d,'class':'cf-signal'+(planned?' is-planned':''),pathLength:'100'});
-      line.classList.toggle('is-selected',pair.indexOf(selected)>=0);wires.appendChild(line);wires.appendChild(pulse);connections.push({ids:pair,line:line});
-    });
+    buttons.forEach(function(b,i){b.setAttribute('aria-current',i===currentStop?'step':'false');b.setAttribute('aria-pressed',String(i===currentStop));});
+    put('cfJourneyPosition',String(currentStop+1).padStart(2,'0')+' / 06 · '+(index<0?'A closer look':data.chapters[index].nav));
+    if(announce)put('cfJourneyAnnouncement',index<0?'A closer look':data.chapters[index].nav);
+    if(mode==='static')paintStatic();mediaVisibility();
   }
-  function revealChapterButton(button){
-    var nav=button.parentElement;if(!nav||nav.scrollWidth<=nav.clientWidth)return;
-    var b=button.getBoundingClientRect(),r=nav.getBoundingClientRect();
-    if(b.left<r.left)nav.scrollLeft-=r.left-b.left+6;
-    else if(b.right>r.right)nav.scrollLeft+=b.right-r.right+6;
+  function chapterAt(p){var n=-1;thresholds.forEach(function(t,i){if(p>=t)n=i;});return n;}
+  function applyProgress(p,announce){
+    progress=clamp(p);
+    if(mode==='fallback'){root.style.setProperty('--cfj-p',progress.toFixed(5));intro.style.setProperty('--cine-p',clamp(progress/.20).toFixed(5));}
+    activate(chapterAt(progress),announce);
   }
-  function setChapter(index,manual){
-    if(index<0||index>=data.chapters.length)return;if(manual)stopTour();chapterIndex=index;
-    var chapter=data.chapters[index];root.classList.add('is-moving');if(motionTimer)clearTimeout(motionTimer);
-    stage.dataset.chapter=chapter.id;chapterButtons.forEach(function(button,i){button.setAttribute('aria-pressed',String(i===index));});
-    revealChapterButton(chapterButtons[index]);
-    put('cfChapterKicker',chapter.kicker);put('cfChapterTitle',chapter.title);put('cfChapterBody',chapter.body);put('cfChapterNote',chapter.note);put('cfChapterStatus',chapter.status);put('cfStageCaption',chapter.caption);put('cfChapterCount',String(index+1).padStart(2,'0')+' / '+String(data.chapters.length).padStart(2,'0'));
-    prev.disabled=index===0;next.disabled=index===data.chapters.length-1;
-    Object.keys(nodes).forEach(function(id){var active=chapter.models.indexOf(id)>=0;nodes[id].classList.toggle('is-active',active);nodes[id].tabIndex=active?0:-1;nodes[id].setAttribute('aria-hidden',String(!active));});
-    selectSpecimen(chapter.defaultModel,false);draw();
-    motionTimer=setTimeout(function(){root.classList.remove('is-moving');motionTimer=0;},reduce.matches?0:620);
+  function measure(){topInset=parseFloat(getComputedStyle(pin).top)||0;travel=Math.max(1,root.offsetHeight-pin.offsetHeight);layout();}
+  function render(){frame=0;if(mode==='static'||document.hidden||dialog.open)return;applyProgress((topInset-root.getBoundingClientRect().top)/travel,false);}
+  function requestRender(){if(mode!=='static'&&near&&!document.hidden&&!dialog.open&&!frame)frame=requestAnimationFrame(render);}
+  function cancel(){if(frame){cancelAnimationFrame(frame);frame=0;}}
+  function scrollToStop(index,focus){
+    index=Math.max(mode==='static'?1:0,Math.min(stops.length-1,index));
+    if(mode==='static'){activate(index-1,true);if(focus)buttons[index].focus({preventScroll:true});return;}
+    measure();var top=window.scrollY+root.getBoundingClientRect().top-topInset+travel*stops[index];
+    window.scrollTo({top:top,behavior:reduce.matches?'auto':'smooth'});
+    if(focus)buttons[index].focus({preventScroll:true});
+    put('cfJourneyAnnouncement',index===0?'A closer look':data.chapters[index-1].nav);
   }
-  function stopTour(){if(tourTimer)clearTimeout(tourTimer);tourTimer=0;playing=false;tour.setAttribute('aria-pressed','false');tour.textContent='▷ Play story';}
-  function tourStep(){
-    if(!playing||!inView||document.hidden||reduce.matches){stopTour();return;}
-    if(chapterIndex===data.chapters.length-1){stopTour();return;}
-    setChapter(chapterIndex+1,false);tourTimer=setTimeout(tourStep,9000);
-  }
-  function startTour(){
-    if(reduce.matches||!inView||document.hidden)return;
-    if(chapterIndex===data.chapters.length-1)setChapter(0,false);
-    playing=true;tour.setAttribute('aria-pressed','true');tour.textContent='Ⅱ Pause story';tourTimer=setTimeout(tourStep,9000);
-  }
-  chapterButtons.forEach(function(button,index){
-    button.addEventListener('click',function(){setChapter(index,true);});
-    button.addEventListener('keydown',function(event){var target=index;
-      if(event.key==='ArrowRight'||event.key==='ArrowDown')target=Math.min(data.chapters.length-1,index+1);
-      else if(event.key==='ArrowLeft'||event.key==='ArrowUp')target=Math.max(0,index-1);
-      else if(event.key==='Home')target=0;else if(event.key==='End')target=data.chapters.length-1;else return;
-      event.preventDefault();chapterButtons[target].focus({preventScroll:true});setChapter(target,true);
+  buttons.forEach(function(button,index){
+    button.addEventListener('click',function(){scrollToStop(index,false);});
+    button.addEventListener('keydown',function(e){var to=index;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown')to=Math.min(5,index+1);else if(e.key==='ArrowLeft'||e.key==='ArrowUp')to=Math.max(mode==='static'?1:0,index-1);else if(e.key==='Home')to=mode==='static'?1:0;else if(e.key==='End')to=5;else return;
+      e.preventDefault();scrollToStop(to,true);
     });
   });
-  prev.addEventListener('click',function(){setChapter(chapterIndex-1,true);});next.addEventListener('click',function(){setChapter(chapterIndex+1,true);});
-  tour.addEventListener('click',function(){if(playing)stopTour();else startTour();});
-  function explanation(id,item){var p=byId(id),strong=document.createElement('strong');strong.textContent=item.title+'. ';p.replaceChildren(strong,document.createTextNode(item.body));}
+  // Links into the diagram target its library stop, including a direct URL fragment.
+  document.querySelectorAll('a[href="#cfStory"]').forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();scrollToStop(1,false);history.replaceState(null,'','#cfStory');});});
+  function resize(){measure();if(mode!=='static')requestRender();}
+  function visibility(){if(document.hidden)cancel();else requestRender();mediaVisibility();}
+  function configure(){
+    cancel();if(observer)observer.disconnect();if(resizeObserver)resizeObserver.disconnect();
+    window.removeEventListener('scroll',requestRender);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);
+    root.classList.remove('is-native','is-static');intro.classList.remove('is-native');
+    var staticMode=reduce.matches||shortScreen.matches||!window.IntersectionObserver||!window.requestAnimationFrame;
+    mode=staticMode?'static':(nativeOK&&!forceFallback?'native':'fallback');root.classList.add('is-enhanced');
+    root.classList.toggle('is-static',staticMode);root.classList.toggle('is-native',mode==='native');
+    intro.classList.toggle('is-enhanced',!staticMode);section.classList.add('cf-cinema-active','cf-journey-active');
+    Object.keys(nodes).forEach(function(id){nodes[id].style.removeProperty('transform');nodes[id].style.removeProperty('opacity');});groups.forEach(function(g){g.style.removeProperty('opacity');});
+    buttons[0].disabled=staticMode;chapter=-2;measure();
+    var r=root.getBoundingClientRect();near=r.bottom>-200&&r.top<window.innerHeight+200;
+    if(staticMode){activate(0,false);paintStatic();}
+    else{applyProgress((topInset-r.top)/travel,false);window.addEventListener('scroll',requestRender,{passive:true});}
+    window.addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',visibility);
+    if(window.IntersectionObserver){observer=new IntersectionObserver(function(entries){near=entries[0].isIntersecting;if(near)requestRender();else{cancel();if(mode!=='static')render();}mediaVisibility();},{rootMargin:'200px 0px'});observer.observe(root);}
+    if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(stage);resizeObserver.observe(pin);}
+    mediaVisibility();
+  }
+  function explanation(id,item){var el=byId(id);if(!el)return;var strong=document.createElement('strong');strong.textContent=item.title+'. ';el.replaceChildren(strong,document.createTextNode(item.body));}
   function compare(){
-    root.querySelectorAll('[data-cf-model]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfModel===currentModel));});
-    root.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfTreatment===currentTreatment));});
+    section.querySelectorAll('[data-cf-model]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfModel===currentModel));});
+    section.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfTreatment===currentTreatment));});
     explanation('cfComparisonModel',data.comparisons.model[currentModel]);explanation('cfComparisonTreatment',data.comparisons.treatment[currentTreatment]);
   }
-  root.querySelectorAll('[data-cf-model]').forEach(function(button){button.addEventListener('click',function(){stopTour();currentModel=button.dataset.cfModel;compare();});});
-  root.querySelectorAll('[data-cf-treatment]').forEach(function(button){button.addEventListener('click',function(){stopTour();currentTreatment=button.dataset.cfTreatment;compare();});});
-  function visibility(visible){inView=visible;root.classList.toggle('is-visible',visible&&stageInView&&!document.hidden);if(!visible)stopTour();}
-  function stageVisibility(visible){stageInView=visible;root.classList.toggle('is-visible',inView&&visible&&!document.hidden);}
-  function motionPreference(){if(reduce.matches)stopTour();tour.disabled=reduce.matches;tour.setAttribute('aria-label',reduce.matches?'Guided playback is disabled for reduced motion':'Play or pause the guided research story');}
-  root.classList.add('is-enhanced');setChapter(0,false);compare();motionPreference();
-  var box=root.getBoundingClientRect();visibility(box.bottom>0&&box.top<window.innerHeight);var stageBox=stage.getBoundingClientRect();stageVisibility(stageBox.bottom>0&&stageBox.top<window.innerHeight);
-  if(window.IntersectionObserver){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){visibility(entry.isIntersecting);});},{threshold:.02});observer.observe(root);var stageObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){stageVisibility(entry.isIntersecting);});},{threshold:.02});stageObserver.observe(stage);}
-  if(window.ResizeObserver){var resize=new ResizeObserver(draw);resize.observe(stage);}else window.addEventListener('resize',draw,{passive:true});
-  document.addEventListener('visibilitychange',function(){root.classList.toggle('is-visible',inView&&stageInView&&!document.hidden);if(document.hidden)stopTour();else resumeVideos();});
-  root.addEventListener('focusin',stopTour);
-  root.addEventListener('click',resumeVideos);
-  root.addEventListener('touchstart',resumeVideos,{passive:true});
-  if(reduce.addEventListener)reduce.addEventListener('change',motionPreference);else if(reduce.addListener)reduce.addListener(motionPreference);
-})();
-
-</script>
-<script id="cf-program-cinematic">
-/* Native scroll timelines where available; a bounded, event-driven fallback elsewhere. */
-(function(){
-  'use strict';
-  var root=document.getElementById('cfCinema');
-  if(!root)return;
-  var sticky=root.querySelector('.cine-sticky'),section=root.closest('section');
-  if(!sticky||!section||!window.matchMedia)return;
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
-  var shortScreen=window.matchMedia('(max-height: 520px)');
-  var frame=0,observer=null,resizeObserver=null,mode='',near=false,topInset=0,travel=1;
-  var supports=window.CSS&&CSS.supports;
-  var nativeOK=!!(supports&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
-  // A documented preview switch makes the compatibility path visually reviewable.
-  var forceFallback=new URLSearchParams(location.search).get('cf-motion')==='fallback';
-  function cancelFrame(){if(frame){cancelAnimationFrame(frame);frame=0;}}
-  function measure(){
-    topInset=parseFloat(getComputedStyle(sticky).top)||0;
-    travel=Math.max(1,root.offsetHeight-sticky.offsetHeight);
-  }
-  function render(){
-    frame=0;
-    if(mode!=='fallback'||document.hidden)return;
-    var p=Math.max(0,Math.min(1,(topInset-root.getBoundingClientRect().top)/travel));
-    root.style.setProperty('--cine-p',p.toFixed(5));
-  }
-  function requestRender(){
-    if(mode==='fallback'&&near&&!document.hidden&&!frame)frame=requestAnimationFrame(render);
-  }
-  function resize(){if(mode!=='fallback')return;measure();requestRender();}
-  function visibility(){if(document.hidden)cancelFrame();else{measure();requestRender();}}
-  function teardown(){
-    cancelFrame();
-    if(observer)observer.disconnect();
-    if(resizeObserver)resizeObserver.disconnect();
-    observer=resizeObserver=null;
-    window.removeEventListener('scroll',requestRender);
-    window.removeEventListener('resize',resize);
-    document.removeEventListener('visibilitychange',visibility);
-    root.classList.remove('is-enhanced','is-native');
-    section.classList.remove('cf-cinema-active');
-    root.style.removeProperty('--cine-p');
-    mode='';near=false;
-  }
-  function configure(){
-    teardown();
-    if(reduce.matches||shortScreen.matches||!supports||!CSS.supports('position: sticky'))return;
-    var nativeMode=nativeOK&&!forceFallback;
-    if(!nativeMode&&(!window.IntersectionObserver||!window.requestAnimationFrame))return;
-    mode=nativeMode?'native':'fallback';
-    root.classList.add('is-enhanced');
-    section.classList.add('cf-cinema-active');
-    if(nativeMode){root.classList.add('is-native');return;}
-    measure();render();
-    observer=new IntersectionObserver(function(entries){
-      near=entries[0].isIntersecting;
-      if(near)requestRender();
-      else{cancelFrame();render();}
-    },{rootMargin:'200px 0px'});
-    observer.observe(root);
-    window.addEventListener('scroll',requestRender,{passive:true});
-    window.addEventListener('resize',resize,{passive:true});
-    document.addEventListener('visibilitychange',visibility);
-    if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(root);resizeObserver.observe(sticky);}
-  }
-  function watch(query){if(query.addEventListener)query.addEventListener('change',configure);else if(query.addListener)query.addListener(configure);}
-  watch(reduce);watch(shortScreen);configure();
+  section.querySelectorAll('[data-cf-model]').forEach(function(b){b.addEventListener('click',function(){currentModel=b.dataset.cfModel;compare();});});
+  section.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.addEventListener('click',function(){currentTreatment=b.dataset.cfTreatment;compare();});});
+  function watch(m){if(m.addEventListener)m.addEventListener('change',configure);else if(m.addListener)m.addListener(configure);}
+  watch(reduce);watch(shortScreen);configure();compare();
+  var appendix=byId('cfJourneyAppendix');if(appendix)appendix.classList.add('is-enhanced');
+  if(location.hash==='#cfStory')requestAnimationFrame(function(){scrollToStop(1,false);});
+  root.addEventListener('click',mediaVisibility);
 })();
 </script>
 </body>
