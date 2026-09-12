@@ -23,7 +23,143 @@
      URL" audit; it is not a third remote host. Test-Published.ps1's
      plain-http check already excludes it by name. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23101114'/%3E%3Cpath%20d='M3%2020H10.5L13%204L16%2026L18.5%2020H29'%20fill='none'%20stroke='%23cbb998'%20stroke-width='3.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
-<style>*{margin:0}body{margin:0}</style>
+<style>*{margin:0}body{margin:0}
+/* Narrow grids can shrink below a long heading's intrinsic word width. */
+@media(max-width:640px){
+  .about-grid{grid-template-columns:minmax(0,1fr)}
+  .about-grid>div{min-width:0}
+  #about h2{font-size:clamp(28px,8vw,36px);overflow-wrap:anywhere}
+}
+/* Phone gallery reveals stay inside their column after orientation changes. */
+@media(max-width:960px){
+  html.pre-reveal .reveal.r-tile:not(.in){transform:translateY(16px);filter:none}
+  html.pre-reveal .reveal.r-frame:not(.in){transform:translateY(16px);filter:none}
+}
+/* CF research observatory. All motion is scoped to the visible component. */
+.support-map-card.cf-story{--cf-ink:#edeae4;--cf-muted:#b8b9bf;--cf-gold:#cbb998;--cf-blue:#9bb3cc;--cf-violet:#b5adc9;--cf-line:rgba(202,201,213,.17);padding:clamp(24px,3vw,42px);background:rgba(18,20,24,.94);color:var(--cf-ink);border:1px solid rgba(203,185,152,.26);border-radius:18px;overflow:hidden;isolation:isolate;position:relative;text-align:left}
+.cf-story *{box-sizing:border-box;min-width:0}
+.cf-story button,.cf-story a{-webkit-tap-highlight-color:transparent}
+.cf-story button{font-family:var(--sans,Arial,sans-serif);cursor:pointer}
+.cf-story button:focus-visible,.cf-story a:focus-visible,.cf-story summary:focus-visible{outline:2px solid var(--cf-gold);outline-offset:5px}
+.cf-story button:disabled{opacity:.32;cursor:default}
+.cf-story [hidden]{display:none!important}
+.cf-story p{margin:0}
+.cf-story-header{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:end;padding:0 0 34px;border-bottom:1px solid var(--cf-line)}
+.cf-story .cf-kicker{font:600 10px/1.7 var(--mono,monospace);letter-spacing:.14em;text-transform:uppercase;color:var(--cf-gold);margin:0 0 16px}
+.cf-story-header h3{font:400 clamp(32px,3.7vw,54px)/1.08 var(--serif,Georgia,serif);letter-spacing:-.035em;color:var(--cf-ink);margin:0}
+.cf-story .cf-story-intro{font:15px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted);max-width:43ch;padding-bottom:3px}
+.cf-enhanced-only{display:none}
+.cf-story.is-enhanced .cf-enhanced-only{display:block}
+.cf-story.is-enhanced .cf-static-fallback{display:none}
+.cf-story-layout{display:grid;grid-template-columns:minmax(220px,.76fr) minmax(0,1.6fr);gap:36px;padding-top:32px}
+.cf-story-editorial{display:flex;flex-direction:column;align-items:stretch}
+.cf-chapters{display:flex;flex-direction:column;gap:3px}
+.cf-chapters button{position:relative;display:flex;gap:14px;align-items:center;text-align:left;min-height:44px;padding:11px 14px;background:transparent;border:0;border-left:1px solid var(--cf-line);border-radius:0;color:var(--cf-muted);font-size:13px;line-height:1.4;transition:color .25s,background .25s,border-color .25s}
+.cf-chapters button span{color:var(--cf-muted);font:10px var(--mono,monospace)}
+.cf-chapters button:hover{color:var(--cf-ink);background:rgba(255,255,255,.025)}
+.cf-chapters button[aria-pressed=true]{color:var(--cf-ink);border-left:2px solid var(--cf-gold);background:linear-gradient(90deg,rgba(203,185,152,.10),transparent)}
+.cf-chapters button[aria-pressed=true] span{color:var(--cf-gold)}
+.cf-chapter-copy{padding:30px 4px 24px}
+.cf-chapter-copy .cf-kicker{font-size:9px;margin-bottom:16px}
+.cf-chapter-copy h4{font:400 clamp(28px,2.7vw,38px)/1.14 var(--serif,Georgia,serif);color:var(--cf-ink);letter-spacing:-.025em;margin:0 0 21px;max-width:16ch}
+.cf-chapter-copy>p:not(.cf-kicker){font:14px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted)}
+.cf-chapter-copy .cf-chapter-note{margin-top:20px!important;font-size:12px!important;color:#92969f!important}
+.cf-story-controls{display:flex;align-items:center;gap:8px;margin-top:auto;padding:4px 0 24px;flex-wrap:wrap}
+.cf-story-controls button{color:var(--cf-ink);background:transparent;border:1px solid var(--cf-line);border-radius:6px;min-height:44px}
+.cf-step-control{width:44px;font-size:19px}
+.cf-story-controls>span{font:10px var(--mono,monospace);color:var(--cf-muted);min-width:47px;text-align:center}
+.cf-tour-control{padding:10px 12px;font-size:11px;margin-left:4px;display:flex;gap:8px;align-items:center}
+.cf-tour-control[aria-pressed=true]{border-color:var(--cf-gold);color:var(--cf-gold)}
+.cf-story-observatory{position:relative;align-self:start;border-left:1px solid var(--cf-line);padding-left:28px;overflow:hidden}
+.cf-stage-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:28px;font:9px/1.5 var(--mono,monospace);letter-spacing:.035em;color:var(--cf-muted)}
+.cf-stage-meta>span:first-child{display:flex;align-items:center;gap:7px}
+.cf-stage-meta i{width:5px;height:5px;border-radius:100%;background:var(--cf-gold);flex:none}
+.cf-stage-hint{white-space:nowrap;opacity:.7}
+.cf-stage{position:relative;width:100%;height:565px;margin-top:12px;isolation:isolate;transition:height .55s cubic-bezier(.2,.7,.2,1)}
+.cf-stage[data-chapter=library]{height:590px}
+.cf-stage:before,.cf-stage:after{content:"";position:absolute;left:50%;top:46%;border:1px solid rgba(161,174,197,.07);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:-1}
+.cf-stage:before{width:78%;aspect-ratio:1;background:radial-gradient(ellipse,rgba(149,165,194,.035),transparent 68%)}
+.cf-stage:after{width:99%;aspect-ratio:1;border-style:dashed;border-color:rgba(203,185,152,.045)}
+.cf-stage-watermark{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);text-align:center;opacity:.2;pointer-events:none;transition:opacity .45s}
+.cf-stage-watermark span{display:block;font:400 94px/1 var(--serif,Georgia,serif);letter-spacing:-.08em;color:var(--cf-gold)}
+.cf-stage-watermark small{font:8px/1.5 var(--mono,monospace);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;color:var(--cf-muted)}
+.cf-stage[data-chapter=library] .cf-stage-watermark{opacity:.055}
+.cf-connections{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:-1}
+.cf-connection{fill:none;stroke:var(--cf-gold);stroke-width:1.25;opacity:.3}
+.cf-connection.is-planned{stroke-dasharray:4 6;stroke:var(--cf-violet)}
+.cf-connection.is-selected{opacity:.7}
+.cf-signal{fill:none;stroke:var(--cf-gold);stroke-width:2;stroke-linecap:round;stroke-dasharray:3 97;opacity:0}
+.cf-story.is-visible .cf-signal{opacity:.72;animation:cf-signal-flow 4.2s linear infinite}
+.cf-story .cf-signal.is-planned{stroke:var(--cf-violet);animation-duration:6.2s}
+@keyframes cf-signal-flow{to{stroke-dashoffset:-100}}
+.cf-specimen{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;width:132px;height:144px;padding:0;border:0!important;background:transparent!important;color:var(--cf-blue);border-radius:45%;opacity:0;visibility:hidden;pointer-events:none;transform:translate(0,0) translate(-50%,-50%);transition:transform .6s cubic-bezier(.2,.75,.25,1),opacity .3s,visibility .3s;z-index:2;will-change:auto}
+.cf-specimen.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.cf-specimen.is-violet{color:var(--cf-violet)}
+.cf-specimen.is-gold{color:var(--cf-gold)}
+.cf-specimen-art{display:block;width:92px;height:92px;flex:none;position:relative;border:1px solid rgba(194,200,215,.1);border-radius:50%;padding:8px;transition:border-color .3s,background .3s,transform .3s;background:radial-gradient(circle,rgba(24,27,33,.95) 25%,rgba(24,27,33,.72) 58%,rgba(24,27,33,0) 73%)}
+.cf-specimen-art:before{content:"";position:absolute;inset:-5px;border:1px solid transparent;border-radius:50%;transition:border-color .3s}
+.cf-specimen-art svg{width:100%;height:100%;display:block;overflow:visible}
+.cf-specimen[aria-pressed=true] .cf-specimen-art{border-color:currentColor;background:radial-gradient(circle,rgba(69,76,94,.35),rgba(24,27,33,.94) 72%)}
+.cf-specimen[aria-pressed=true] .cf-specimen-art:before{border-color:rgba(203,185,152,.2)}
+.cf-specimen.is-planned .cf-specimen-art{border-style:dashed}
+.cf-specimen-name{font:500 12px/1.4 var(--sans,Arial,sans-serif);color:var(--cf-ink);text-align:center;max-width:17ch;display:block}
+.cf-specimen-flag{font:600 8px/1.4 var(--mono,monospace);letter-spacing:.09em;color:var(--cf-violet);padding:3px 7px;border:1px dashed rgba(181,173,201,.38);background:#17191e;border-radius:20px;position:absolute;top:79px;left:50%;transform:translateX(-50%);z-index:1}
+.cf-art-membrane{fill:currentColor;fill-opacity:.11;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+.cf-art-nucleus{fill:currentColor;fill-opacity:.58;stroke:currentColor;stroke-width:.7}
+.cf-art-branch{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.88}
+.cf-art-grain{fill:var(--cf-gold);opacity:.82}
+.cf-art-lumen{fill:#17191e;stroke:currentColor;stroke-width:1.25;opacity:.8}
+.cf-art-muscle-tissue{fill:var(--cf-gold);fill-opacity:.2;stroke:var(--cf-gold);stroke-width:1.4}
+.cf-stage-caption{font:11px/1.75 var(--sans,Arial,sans-serif);color:#92969f;min-height:3.5em;padding:0 12px 22px;text-align:center;max-width:65ch;margin:0 auto!important}
+.cf-specimen-detail{display:grid;grid-template-columns:minmax(160px,.76fr) minmax(0,1.6fr);gap:34px;padding:28px;margin-top:14px;border:1px solid var(--cf-line);border-radius:10px;background:rgba(28,31,37,.85)}
+.cf-detail-heading .cf-kicker{font-size:9px;margin-bottom:12px}
+.cf-detail-heading h4{color:var(--cf-ink);font:400 26px/1.22 var(--serif,Georgia,serif);margin:0;letter-spacing:-.02em}
+.cf-detail-body>p{font:14px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted)}
+.cf-detail-media{padding:18px 0 0;margin:0}
+.cf-detail-media img,.cf-detail-media video{display:block;max-width:100%;width:100%;height:auto;max-height:360px;object-fit:contain;border-radius:6px;background:#0b0c0f;opacity:1}
+.cf-detail-media figcaption{font:10px/1.7 var(--sans,Arial,sans-serif);color:#92969f;padding-top:8px}
+.cf-comparison{display:grid;grid-template-columns:minmax(160px,.76fr) minmax(0,1.6fr);gap:36px;border-top:1px solid var(--cf-line);padding:34px 0 0;margin-top:34px}
+.cf-comparison-intro h4{font:400 27px/1.25 var(--serif,Georgia,serif);color:var(--cf-ink);letter-spacing:-.02em;margin:0 0 16px}
+.cf-comparison-intro>p:not(.cf-kicker){font:12px/1.75 var(--sans,Arial,sans-serif);color:var(--cf-muted);max-width:38ch}
+.cf-comparison-controls{display:flex;flex-direction:column;gap:22px}
+.cf-selector>p{font:9px/1.5 var(--mono,monospace);text-transform:uppercase;letter-spacing:.12em;color:var(--cf-muted);margin:0 0 10px}
+.cf-selector>div{display:flex;gap:7px;flex-wrap:wrap}
+.cf-selector button{min-height:44px;padding:11px 15px;border:1px solid var(--cf-line);border-radius:5px;font-size:12px;line-height:1.4;color:var(--cf-muted);background:transparent}
+.cf-selector button small{font:9px var(--mono,monospace);margin-left:5px;opacity:.75}
+.cf-selector button[aria-pressed=true]{color:var(--cf-ink);background:rgba(203,185,152,.1);border-color:rgba(203,185,152,.7)}
+.cf-comparison-explanation{padding:24px;background:rgba(28,31,37,.75);border-radius:8px;min-height:150px}
+.cf-comparison-explanation p{font:12px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted)}
+.cf-comparison-explanation p+p{margin-top:14px}
+.cf-comparison-explanation strong{color:var(--cf-ink);font-weight:600}
+.cf-science-note{border-top:1px solid var(--cf-line);margin-top:32px;padding-top:8px}
+.cf-science-note summary{cursor:pointer;color:var(--cf-muted);font:11px/1.7 var(--sans,Arial,sans-serif);padding:16px 4px;min-height:44px}
+.cf-science-note>div{padding:24px;background:rgba(28,31,37,.7);border-radius:8px}
+.cf-science-note p{font:12px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted)}
+.cf-science-note p+p{margin-top:16px}
+.cf-science-note a{display:inline-block;color:var(--cf-gold);padding:8px 0;min-height:36px;text-decoration:underline;text-underline-offset:4px;margin-right:22px}
+.cf-static-fallback{padding:28px 0}
+.cf-static-fallback ol{padding-left:24px;display:grid;gap:24px}
+.cf-static-fallback h4{font:400 25px var(--serif,Georgia,serif);margin:0 0 12px;color:var(--cf-ink)}
+.cf-static-fallback p{font:14px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted)}
+.cf-static-fallback>p{margin-top:24px}
+.cf-art-defs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+@media(hover:hover) and (pointer:fine){.cf-specimen:hover .cf-specimen-art{transform:scale(1.055);border-color:currentColor}.cf-selector button:hover,.cf-story-controls button:not(:disabled):hover{border-color:var(--cf-gold);color:var(--cf-ink)}}
+@media(max-width:1100px){.cf-story-layout,.cf-specimen-detail,.cf-comparison{grid-template-columns:minmax(190px,.8fr) minmax(0,1.4fr);gap:26px}.cf-story-observatory{padding-left:18px}.cf-stage-hint{display:none}.cf-specimen{width:116px}.cf-specimen-name{font-size:11px}.cf-story-header{gap:26px}}
+@media(max-width:820px){.cf-story-header{grid-template-columns:1fr;gap:22px}.cf-story .cf-story-intro{max-width:60ch}.cf-story-layout{grid-template-columns:1fr;gap:20px}.cf-story-editorial{display:contents}.cf-chapters{display:flex;flex-direction:row;overflow-x:auto;max-width:100%;padding:1px 1px 8px;gap:5px;scrollbar-width:thin;scrollbar-color:rgba(203,185,152,.3) transparent}.cf-chapters button{flex:none;border-left:0;border-bottom:1px solid var(--cf-line);border-radius:4px 4px 0 0;gap:8px;padding:12px;font-size:11px;white-space:nowrap}.cf-chapters button[aria-pressed=true]{border-left:0;border-bottom:2px solid var(--cf-gold);background:linear-gradient(0deg,rgba(203,185,152,.09),transparent)}.cf-chapter-copy{padding:12px 0 0}.cf-chapter-copy h4{max-width:25ch;font-size:32px;margin-bottom:16px}.cf-chapter-copy .cf-chapter-note{margin-top:14px!important}.cf-story-controls{padding:0 0 6px;margin:0}.cf-story-observatory{padding:20px 0 0;border-left:0;border-top:1px solid var(--cf-line)}.cf-stage{height:460px}.cf-stage[data-chapter=library]{height:560px}.cf-specimen-detail,.cf-comparison{grid-template-columns:1fr;gap:22px}.cf-comparison-intro h4 br{display:none}.cf-comparison-intro>p:not(.cf-kicker){max-width:none}.cf-detail-heading h4{font-size:26px}.cf-specimen-detail{margin-top:0;padding:24px}.cf-stage-caption{padding:0 0 16px}.cf-comparison{padding-top:28px;margin-top:28px}}
+@media(max-width:520px){.support-map-card.cf-story{padding:24px 20px;border-radius:12px}.cf-story-header{padding-bottom:26px}.cf-story-header h3{font-size:33px}.cf-story .cf-story-intro{font-size:14px;line-height:1.75}.cf-story-layout{padding-top:24px}.cf-chapter-copy h4{font-size:29px}.cf-chapter-copy>p:not(.cf-kicker){font-size:13px}.cf-stage{height:420px}.cf-stage[data-chapter=library]{height:730px}.cf-stage[data-chapter=brain]{height:320px}.cf-stage[data-chapter=future]{height:440px}.cf-specimen{width:112px;height:135px}.cf-specimen-art{width:82px;height:82px}.cf-specimen-name{font-size:11px;max-width:16ch}.cf-specimen-flag{top:70px;font-size:7px}.cf-stage-watermark span{font-size:76px}.cf-stage-watermark small{font-size:7px}.cf-stage-meta{font-size:8px}.cf-specimen-detail{padding:24px;gap:16px}.cf-detail-heading h4{font-size:24px}.cf-detail-body>p{font-size:13px}.cf-selector button{flex:1;padding:11px 9px;font-size:11px}.cf-selector button small{display:block;margin:3px 0 0}.cf-comparison-intro h4{font-size:25px}.cf-comparison-explanation{padding:24px}.cf-science-note summary{font-size:10px}.cf-science-note>div{padding:24px}.cf-tour-control{margin-left:3px}.cf-story-controls{gap:6px}.cf-story-controls>span{min-width:40px}}
+@media(max-width:359px){.support-map-card.cf-story{padding:24px 16px}.cf-story-header h3{font-size:30px}.cf-specimen{width:96px}.cf-specimen-art{width:74px;height:74px}.cf-specimen-name{font-size:10px}.cf-specimen-flag{top:65px}.cf-tour-control{padding:10px 8px}.cf-story-controls{gap:5px}.cf-step-control{width:42px}.cf-story-controls>span{min-width:33px}}
+@media(prefers-reduced-motion:reduce){.cf-story *, .cf-story *:before,.cf-story *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.cf-story .cf-signal{display:none}.cf-specimen-art{transform:none!important}}
+.cf-stage{transition:none}
+.cf-stage.is-compact[data-chapter=library]{height:730px}
+.cf-connections{transition:opacity .3s}
+.cf-story.is-moving .cf-connections{opacity:0}
+
+.cf-design-note{font:9px/1.6 var(--mono,monospace);color:#92969f;letter-spacing:.03em}
+.cf-story.is-visible .cf-specimen[aria-pressed=true] .cf-specimen-art{animation:cf-specimen-breathe 4.5s ease-in-out infinite}
+@keyframes cf-specimen-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@media(prefers-reduced-motion:reduce){.cf-story.is-visible .cf-specimen[aria-pressed=true] .cf-specimen-art{animation:none!important}}
+
+</style>
 </head>
 <body><!--
 ================================================================================
@@ -2078,28 +2214,73 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
 <section id="support">
   <div class="wrap">
     <div class="sec-head"><p class="eyebrow chapter-label" data-c="support.eyebrow">Support discovery</p><h2 data-c="support.heading">Help us understand how disease changes the nervous system.</h2><p data-c="support.intro">Explore the models and measurements behind our research, and talk with us about supporting the work ahead.</p></div>
-    <div class="support-map-card">
-      <div class="support-cf-focus"><span class="eyebrow" data-c="support.focusLabel">Flagship research</span><h3 data-c="support.focusTitle">Cystic fibrosis &amp; CFTR modulators</h3><p data-c="support.focusQuestion">How do cystic fibrosis and its treatments affect neuronal function?</p></div>
-      <div class="support-map-heading"><h3 data-c="support.mapHeading">From cells to living systems</h3><p>Select a stage to explore</p></div>
-      <div class="support-map" id="supportMap" role="group" aria-label="Explore the research stages" aria-describedby="supportMapCaption">
-        <svg class="support-wires" aria-hidden="true"><defs><marker id="support-map-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="var(--accent-ink)" stroke-width="1.2"/></marker></defs></svg>
-        <button type="button" class="support-stage" data-stage="stem" aria-pressed="true" aria-controls="support-stage-stem"><span class="support-stage-number" aria-hidden="true">01</span><span class="support-illustration" id="support-image-stem"><svg viewBox="0 0 140 120" aria-hidden="true"><g fill="#91a9c2" fill-opacity=".15" stroke="#91a9c2" stroke-width="1.5"><circle cx="43" cy="45" r="24"/><circle cx="87" cy="39" r="22"/><circle cx="75" cy="81" r="25"/><circle cx="111" cy="77" r="16"/></g><g fill="#cbb998" fill-opacity=".6"><circle cx="43" cy="45" r="8"/><circle cx="87" cy="39" r="7"/><circle cx="75" cy="81" r="8"/><circle cx="111" cy="77" r="5"/></g></svg></span><span class="support-stage-label" data-c="support.stages.0.title">Stem cells</span></button>
-<button type="button" class="support-stage" data-stage="brain" aria-pressed="false" aria-controls="support-stage-brain"><span class="support-stage-number" aria-hidden="true">02</span><span class="support-illustration" id="support-image-brain"><svg viewBox="0 0 140 120" aria-hidden="true"><path d="M37 24C49 10 64 17 72 13C89 8 98 24 107 28C126 38 117 52 120 65C125 85 108 94 95 96C82 114 66 101 51 106C30 108 27 91 18 82C7 65 19 57 18 43C19 29 27 27 37 24Z" fill="#aaa7c4" fill-opacity=".17" stroke="#aaa7c4" stroke-width="2"/><g fill="none" stroke="#aaa7c4" stroke-width="1.5" opacity=".85"><path d="M37 28Q54 30 47 49T38 78Q36 92 54 93M72 19Q59 39 74 47T88 74Q74 94 92 93M95 30Q83 40 99 51T108 77M28 45Q36 55 26 70M58 58Q50 75 65 84"/></g></svg></span><span class="support-stage-label" data-c="support.stages.1.title">Brain organoid</span></button>
-<button type="button" class="support-stage" data-stage="recording" aria-pressed="false" aria-controls="support-stage-recording"><span class="support-stage-number" aria-hidden="true">03</span><span class="support-illustration" id="support-image-recording"><svg viewBox="0 0 140 120" aria-hidden="true"><path d="M13 79Q70 104 125 79L120 94Q70 116 18 94Z" fill="#91a9c2" fill-opacity=".12" stroke="#91a9c2" stroke-width="1.5"/><g stroke="#91a9c2" stroke-width="1.6" fill="none"><path d="M60 72L38 53L20 55M60 72L43 88M60 72L90 82L112 72M60 72L70 49"/><circle cx="60" cy="72" r="12"/></g><path d="M115 13L121 19L74 66L68 68L70 62Z" fill="#cbb998" fill-opacity=".45" stroke="#cbb998" stroke-width="1.5"/><rect x="8" y="8" width="62" height="32" rx="5" fill="none" stroke="#cbb998"/><path d="M13 27H27L31 14L36 34L41 23H64" fill="none" stroke="#cbb998" stroke-width="1.5"/></svg></span><span class="support-stage-label" data-c="support.stages.2.title">Electrophysiology</span></button>
-<button type="button" class="support-stage" data-stage="ganglia" aria-pressed="false" aria-controls="support-stage-ganglia"><span class="support-stage-number" aria-hidden="true">04</span><span class="support-illustration" id="support-image-ganglia"><svg viewBox="0 0 140 120" aria-hidden="true"><g stroke="#aaa7c4" fill="none" stroke-width="1.6"><path d="M49 42L27 24L13 24M49 42L39 13M49 42L24 59L8 55M79 61L110 34L129 32M79 61L102 67L125 83M49 82L28 97L8 93M49 82L56 112M79 61L93 100L122 109M49 42L79 61L49 82Z"/><circle cx="49" cy="42" r="14"/><circle cx="79" cy="61" r="16"/><circle cx="49" cy="82" r="13"/></g><g fill="#cbb998" fill-opacity=".75"><circle cx="49" cy="42" r="5"/><circle cx="79" cy="61" r="6"/><circle cx="49" cy="82" r="4"/></g></svg></span><span class="support-stage-label" data-c="support.stages.3.title">Sensory neuronal ganglia</span></button>
-<button type="button" class="support-stage" data-stage="enteric" aria-pressed="false" aria-controls="support-stage-enteric"><span class="support-stage-number" aria-hidden="true">05</span><span class="support-illustration" id="support-image-enteric"><svg viewBox="0 0 140 120" aria-hidden="true"><path d="M22 31Q69 12 119 31L120 90Q71 109 22 90Z" fill="#91a9c2" fill-opacity=".10" stroke="#91a9c2" stroke-width="1.5"/><path d="M22 31Q44 61 22 90M119 31Q96 61 120 90" fill="none" stroke="#91a9c2"/><g fill="none" stroke="#91a9c2" stroke-width="1.4"><path d="M37 46L65 37L94 45L105 66L83 84L54 80L33 66Z M37 46L54 80M65 37L83 84M94 45L33 66M105 66L54 80M37 46L105 66"/></g><g fill="#cbb998"><circle cx="37" cy="46" r="4"/><circle cx="65" cy="37" r="4"/><circle cx="94" cy="45" r="4"/><circle cx="105" cy="66" r="4"/><circle cx="83" cy="84" r="4"/><circle cx="54" cy="80" r="4"/><circle cx="33" cy="66" r="4"/></g></svg></span><span class="support-stage-label" data-c="support.stages.4.title">Enteric nervous system</span></button>
-<button type="button" class="support-stage" data-stage="contraction" aria-pressed="false" aria-controls="support-stage-contraction"><span class="support-stage-number" aria-hidden="true">06</span><span class="support-illustration" id="support-image-contraction"><svg viewBox="0 0 140 120" aria-hidden="true"><path d="M16 40Q36 27 61 45Q74 53 88 42Q109 26 126 38L126 83Q107 98 85 78Q73 68 58 80Q33 98 16 83Z" fill="#cbb998" fill-opacity=".16" stroke="#cbb998" stroke-width="2"/><ellipse cx="16" cy="61" rx="7" ry="21" fill="#191b20" stroke="#cbb998"/><path d="M71 7V32M64 24L71 32L78 24M71 114V91M64 99L71 91L78 99" fill="none" stroke="#91a9c2" stroke-width="2"/><path d="M42 38Q34 63 44 87M99 34Q108 62 98 88" fill="none" stroke="#cbb998" stroke-opacity=".6"/></svg></span><span class="support-stage-label" data-c="support.stages.5.title">Gut-segment contraction</span></button>
-<button type="button" class="support-stage" data-stage="intestinal" aria-pressed="false" aria-controls="support-stage-intestinal"><span class="support-stage-number" aria-hidden="true">07</span><span class="support-illustration" id="support-image-intestinal"><svg viewBox="0 0 140 120" aria-hidden="true"><path d="M54 17Q70 7 82 22Q104 7 112 29Q132 43 115 59Q133 80 113 91Q110 114 86 101Q68 120 52 102Q24 116 24 91Q4 77 24 59Q7 35 33 30Q35 8 54 17Z" fill="#91a9c2" fill-opacity=".15" stroke="#91a9c2" stroke-width="2"/><path d="M58 40Q76 28 92 46Q110 64 90 82Q68 98 47 77Q32 56 58 40Z" fill="#191b20" stroke="#aaa7c4" stroke-width="1.5"/><g fill="#cbb998" fill-opacity=".8"><circle cx="49" cy="29" r="3"/><circle cx="83" cy="30" r="3"/><circle cx="110" cy="43" r="3"/><circle cx="111" cy="80" r="3"/><circle cx="81" cy="99" r="3"/><circle cx="41" cy="94" r="3"/><circle cx="26" cy="64" r="3"/></g></svg></span><span class="support-stage-label" data-c="support.stages.6.title">Intestinal organoid</span></button>
+    <div class="support-map-card cf-story" id="cfStory" aria-labelledby="cfStoryTitle">
+  <header class="cf-story-header">
+    <div><p class="cf-kicker">Cystic fibrosis &amp; CFTR modulators</p><h3 id="cfStoryTitle">From living cells<br>to connected systems.</h3></div>
+    <p class="cf-story-intro">Explore how we bring models together to ask what changes in cystic fibrosis — and how treatments may affect those connections.</p>
+  </header>
+  <div class="cf-enhanced-only">
+    <div class="cf-story-layout">
+      <aside class="cf-story-editorial">
+        <nav class="cf-chapters" aria-label="Research story chapters">
+          <button type="button" data-cf-chapter="0" aria-pressed="true" aria-controls="cfChapterText"><span>01</span> Living library</button>
+          <button type="button" data-cf-chapter="1" aria-pressed="false" aria-controls="cfChapterText"><span>02</span> Gut connections</button>
+          <button type="button" data-cf-chapter="2" aria-pressed="false" aria-controls="cfChapterText"><span>03</span> Read the signals</button>
+          <button type="button" data-cf-chapter="3" aria-pressed="false" aria-controls="cfChapterText"><span>04</span> Brain questions</button>
+          <button type="button" data-cf-chapter="4" aria-pressed="false" aria-controls="cfChapterText"><span>05</span> Future connections</button>
+        </nav>
+        <div class="cf-chapter-copy" id="cfChapterText" aria-live="polite" aria-atomic="true"><p class="cf-kicker" id="cfChapterKicker">01 / The starting point</p><h4 id="cfChapterTitle">Many models.<br>One shared question.</h4><p id="cfChapterBody">From individual cells to three-dimensional organoids, each preparation gives us a different window into cystic fibrosis.</p><p class="cf-chapter-note" id="cfChapterNote">Select a specimen to meet the models behind the work.</p></div>
+        <div class="cf-story-controls"><button class="cf-step-control" type="button" id="cfPrev" aria-label="Previous research chapter">←</button><span id="cfChapterCount" aria-hidden="true">01 / 05</span><button class="cf-step-control" type="button" id="cfNext" aria-label="Next research chapter">→</button><button class="cf-tour-control" type="button" id="cfTour" aria-pressed="false"><span aria-hidden="true">▷</span> Play story</button></div>
+      </aside>
+      <div class="cf-story-observatory">
+        <div class="cf-stage-meta"><span><i aria-hidden="true"></i> <span id="cfChapterStatus">Current cultures &amp; preparations</span></span><span class="cf-stage-hint">Select to explore</span></div>
+        <div class="cf-stage" id="cfStage" data-chapter="library" role="group" aria-label="Explore the research models" aria-describedby="cfStageCaption">
+          <svg class="cf-connections" id="cfConnections" aria-hidden="true"></svg>
+          <div class="cf-stage-watermark" aria-hidden="true"><span>CF</span><small>Research observatory</small></div>
+          <div id="cfSpecimens"></div>
+        </div>
+        <p class="cf-stage-caption" id="cfStageCaption">Primary cultures, stem-cell-derived models and tissue preparations offer complementary views.</p>
       </div>
-      <div class="support-stage-details" aria-live="polite" aria-atomic="true"><div class="support-stage-panel" id="support-stage-stem"><h4 data-c="support.stages.0.title">Stem cells</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-stem" hidden></figure><p data-c="support.stages.0.body">Stem-cell-derived cultures are a starting point in this conceptual map of models and measurements.</p></div></div>
-<div class="support-stage-panel" id="support-stage-brain" hidden><h4 data-c="support.stages.1.title">Brain organoid</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-brain" hidden></figure><p data-c="support.stages.1.body">Brain and stem-cell-derived 3D organoids provide models of tissue-level architecture and activity.</p></div></div>
-<div class="support-stage-panel" id="support-stage-recording" hidden><h4 data-c="support.stages.2.title">Electrophysiology</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-recording" hidden></figure><p data-c="support.stages.2.body">Patch-clamp and extracellular recordings measure ionic currents and action potentials. Our CF research examines neuronal activity and responses to CFTR modulators.</p></div></div>
-<div class="support-stage-panel" id="support-stage-ganglia" hidden><h4 data-c="support.stages.3.title">Sensory neuronal ganglia</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-ganglia" hidden></figure><p data-c="support.stages.3.body">Sensory neurons and their extending processes link the neuronal models shown in this conceptual research map.</p></div></div>
-<div class="support-stage-panel" id="support-stage-enteric" hidden><h4 data-c="support.stages.4.title">Enteric nervous system</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-enteric" hidden></figure><p data-c="support.stages.4.body">The map connects neuronal measurements with the nervous system of the gut. Our research links cellular findings with intestinal motility.</p></div></div>
-<div class="support-stage-panel" id="support-stage-contraction" hidden><h4 data-c="support.stages.5.title">Gut-segment contraction</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-contraction" hidden></figure><p data-c="support.stages.5.body">Tissue recordings measure contractile responses. Gut-segment contraction is one of the functional measurements highlighted in this research map.</p></div></div>
-<div class="support-stage-panel" id="support-stage-intestinal" hidden><h4 data-c="support.stages.6.title">Intestinal organoid</h4><div class="support-stage-description"><figure class="support-detail-media" id="support-detail-intestinal" hidden></figure><p data-c="support.stages.6.body">Intestinal organoids form a complementary model alongside tissue-level gut measurements. Our CF research includes organoid and gut-on-a-chip approaches.</p></div></div></div>
-      <p class="support-map-caption" id="supportMapCaption" data-c="support.mapCaption">A conceptual research map of connected models and measurements. Select a stage to explore its role.</p>
     </div>
+    <div class="cf-specimen-detail" id="cfSpecimenDetail" aria-live="polite" aria-atomic="true">
+      <div class="cf-detail-heading"><p class="cf-kicker" id="cfDetailKind">Current culture</p><h4 id="cfDetailTitle">Human stem cells</h4></div>
+      <div class="cf-detail-body"><p id="cfDetailBody">Human stem cell cultures are part of our living library.</p><div id="cfDetailMedia"></div></div>
+    </div>
+    <div class="cf-comparison">
+      <div class="cf-comparison-intro"><p class="cf-kicker">The question across every model</p><h4>What changes in CF?<br>What changes with treatment?</h4><p>Compare cystic fibrosis with wild-type controls and explore treatment conditions across the research models.</p></div>
+      <div class="cf-comparison-controls">
+        <div class="cf-selector" role="group" aria-label="Model comparison"><p>01 / Compare models</p><div><button type="button" data-cf-model="wt" aria-pressed="false" aria-controls="cfComparisonModel">Wild-type</button><button type="button" data-cf-model="cf" aria-pressed="true" aria-controls="cfComparisonModel">Cystic fibrosis</button></div></div>
+        <div class="cf-selector" role="group" aria-label="Treatment comparison"><p>02 / Compare conditions</p><div><button type="button" data-cf-treatment="control" aria-pressed="true" aria-controls="cfComparisonTreatment">Control</button><button type="button" data-cf-treatment="eti" aria-pressed="false" aria-controls="cfComparisonTreatment">Trikafta <small>ETI</small></button><button type="button" data-cf-treatment="vtd" aria-pressed="false" aria-controls="cfComparisonTreatment">Alyftrek <small>VTD</small></button></div></div>
+        <p class="cf-design-note">Study design · No experimental results shown</p><div class="cf-comparison-explanation" aria-live="polite" aria-atomic="true"><p id="cfComparisonModel"></p><p id="cfComparisonTreatment"></p></div>
+      </div>
+    </div>
+  </div>
+  <div class="cf-static-fallback">
+    <ol>
+      <li><h4>Living library</h4><p>Our cultures include human stem cells; DRG, SCG, enteric and hippocampal neurons; intestinal organoids; human-stem-cell-derived brain organoids; and smooth muscle. Intestinal organ-bath work provides a separate tissue preparation.</p></li>
+      <li><h4>Gut connections</h4><p>We combine DRG neurons, enteric neurons and intestinal organoids in co-culture to study relationships between these components.</p></li>
+      <li><h4>Read the signals</h4><p>Electrical recordings, smooth muscle contraction and intestinal organ-bath studies provide complementary measurements of function.</p></li>
+      <li><h4>Brain questions</h4><p>Planned brain studies will explore potential mechanisms relevant to reported neuropsychiatric symptoms during CFTR-modulator treatment.</p></li>
+      <li><h4>Future connections</h4><p>We plan to differentiate human stem cells into neuronal and cardiac muscle cultures, and to develop a future SCG–cardiac muscle co-culture.</p></li>
+    </ol>
+    <p>Across these models, our research aims to compare cystic fibrosis with wild-type controls and investigate responses across treatment conditions, including Trikafta (ETI) and Alyftrek (VTD).</p>
+  </div>
+  <details class="cf-science-note"><summary>About the brain research question &amp; treatment names</summary><div><p>ETI combines elexacaftor, tezacaftor and ivacaftor (Trikafta). VTD combines vanzacaftor, tezacaftor and deutivacaftor (Alyftrek).</p><p>Current U.S. prescribing information describes postmarketing neuropsychiatric reports in people taking these treatments or drugs with the same or similar active ingredients. These reports motivate questions; they do not establish the cellular mechanism being investigated here. The brain research shown above is a planned direction.</p><p><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f354423a-85c2-41c3-a9db-0f3aee135d8d" target="_blank" rel="noopener noreferrer">Trikafta prescribing information ↗</a><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7e635909-c6fd-4f0d-ae77-cdff03653a20" target="_blank" rel="noopener noreferrer">Alyftrek prescribing information ↗</a></p></div></details>
+  <svg class="cf-art-defs" aria-hidden="true" width="0" height="0"><defs>
+    <radialGradient id="cf-specimen-wash"><stop offset="0" stop-color="currentColor" stop-opacity=".18"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient>
+    <symbol id="cf-art-stem" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M19 27C30 9 54 9 63 30S55 63 34 62S8 43 19 27Z"/><path d="M70 18C86 12 109 28 107 48S91 69 73 58S55 30 70 18Z"/><path d="M41 73C48 54 76 50 87 70S83 111 60 109S31 94 41 73Z"/></g><g class="cf-art-nucleus"><ellipse cx="38" cy="36" rx="9" ry="11"/><ellipse cx="85" cy="39" rx="8" ry="10"/><ellipse cx="63" cy="84" rx="10" ry="12"/></g><g class="cf-art-grain"><circle cx="27" cy="25" r="2"/><circle cx="48" cy="45" r="2"/><circle cx="94" cy="48" r="2"/><circle cx="74" cy="75" r="2"/></g></symbol>
+    <symbol id="cf-art-drg" viewBox="0 0 120 120"><path class="cf-art-branch" d="M51 55C46 38 53 26 55 15M56 48C71 35 81 39 95 22M63 64C84 69 97 81 108 100M47 67C31 74 21 64 8 67M53 74C44 94 29 101 19 105M50 15L43 7M55 20L66 9M95 22L111 18M98 85L111 80M30 76L24 88"/><path class="cf-art-membrane" d="M43 44C55 35 74 48 75 61S66 85 51 81S31 58 43 44Z"/><ellipse class="cf-art-nucleus" cx="54" cy="60" rx="9" ry="10"/><path class="cf-art-branch" d="M53 80C60 97 70 108 83 113"/></symbol>
+    <symbol id="cf-art-scg" viewBox="0 0 120 120"><path class="cf-art-branch" d="M57 54L33 32L17 14M33 32L9 32M58 53L65 24L83 9M65 24L56 7M62 59L93 43L111 46M93 43L103 24M63 61L92 81L111 106M92 81L114 76M59 67L49 91L31 112M49 91L63 111M53 61L22 69L10 90M22 69L7 62"/><path class="cf-art-membrane" d="M48 42L59 34L72 45L81 61L69 76L55 80L43 64L39 52Z"/><circle class="cf-art-nucleus" cx="59" cy="58" r="10"/></symbol>
+    <symbol id="cf-art-ens" viewBox="0 0 120 120"><g class="cf-art-branch"><path d="M21 29L51 20L87 28L105 59L88 93L49 99L15 78L21 29M21 29L49 99M51 20L88 93M87 28L15 78M105 59L49 99M21 29L105 59M87 28L49 99M15 78L88 93"/><path d="M21 29L6 13M51 20L47 5M87 28L106 11M105 59L118 59M88 93L103 111M49 99L40 116M15 78L3 88"/></g><g class="cf-art-membrane"><ellipse cx="21" cy="29" rx="8" ry="6"/><ellipse cx="51" cy="20" rx="8" ry="7"/><ellipse cx="87" cy="28" rx="9" ry="7"/><ellipse cx="105" cy="59" rx="7" ry="9"/><ellipse cx="88" cy="93" rx="8" ry="7"/><ellipse cx="49" cy="99" rx="9" ry="6"/><ellipse cx="15" cy="78" rx="7" ry="8"/></g><g class="cf-art-grain"><circle cx="21" cy="29" r="2"/><circle cx="51" cy="20" r="2"/><circle cx="87" cy="28" r="2"/><circle cx="105" cy="59" r="2"/><circle cx="88" cy="93" r="2"/><circle cx="49" cy="99" r="2"/><circle cx="15" cy="78" r="2"/></g></symbol>
+    <symbol id="cf-art-hippocampal" viewBox="0 0 120 120"><path class="cf-art-branch" d="M62 70L61 31L37 17M61 31L80 14M54 25L53 7M73 20L92 18M37 17L25 9M56 70L34 54L13 52M34 54L30 35M32 55L14 71M64 75L89 58L109 61M89 58L101 39M90 58L99 80M60 81C56 102 70 104 65 118"/><path class="cf-art-membrane" d="M60 48L78 80Q60 92 43 80Z"/><ellipse class="cf-art-nucleus" cx="60" cy="73" rx="6" ry="7"/></symbol>
+    <symbol id="cf-art-intestinal" viewBox="0 0 120 120"><path class="cf-art-membrane" d="M43 17C50 4 67 8 75 21C91 8 107 22 101 39C120 46 117 65 104 72C117 91 100 106 85 98C74 116 55 113 50 101C31 112 16 99 22 83C4 72 10 54 22 48C10 29 25 13 43 17Z"/><path class="cf-art-lumen" d="M49 38C63 29 82 36 86 50S89 79 71 84S43 80 37 63S38 45 49 38Z"/><g class="cf-art-grain"><circle cx="42" cy="26" r="3"/><circle cx="65" cy="22" r="3"/><circle cx="91" cy="32" r="3"/><circle cx="102" cy="55" r="3"/><circle cx="97" cy="86" r="3"/><circle cx="71" cy="99" r="3"/><circle cx="43" cy="92" r="3"/><circle cx="24" cy="68" r="3"/><circle cx="29" cy="40" r="3"/></g></symbol>
+    <symbol id="cf-art-brain" viewBox="0 0 120 120"><path class="cf-art-membrane" d="M34 17C44 6 58 16 67 11S88 14 94 27C111 26 118 42 109 55C120 73 107 87 96 89C90 112 73 107 63 103C47 118 28 107 27 91C7 86 10 68 16 60C4 43 16 24 34 17Z"/><g class="cf-art-branch"><path d="M36 23C57 21 44 44 36 48S30 67 41 74S53 98 38 95M68 18C57 35 71 43 76 51S61 71 66 88S82 99 87 90M91 33C77 38 89 51 96 57S99 77 88 78M25 36C39 37 34 51 24 57M49 50C65 47 60 64 50 67M73 70C85 65 84 79 77 85"/></g><g class="cf-art-grain"><circle cx="47" cy="30" r="2"/><circle cx="75" cy="37" r="2"/><circle cx="56" cy="84" r="2"/><circle cx="96" cy="63" r="2"/></g></symbol>
+    <symbol id="cf-art-muscle" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M4 35Q57 2 115 31Q64 62 4 35Z"/><path d="M5 65Q62 30 116 62Q65 95 5 65Z"/><path d="M5 94Q60 63 116 94Q59 120 5 94Z"/></g><g class="cf-art-nucleus"><ellipse cx="59" cy="32" rx="14" ry="4"/><ellipse cx="62" cy="62" rx="14" ry="4"/><ellipse cx="57" cy="94" rx="14" ry="4"/></g></symbol>
+    <symbol id="cf-art-bath" viewBox="0 0 120 120"><path class="cf-art-branch" d="M35 21V101Q60 115 85 101V21M29 21H91M60 8V34M46 8H74M60 82V106"/><path class="cf-art-membrane" d="M38 52Q60 57 82 52V98Q60 108 38 98Z"/><path class="cf-art-muscle-tissue" d="M52 35Q59 31 68 37L68 78Q59 84 52 78Z"/><g class="cf-art-grain"><circle cx="43" cy="86" r="2"/><circle cx="76" cy="78" r="2"/><circle cx="73" cy="65" r="1.5"/><circle cx="44" cy="68" r="1.5"/></g><path class="cf-art-branch" d="M84 14H99V90"/></symbol>
+    <symbol id="cf-art-recording" viewBox="0 0 120 120"><path class="cf-art-branch" d="M8 30H25L30 12L36 47L43 24L48 31H65M12 98Q57 117 107 97M48 74L27 60L9 62M50 77L29 96M54 79L81 94L101 84M54 71L61 53"/><circle class="cf-art-membrane" cx="52" cy="78" r="13"/><circle class="cf-art-nucleus" cx="52" cy="78" r="4"/><path class="cf-art-muscle-tissue" d="M99 8L110 18L66 68L60 73L62 63Z"/></symbol>
+    <symbol id="cf-art-cardiac" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M22 13L43 9L54 41L76 24L92 40L64 62L84 99L64 112L45 75L25 96L10 79L34 55Z"/></g><g class="cf-art-branch"><path d="M22 31L46 24M29 46L52 38M42 60L62 49M50 77L72 65M57 93L79 82M25 69L36 80M64 43L74 55"/></g><ellipse class="cf-art-nucleus" cx="48" cy="57" rx="5" ry="10"/></symbol>
+  </defs></svg>
+</div>
     <div class="support-priorities"><article class="support-priority"><p class="eyebrow">01 / Ways to support</p><h3 data-c="support.priorities.0.title">Train emerging scientists</h3><p data-c="support.priorities.0.body">Talk with us about supporting hands-on research training and opportunities for students.</p></article>
 <article class="support-priority"><p class="eyebrow">02 / Ways to support</p><h3 data-c="support.priorities.1.title">Enable experiments</h3><p data-c="support.priorities.1.body">Discuss the experimental resources and tools needed to investigate neuronal activity.</p></article>
 <article class="support-priority"><p class="eyebrow">03 / Ways to support</p><h3 data-c="support.priorities.2.title">Advance future studies</h3><p data-c="support.priorities.2.body">Explore opportunities to support the next questions in our CF and CFTR modulator research.</p></article></div>
@@ -2601,93 +2782,28 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
   },
 
   /* ===== 11. CONTACT =====  [ label , value ] — add or remove rows freely */
-  /* Support discovery: replace each stages[].image with a local images/... path.
-     imageAlt and imageCredit describe the actual image; blank image keeps the schematic.
-     Stage descriptions and connecting arrows represent a conceptual research map. */
+  /* Support copy is below. Model media and chapter data are in CF_STORY. */
   support: {
-    "eyebrow": "Support discovery",
-    "heading": "Help us understand how disease changes the nervous system.",
-    "intro": "Explore the models and measurements behind our research, and talk with us about supporting the work ahead.",
-    "focusLabel": "Flagship research",
-    "focusTitle": "Cystic fibrosis & CFTR modulators",
-    "focusQuestion": "How do cystic fibrosis and its treatments affect neuronal function?",
-    "mapHeading": "From cells to living systems",
-    "mapCaption": "A conceptual research map of connected models and measurements. Select a stage to explore its role.",
-    "stages": [
-        {
-            "id": "stem",
-            "title": "Stem cells",
-            "body": "Stem-cell-derived cultures are a starting point in this conceptual map of models and measurements.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        },
-        {
-            "id": "brain",
-            "title": "Brain organoid",
-            "body": "Brain and stem-cell-derived 3D organoids provide models of tissue-level architecture and activity.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        },
-        {
-            "id": "recording",
-            "title": "Electrophysiology",
-            "body": "Patch-clamp and extracellular recordings measure ionic currents and action potentials. Our CF research examines neuronal activity and responses to CFTR modulators.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        },
-        {
-            "id": "ganglia",
-            "title": "Sensory neuronal ganglia",
-            "body": "Sensory neurons and their extending processes link the neuronal models shown in this conceptual research map.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        },
-        {
-            "id": "enteric",
-            "title": "Enteric nervous system",
-            "body": "The map connects neuronal measurements with the nervous system of the gut. Our research links cellular findings with intestinal motility.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        },
-        {
-            "id": "contraction",
-            "title": "Gut-segment contraction",
-            "body": "Tissue recordings measure contractile responses. Gut-segment contraction is one of the functional measurements highlighted in this research map.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        },
-        {
-            "id": "intestinal",
-            "title": "Intestinal organoid",
-            "body": "Intestinal organoids form a complementary model alongside tissue-level gut measurements. Our CF research includes organoid and gut-on-a-chip approaches.",
-            "image": "",
-            "imageAlt": "",
-            "imageCredit": ""
-        }
-    ],
-    "priorities": [
-        {
-            "title": "Train emerging scientists",
-            "body": "Talk with us about supporting hands-on research training and opportunities for students."
-        },
-        {
-            "title": "Enable experiments",
-            "body": "Discuss the experimental resources and tools needed to investigate neuronal activity."
-        },
-        {
-            "title": "Advance future studies",
-            "body": "Explore opportunities to support the next questions in our CF and CFTR modulator research."
-        }
-    ],
-    "invitationHeading": "Be part of the work ahead.",
-    "invitationText": "Interested in contributing? Contact us to discuss the lab’s research priorities and ways to help.",
-    "button": "Discuss supporting our research"
+  "eyebrow": "Support discovery",
+  "heading": "Help us understand how disease changes the nervous system.",
+  "intro": "Explore how cultures, connected models and functional measurements help us investigate cystic fibrosis and CFTR modulators. Support the questions we can ask next.",
+  "priorities": [
+    {
+      "title": "Train emerging scientists",
+      "body": "Talk with us about supporting hands-on research training and opportunities for students."
+    },
+    {
+      "title": "Enable experiments",
+      "body": "Discuss the experimental resources and tools needed to investigate neuronal activity."
+    },
+    {
+      "title": "Advance future studies",
+      "body": "Explore opportunities to support the next questions in our CF and CFTR modulator research."
+    }
+  ],
+  "invitationHeading": "Be part of the work ahead.",
+  "invitationText": "Interested in contributing? Contact us to discuss the lab’s research priorities and ways to help.",
+  "button": "Discuss supporting our research"
 },
 
   contact: {
@@ -2752,15 +2868,6 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
 
   function renderContent(){
     setAll();
-    /* Real stage images replace the corresponding schematic and appear larger in details. */
-    ((SITE.support||{}).stages||[]).forEach(function(stage){
-      var slot=document.getElementById('support-image-'+stage.id),detail=document.getElementById('support-detail-'+stage.id);
-      if(!slot||!detail||!stage.image)return;
-      var im=document.createElement('img');im.src=encodeURI(stage.image);im.alt=stage.imageAlt||stage.title;im.loading='lazy';im.decoding='async';
-      slot.replaceChildren(im);slot.classList.add('has-image');
-      var large=im.cloneNode(true);detail.replaceChildren(large);detail.hidden=false;
-      if(stage.imageCredit){var credit=document.createElement('figcaption');credit.textContent=stage.imageCredit;detail.appendChild(credit);}
-    });
     var supportEmail=document.getElementById('supportEmail');
     var supportAddress=(SITE.contact.rows||[]).find(function(row){return row[2]&&/^mailto:/i.test(row[2]);});
     if(supportEmail&&supportAddress)supportEmail.href=supportAddress[2]+'?subject='+encodeURIComponent('Supporting Campanucci Lab research');
@@ -4553,21 +4660,38 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          pulling CD up dollies the camera back and widens what fits on screen.
          At CD=1 this is identical to the original close-up (scale 1 at z=0). */
       function setCam(){ CAMZ0=S*1.9; F=CAMZ0; CAMZ=CAMZ0*CD; }
-      function resize(){ dpr=Math.min(window.innerWidth<=960?1:2,window.devicePixelRatio||1); W=cvn.clientWidth; H=cvn.clientHeight;
-        cvn.width=Math.max(1,W*dpr); cvn.height=Math.max(1,H*dpr); x.setTransform(dpr,0,0,dpr,0,0);
-        S=Math.min(W,H)*0.62; CX=W*0.5; CY=H*0.48;
-        setCam(); build(); buildBrain(); buildSphere(); }
+      function resize(){
+        var nextDpr=Math.min(window.innerWidth<=960?1:2,window.devicePixelRatio||1),
+            nextW=cvn.clientWidth,nextH=cvn.clientHeight,nextS=Math.min(nextW,nextH)*0.62;
+        if(W>0&&H>0&&nextW===W&&nextH===H&&nextDpr===dpr)return;
+        /* Mobile browser chrome can change height during every scroll gesture.
+           A portrait phone's one-cell world is width-based: retain morphology,
+           connections and active firing while only the viewport recentres.
+           Width/orientation changes still build a correctly sized scene. */
+        var keepWorld=W>0&&nextW===W&&nextS===S&&nextW<=960&&nets.length===1;
+        W=nextW;H=nextH;dpr=nextDpr;
+        cvn.width=Math.max(1,W*dpr);cvn.height=Math.max(1,H*dpr);x.setTransform(dpr,0,0,dpr,0,0);
+        S=nextS;CX=W*0.5;CY=H*0.48;
+        setCam();
+        if(keepWorld){
+          for(var i=0;i<nets.length;i++){nets[i].ax=CX;nets[i].ay=CY;}
+          for(var j=0;j<pulses.length;j++){pulses[j].ax=CX;pulses[j].ay=CY;}
+          for(var k=0;k<vesicles.length;k++){vesicles[k].ax=CX;vesicles[k].ay=CY;}
+        } else {build();buildBrain();buildSphere();}
+      }
 
       /* ---- rotate + perspective-project ---- */
       /* z2 (depth along the view axis) and den (distance from the lens) come
          back too — the brain's depth-of-field is computed from them. */
-      function project(pt,ax,ay){
+      function project(pt,ax,ay,out){
         var X=pt[0],Y=pt[1],Z=pt[2];
         var x1=X*_cy+Z*_sy, z1=-X*_sy+Z*_cy;
         var y2=Y*_cx - z1*_sx, z2=Y*_sx + z1*_cx;
         var den=CAMZ - z2; if(den<1) den=1;
         var sc=F/den, nf=0.5 + z2/(1.4*S); if(nf<0.12)nf=0.12; else if(nf>1)nf=1;
-        return {sx:ax + x1*sc, sy:ay + y2*sc, sc:sc, nf:nf, z2:z2, den:den};
+        out=out||{};
+        out.sx=ax+x1*sc; out.sy=ay+y2*sc; out.sc=sc; out.nf=nf; out.z2=z2; out.den=den;
+        return out;
       }
       /* LIVEA fades the LIVE scene (the two big cells and the stray fibres)
          without touching the brain: every live draw goes through drawFiber /
@@ -5592,8 +5716,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
           x.quadraticCurveTo(cp[0],cp[1],B._p.sx,B._p.sy); x.stroke();
           x.strokeStyle=rgba([150,255,225],0.20*al*glowUp*soft);
           x.lineWidth=0.7;
-          x.beginPath(); x.moveTo(A._p.sx,A._p.sy);
-          x.quadraticCurveTo(cp[0],cp[1],B._p.sx,B._p.sy); x.stroke();
+          x.stroke();                       /* same curve, thinner bright core */
         }
         /* --- action potentials running the axons --- */
         for(i=bSparks.length-1;i>=0;i--){
@@ -5664,52 +5787,74 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
          polyline (with the tip interpolated so it extends smoothly rather than
          snapping point to point), or null if it has not started growing. */
       function grownPart(b,g){
-        if(b.gA==null) return {pts:b.pts, rm:b.rm};
+        if(b.gA==null) return b;
         var f=(g-b.gA)/(b.gB-b.gA);
         if(f<=0) return null;
-        if(f>=1) return {pts:b.pts, rm:b.rm};
+        if(f>=1) return b;
         var pts=b.pts, n=pts.length, at=(n-1)*f, i=Math.floor(at), t=at-i;
-        var op=pts.slice(0,i+1), orm=b.rm?b.rm.slice(0,i+1):null;
+        /* The growing tip moves every frame; its storage does not have to.
+           Keep original world points shared and reuse only the temporary tip. */
+        var part=b._grown||(b._grown={pts:[],rm:b.rm?[]:null,tip:[0,0,0]}),
+            op=part.pts, orm=part.rm, j;
+        op.length=i+1; if(orm) orm.length=i+1;
+        for(j=0;j<=i;j++){op[j]=pts[j];if(orm)orm[j]=b.rm[j];}
         if(i+1<n && t>0){
-          var a=pts[i], c=pts[i+1];
-          op.push([a[0]+(c[0]-a[0])*t, a[1]+(c[1]-a[1])*t, a[2]+(c[2]-a[2])*t]);
+          var a=pts[i], c=pts[i+1], tip=part.tip;
+          tip[0]=a[0]+(c[0]-a[0])*t; tip[1]=a[1]+(c[1]-a[1])*t; tip[2]=a[2]+(c[2]-a[2])*t;
+          op.push(tip);
           if(orm) orm.push(b.rm[i]+(b.rm[i+1]-b.rm[i])*t);
         }
-        if(op.length<2) return null;
-        return {pts:op, rm:orm};
+        return op.length<2?null:part;
+      }
+      /* Scratch storage is shared by sequential fibre draws, including the
+         offscreen morphology painter. Geometry and all three glow layers stay
+         identical; each normal is calculated once instead of four to six times. */
+      var fiberProjection=[],fiberWidth=[],fiberNX=[],fiberNY=[];
+      function fiberRibbon(n,mul){
+        var pj=fiberProjection,hw=fiberWidth,i,w;
+        x.beginPath();
+        for(i=0;i<n;i++){
+          w=hw[i]*mul;
+          if(i)x.lineTo(pj[i].sx+fiberNX[i]*w,pj[i].sy+fiberNY[i]*w);
+          else x.moveTo(pj[i].sx+fiberNX[i]*w,pj[i].sy+fiberNY[i]*w);
+        }
+        for(i=n-1;i>=0;i--){
+          w=hw[i]*mul;
+          x.lineTo(pj[i].sx-fiberNX[i]*w,pj[i].sy-fiberNY[i]*w);
+        }
+        x.closePath();
+      }
+      function fiberPass(n,mul,style){
+        var pj=fiberProjection,hw=fiberWidth;
+        x.globalAlpha=1;x.fillStyle=style;
+        fiberRibbon(n,mul);x.fill();
+        /* Separate cap paths prevent the fill rule cancelling ribbon overlap. */
+        x.beginPath();x.arc(pj[0].sx,pj[0].sy,Math.max(0.3,hw[0]*mul),0,6.2832);x.fill();
+        x.beginPath();x.arc(pj[n-1].sx,pj[n-1].sy,Math.max(0.3,hw[n-1]*mul),0,6.2832);x.fill();
       }
       function drawFiber(pts,rm,rad,col,ax,ay){
-        var n=pts.length, pj=[], near=0, sc=0, i, pr, hw=[];
-        for(i=0;i<n;i++){ pr=project(pts[i],ax,ay); pj.push(pr); near+=pr.nf; sc+=pr.sc; }
-        near/=n; sc/=n;
-        for(i=0;i<n;i++){ hw.push(Math.min(18, Math.max(0.4, rad*(rm?rm[i]:1)*pj[i].sc*0.5))); }
+        var n=pts.length,pj=fiberProjection,hw=fiberWidth,near=0,sc=0,i,pr,
+            minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+        for(i=0;i<n;i++){
+          pr=project(pts[i],ax,ay,pj[i]||(pj[i]={}));near+=pr.nf;sc+=pr.sc;
+          hw[i]=Math.min(18,Math.max(0.4,rad*(rm?rm[i]:1)*pr.sc*0.5));
+          if(pr.sx<minX)minX=pr.sx;if(pr.sx>maxX)maxX=pr.sx;
+          if(pr.sy<minY)minY=pr.sy;if(pr.sy>maxY)maxY=pr.sy;
+        }
+        /* Max half-width 18 * widest layer 2.3, plus antialiasing allowance.
+           A ribbon wholly outside this box cannot paint a visible pixel.
+           Sprite painting has another transform and must never be culled. */
+        if(!SPRITE&&(maxX < -44||minX > W+44||maxY < -44||minY > H+44))return;
+        near/=n;sc/=n;
+        for(i=0;i<n;i++){
+          var a=pj[i>0?i-1:0],b=pj[i<n-1?i+1:n-1],dx=b.sx-a.sx,dy=b.sy-a.sy,
+              len=Math.hypot(dx,dy)||1;
+          fiberNX[i]=-dy/len;fiberNY[i]=dx/len;
+        }
         var nf=(0.4+near)*LIVEA;
-        function ribbon(mul){
-          var i2,a,b,dx,dy,L,nx,ny,w;
-          x.beginPath();
-          for(i2=0;i2<n;i2++){
-            a=pj[i2>0?i2-1:0]; b=pj[i2<n-1?i2+1:n-1];
-            dx=b.sx-a.sx; dy=b.sy-a.sy; L=Math.hypot(dx,dy)||1; nx=-dy/L; ny=dx/L; w=hw[i2]*mul;
-            if(i2) x.lineTo(pj[i2].sx+nx*w, pj[i2].sy+ny*w); else x.moveTo(pj[i2].sx+nx*w, pj[i2].sy+ny*w);
-          }
-          for(i2=n-1;i2>=0;i2--){
-            a=pj[i2>0?i2-1:0]; b=pj[i2<n-1?i2+1:n-1];
-            dx=b.sx-a.sx; dy=b.sy-a.sy; L=Math.hypot(dx,dy)||1; nx=-dy/L; ny=dx/L; w=hw[i2]*mul;
-            x.lineTo(pj[i2].sx-nx*w, pj[i2].sy-ny*w);
-          }
-          x.closePath();
-        }
-        /* caps are filled as their OWN paths — appending arcs to the ribbon would let the
-           nonzero fill rule cancel the overlap and punch holes at every joint. */
-        function pass(mul,style){
-          x.globalAlpha=1; x.fillStyle=style;
-          ribbon(mul); x.fill();
-          x.beginPath(); x.arc(pj[0].sx, pj[0].sy, Math.max(0.3,hw[0]*mul), 0, 6.2832); x.fill();
-          x.beginPath(); x.arc(pj[n-1].sx, pj[n-1].sy, Math.max(0.3,hw[n-1]*mul), 0, 6.2832); x.fill();
-        }
-        if(rad*sc>1.6){ pass(2.3, rgba(col,(COL.dark?0.06:0.04)*nf)); }
-        pass(1,    rgba(col,(COL.dark?0.30:0.20)*nf));
-        pass(0.38, rgba(bright(col),(COL.dark?0.42:0.26)*nf));
+        if(rad*sc>1.6)fiberPass(n,2.3,rgba(col,(COL.dark?0.06:0.04)*nf));
+        fiberPass(n,1,rgba(col,(COL.dark?0.30:0.20)*nf));
+        fiberPass(n,0.38,rgba(bright(col),(COL.dark?0.42:0.26)*nf));
       }
       function drawPuncta(list,ax,ay,reach){
         for(var i=0;i<list.length;i++){
@@ -5901,8 +6046,41 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
         drawAuras();                        /* yellow scroll waves, over it all */
         x.globalCompositeOperation="source-over"; x.globalAlpha=1;
       }
+      /* Opt-in real-device measurement: append ?debug=performance to the URL.
+         No overlay, timer, samples or layout reads exist in the normal view.
+         Frame intervals measure delivered animation cadence; CPU timing measures
+         JS and canvas command submission, not asynchronous GPU completion. */
+      var performanceProbe=(function(){
+        if(!/[?&]debug=performance(?:&|$)/i.test(location.search))return null;
+        var panel=document.createElement("div"),lastFrame=0,lastPaint=0,
+            intervals=[],cpu=0,frames=0,worst=0;
+        panel.id="performance-monitor";panel.setAttribute("aria-hidden","true");
+        panel.style.cssText="position:fixed;right:8px;bottom:8px;z-index:99999;"+
+          "max-width:calc(100vw - 16px);box-sizing:border-box;padding:9px 11px;"+
+          "background:rgba(9,11,15,.94);border:1px solid #cbb998;border-radius:8px;"+
+          "color:#f3f0e9;font:11px/1.5 ui-monospace,Consolas,monospace;white-space:pre;pointer-events:none";
+        panel.textContent=reduce?"Performance monitor: reduced motion (static)":"Performance monitor: sampling...";
+        document.body.appendChild(panel);
+        document.addEventListener("visibilitychange",function(){lastFrame=0;lastPaint=0;intervals.length=0;cpu=0;frames=0;});
+        return function(now,elapsed){
+          if(lastFrame){var dt=now-lastFrame;intervals.push(dt);if(dt>worst)worst=dt;}
+          lastFrame=now;cpu+=elapsed;frames++;
+          if(!lastPaint){lastPaint=now;return;}
+          if(now-lastPaint<1000||!intervals.length)return;
+          var sorted=intervals.slice().sort(function(a,b){return a-b;}),sum=0;
+          for(var i=0;i<intervals.length;i++)sum+=intervals[i];
+          var fps=sum>0?1000*intervals.length/sum:0,p95=sorted[Math.floor((sorted.length-1)*.95)];
+          panel.textContent="LIVE FRAME MONITOR\n"+
+            fps.toFixed(1)+" fps | p95 "+p95.toFixed(1)+" ms\n"+
+            "Worst interval "+worst.toFixed(1)+" ms\n"+
+            "JS + canvas submit "+(cpu/frames).toFixed(1)+" ms/frame\n"+
+            "Canvas "+cvn.width+"x"+cvn.height+" | viewport "+window.innerWidth+"x"+window.innerHeight;
+          intervals.length=0;cpu=0;frames=0;lastPaint=now;
+        };
+      })();
       var phX=0;
       function loop(){
+        var frameStart=performanceProbe?perf():0;
         /* Held still while the intro plays, so the wave reveals a motionless
            cell. Both the spin and the tilt are scaled by the wake factor, so
            the cell eases into motion rather than jerking to full speed. */
@@ -5938,7 +6116,9 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
         CD  += (CDt-CD)*camK();
         CAMZ = CAMZ0*CD;                    /* the dolly IS the zoom-out */
         REV += (REVt-REV)*0.05;             /* ...and the brain build-up */
-        drawScene(); raf=requestAnimationFrame(loop);
+        drawScene();
+        if(performanceProbe)performanceProbe(frameStart,perf()-frameStart);
+        raf=requestAnimationFrame(loop);
       }
       /* THE DOLLY'S EASE RATE.
          Normally a flat 0.028 — deliberately lazy, so the opening pull-back
@@ -6750,47 +6930,628 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
   sync();
 })();
 </script>
-<script id="support-map-interactions">
-/* A responsive research map: connections follow illustration positions, not fixed pixels. */
+<script id="cf-story-data">
+var CF_STORY = {
+  "models": {
+    "stem": {
+      "title": "Human stem cells",
+      "label": "Human stem cells",
+      "kind": "Current culture",
+      "symbol": "stem",
+      "color": "blue",
+      "body": "Human stem cell cultures are part of our living library. They provide a starting point for the lab’s stem-cell-derived models, with further neuronal and cardiac differentiation planned.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "drg": {
+      "title": "DRG neurons",
+      "label": "DRG neurons",
+      "kind": "Current culture",
+      "symbol": "drg",
+      "color": "blue",
+      "body": "Dorsal root ganglion (DRG) neurons are one of our primary neuronal cultures. We combine DRG neurons with enteric neurons and intestinal organoids in co-culture to study relationships between these components.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "scg": {
+      "title": "SCG neurons",
+      "label": "SCG neurons",
+      "kind": "Current culture",
+      "symbol": "scg",
+      "color": "violet",
+      "body": "Superior cervical ganglion (SCG) neurons are part of our primary neuronal culture work. Bringing SCG neurons together with cardiac muscle is a future direction.",
+      "image": "images/SCG.webp",
+      "video": "",
+      "poster": "",
+      "credit": "Image: Minh Vu",
+      "imageAlt": "Fluorescence microscopy of a superior cervical ganglion neuron."
+    },
+    "ens": {
+      "title": "Enteric neurons",
+      "label": "Enteric neurons",
+      "kind": "Current culture",
+      "symbol": "ens",
+      "color": "blue",
+      "body": "Enteric neurons provide a model of the nervous system of the gut. Our co-culture work brings these neurons together with DRG neurons and intestinal organoids.",
+      "image": "images/ENS.webp",
+      "video": "",
+      "poster": "",
+      "credit": "",
+      "imageAlt": "Fluorescence microscopy of enteric neurons."
+    },
+    "hippocampal": {
+      "title": "Hippocampal neurons",
+      "label": "Hippocampal neurons",
+      "kind": "Current culture",
+      "symbol": "hippocampal",
+      "color": "violet",
+      "body": "Hippocampal neurons are part of our primary neuronal culture library. Planned brain-related studies will investigate responses to CFTR modulators and potential mechanisms relevant to reported neuropsychiatric symptoms.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "intestinal": {
+      "title": "Intestinal organoids",
+      "label": "Intestinal organoids",
+      "kind": "Current culture",
+      "symbol": "intestinal",
+      "color": "gold",
+      "body": "Intestinal organoid cultures are a component of our DRG–enteric neuron–intestinal organoid co-cultures. They allow us to investigate connections between neuronal and intestinal models.",
+      "image": "images/Organoid.webp",
+      "video": "",
+      "poster": "",
+      "credit": "",
+      "imageAlt": "Fluorescence microscopy of an intestinal organoid."
+    },
+    "brain": {
+      "title": "Human-stem-cell-derived brain organoids",
+      "label": "Brain organoids",
+      "kind": "Current culture · human stem-cell-derived",
+      "symbol": "brain",
+      "color": "violet",
+      "body": "These brain organoids are derived from human stem cells. Together with hippocampal neuronal cultures, they form part of the lab’s planned brain research into CF and responses to CFTR modulators.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "muscle": {
+      "title": "Smooth muscle culture",
+      "label": "Smooth muscle",
+      "kind": "Current culture",
+      "symbol": "muscle",
+      "color": "gold",
+      "body": "Smooth muscle culture lets us observe contraction at the cellular level. This preparation complements intestinal organ-bath studies; it is shown here as a separate experiment.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "bath": {
+      "title": "Intestinal organ bath",
+      "label": "Intestinal organ bath",
+      "kind": "Tissue preparation",
+      "symbol": "bath",
+      "color": "gold",
+      "body": "The intestinal organ bath studies contraction in an intact tissue preparation. This provides a tissue-level view alongside the lab’s cultured-cell experiments.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "recording": {
+      "title": "Electrophysiology",
+      "label": "Electrical recordings",
+      "kind": "Measurement approach",
+      "symbol": "recording",
+      "color": "blue",
+      "body": "Electrophysiological recordings measure electrical activity. They are one of the approaches we use to investigate neuronal function and responses across our research models.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "futureNeuron": {
+      "title": "Stem-cell-derived neuronal cultures",
+      "label": "Neuronal cultures",
+      "kind": "Planned differentiation",
+      "symbol": "hippocampal",
+      "color": "blue",
+      "planned": true,
+      "body": "A future direction is to differentiate human stem cells into neuronal cultures. This planned branch is distinct from the primary neuronal cultures already in the lab.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "cardiac": {
+      "title": "Stem-cell-derived cardiac muscle",
+      "label": "Cardiac muscle",
+      "kind": "Planned differentiation & co-culture",
+      "symbol": "cardiac",
+      "color": "gold",
+      "planned": true,
+      "body": "We plan to differentiate human stem cells into cardiac muscle cells and explore a future co-culture with SCG neurons. These connections form part of the lab’s future development.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    }
+  },
+  "chapters": [
+    {
+      "id": "library",
+      "nav": "Living library",
+      "kicker": "01 / The starting point",
+      "title": "Many models. One shared question.",
+      "body": "From individual cells to three-dimensional organoids, each preparation gives us a different window into cystic fibrosis.",
+      "note": "Select a specimen to meet the models behind the work.",
+      "status": "Current cultures & preparations",
+      "models": [
+        "stem",
+        "drg",
+        "scg",
+        "ens",
+        "hippocampal",
+        "intestinal",
+        "brain",
+        "muscle",
+        "bath"
+      ],
+      "positions": [
+        [
+          17,
+          17
+        ],
+        [
+          50,
+          17
+        ],
+        [
+          83,
+          17
+        ],
+        [
+          17,
+          48
+        ],
+        [
+          50,
+          48
+        ],
+        [
+          83,
+          48
+        ],
+        [
+          17,
+          79
+        ],
+        [
+          50,
+          79
+        ],
+        [
+          83,
+          79
+        ]
+      ],
+      "mobile": [
+        [
+          25,
+          10
+        ],
+        [
+          75,
+          10
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          75,
+          29
+        ],
+        [
+          25,
+          48
+        ],
+        [
+          75,
+          48
+        ],
+        [
+          25,
+          67
+        ],
+        [
+          75,
+          67
+        ],
+        [
+          50,
+          86
+        ]
+      ],
+      "links": [],
+      "caption": "Primary cultures, stem-cell-derived models and tissue preparations offer complementary views.",
+      "defaultModel": "stem"
+    },
+    {
+      "id": "gut",
+      "nav": "Gut connections",
+      "kicker": "02 / Bring the components together",
+      "title": "Connections change the question.",
+      "body": "We combine DRG neurons, enteric neurons and intestinal organoids in co-culture to study the relationships between these components.",
+      "note": "Follow the links, then select each component to explore its role.",
+      "status": "Current co-culture",
+      "models": [
+        "drg",
+        "ens",
+        "intestinal"
+      ],
+      "positions": [
+        [
+          22,
+          30
+        ],
+        [
+          73,
+          30
+        ],
+        [
+          50,
+          76
+        ]
+      ],
+      "mobile": [
+        [
+          26,
+          24
+        ],
+        [
+          74,
+          24
+        ],
+        [
+          50,
+          73
+        ]
+      ],
+      "links": [
+        [
+          "drg",
+          "ens"
+        ],
+        [
+          "ens",
+          "intestinal"
+        ],
+        [
+          "intestinal",
+          "drg"
+        ]
+      ],
+      "caption": "Co-culture relationships — explore how the components interact.",
+      "defaultModel": "ens"
+    },
+    {
+      "id": "signals",
+      "nav": "Read the signals",
+      "kicker": "03 / Measure function",
+      "title": "Listen to activity. Watch movement.",
+      "body": "Electrical recordings, smooth muscle culture and the intestinal organ bath offer complementary ways to investigate function.",
+      "note": "Select a preparation to explore electrical activity and contraction.",
+      "status": "Complementary measurements",
+      "models": [
+        "recording",
+        "muscle",
+        "bath"
+      ],
+      "positions": [
+        [
+          25,
+          29
+        ],
+        [
+          75,
+          29
+        ],
+        [
+          50,
+          74
+        ]
+      ],
+      "mobile": [
+        [
+          26,
+          25
+        ],
+        [
+          74,
+          25
+        ],
+        [
+          50,
+          74
+        ]
+      ],
+      "links": [],
+      "caption": "Complementary preparations connect cellular activity with tissue-level function.",
+      "defaultModel": "recording"
+    },
+    {
+      "id": "brain",
+      "nav": "Brain questions",
+      "kicker": "04 / Investigate an open question",
+      "title": "What might change in the brain?",
+      "body": "Planned studies using hippocampal neurons and human-stem-cell-derived brain organoids will explore potential mechanisms relevant to reported neuropsychiatric symptoms during CFTR-modulator treatment.",
+      "note": "From a reported symptom to a testable biological question.",
+      "status": "Planned research direction",
+      "models": [
+        "hippocampal",
+        "brain"
+      ],
+      "positions": [
+        [
+          28,
+          46
+        ],
+        [
+          74,
+          46
+        ]
+      ],
+      "mobile": [
+        [
+          26,
+          46
+        ],
+        [
+          74,
+          46
+        ]
+      ],
+      "links": [],
+      "caption": "Hippocampal neurons and brain organoids provide complementary models for planned brain studies.",
+      "defaultModel": "brain"
+    },
+    {
+      "id": "future",
+      "nav": "Future connections",
+      "kicker": "05 / The work ahead",
+      "title": "The next connection starts here.",
+      "body": "We plan to differentiate human stem cells into neuronal cultures and cardiac muscle, and to bring SCG neurons together with cardiac muscle in a future co-culture.",
+      "note": "Support can help us develop the models and experiments needed to pursue these questions.",
+      "status": "Future development",
+      "models": [
+        "stem",
+        "futureNeuron",
+        "cardiac",
+        "scg"
+      ],
+      "positions": [
+        [
+          23,
+          24
+        ],
+        [
+          74,
+          24
+        ],
+        [
+          70,
+          74
+        ],
+        [
+          22,
+          74
+        ]
+      ],
+      "mobile": [
+        [
+          26,
+          22
+        ],
+        [
+          74,
+          22
+        ],
+        [
+          74,
+          72
+        ],
+        [
+          26,
+          72
+        ]
+      ],
+      "links": [
+        [
+          "stem",
+          "futureNeuron",
+          "planned"
+        ],
+        [
+          "stem",
+          "cardiac",
+          "planned"
+        ],
+        [
+          "scg",
+          "cardiac",
+          "planned"
+        ]
+      ],
+      "caption": "Dashed paths mark planned differentiation and co-culture.",
+      "defaultModel": "cardiac"
+    }
+  ],
+  "comparisons": {
+    "model": {
+      "wt": {
+        "title": "Wild-type comparison",
+        "body": "Wild-type controls provide a reference for studying differences associated with cystic fibrosis. The comparison will be defined for each experimental model."
+      },
+      "cf": {
+        "title": "Cystic fibrosis models",
+        "body": "Our research aims to investigate cystic fibrosis across these models and compare it with wild-type controls."
+      }
+    },
+    "treatment": {
+      "control": {
+        "title": "Control condition",
+        "body": "A reference condition helps interpret the treatment comparison. The appropriate control depends on the experimental model and protocol."
+      },
+      "eti": {
+        "title": "Trikafta / ETI",
+        "body": "Elexacaftor + tezacaftor + ivacaftor. ETI is one of the CFTR-modulator treatment combinations of interest in these research comparisons."
+      },
+      "vtd": {
+        "title": "Alyftrek / VTD",
+        "body": "Vanzacaftor + tezacaftor + deutivacaftor. VTD is another CFTR-modulator treatment combination of interest in these research comparisons."
+      }
+    }
+  }
+};
+
+</script>
+<script id="cf-story-interactions">
 (function(){
   'use strict';
-  var map=document.getElementById('supportMap');if(!map)return;
-  var svg=map.querySelector('.support-wires'),buttons=Array.from(map.querySelectorAll('.support-stage'));
-  var panels=Array.from(document.querySelectorAll('.support-stage-panel'));
-  var pairs=[['stem','brain'],['brain','recording'],['recording','ganglia'],['ganglia','enteric'],['enteric','contraction'],['enteric','intestinal']];
-  var active='stem',frame=0;
-  function connection(a,b,vertical){
-    if(vertical){var x1=a.x+a.w/2,y1=a.y+a.h+6,x2=b.x+b.w/2,y2=b.y-8,my=(y1+y2)/2;return 'M'+x1+','+y1+' C'+x1+','+my+' '+x2+','+my+' '+x2+','+y2;}
-    var x1=a.x+a.w+6,y1=a.y+a.h/2,x2=b.x-8,y2=b.y+b.h/2,mx=(x1+x2)/2;return 'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2;
+  var root=document.getElementById('cfStory');
+  if(!root||typeof CF_STORY==='undefined')return;
+  var data=CF_STORY,stage=document.getElementById('cfStage'),specimens=document.getElementById('cfSpecimens');
+  var wires=document.getElementById('cfConnections'),chapterButtons=Array.from(root.querySelectorAll('[data-cf-chapter]'));
+  var next=document.getElementById('cfNext'),prev=document.getElementById('cfPrev'),tour=document.getElementById('cfTour');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),chapterIndex=0,selected='',nodes={},connections=[],tourTimer=0,motionTimer=0;
+  var currentModel='cf',currentTreatment='control',playing=false,inView=false,stageInView=false,mediaCache={};
+  var ns='http://www.w3.org/2000/svg';
+  function byId(id){return document.getElementById(id);}
+  function put(id,value){byId(id).textContent=value;}
+  function svgNode(tag,attrs){var el=document.createElementNS(ns,tag);Object.keys(attrs).forEach(function(k){el.setAttribute(k,attrs[k]);});return el;}
+  function safePlay(video){var result=video.play();if(result&&result.catch)result.catch(function(){});}
+  function showMedia(id){
+    var m=data.models[id],host=byId('cfDetailMedia');
+    Object.keys(mediaCache).forEach(function(key){mediaCache[key].hidden=key!==id;});
+    if(mediaCache[id]){var cachedVideo=mediaCache[id].querySelector('video');if(cachedVideo&&cachedVideo.paused)safePlay(cachedVideo);return;}
+    if(!m.image&&!m.video)return;
+    var figure=document.createElement('figure');figure.className='cf-detail-media';
+    if(m.video){
+      var video=document.createElement('video');video.autoplay=true;video.loop=true;video.muted=true;video.defaultMuted=true;video.playsInline=true;
+      video.setAttribute('autoplay','');video.setAttribute('loop','');video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('aria-label',m.title);video.preload='metadata';
+      if(m.poster)video.poster=m.poster;video.src=m.video;
+      video.addEventListener('canplay',function(){safePlay(video);});
+      video.addEventListener('ended',function(){video.currentTime=0;safePlay(video);});
+      figure.appendChild(video);safePlay(video);
+    }else{
+      var image=document.createElement('img');image.src=m.image;image.alt=m.imageAlt||m.title;image.loading='lazy';image.decoding='async';figure.appendChild(image);
+    }
+    if(m.credit){var caption=document.createElement('figcaption');caption.textContent=m.credit;figure.appendChild(caption);}
+    host.appendChild(figure);mediaCache[id]=figure;
   }
-  var paths=pairs.map(function(pair){var p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('class','support-wire');p.setAttribute('marker-end','url(#support-map-arrow)');svg.appendChild(p);return p;});
-  function highlight(){paths.forEach(function(p,i){p.classList.toggle('is-active',pairs[i].indexOf(active)>=0);});}
-  function draw(){
-    frame=0;var box=map.getBoundingClientRect();if(!box.width||!box.height)return;
-    svg.setAttribute('viewBox','0 0 '+box.width+' '+box.height);
-    var vertical=window.matchMedia('(max-width: 760px)').matches;
-    var rects={};buttons.forEach(function(b){var r=(vertical?b:b.querySelector('.support-illustration')).getBoundingClientRect();rects[b.dataset.stage]={x:r.left-box.left,y:r.top-box.top,w:r.width,h:r.height};});
-    paths.forEach(function(p,i){p.setAttribute('d',connection(rects[pairs[i][0]],rects[pairs[i][1]],vertical));});highlight();
+  function resumeVideos(){Object.keys(mediaCache).forEach(function(id){var figure=mediaCache[id],video=figure.querySelector('video');if(!figure.hidden&&video&&video.paused)safePlay(video);});}
+  function selectSpecimen(id,manual){
+    if(!nodes[id]||data.chapters[chapterIndex].models.indexOf(id)<0)return;
+    if(manual)stopTour();selected=id;
+    Object.keys(nodes).forEach(function(key){nodes[key].setAttribute('aria-pressed',String(key===id));});
+    var m=data.models[id];put('cfDetailKind',m.kind);put('cfDetailTitle',m.title);put('cfDetailBody',m.body);showMedia(id);
+    connections.forEach(function(link){link.line.classList.toggle('is-selected',link.ids.indexOf(id)>=0);});
   }
-  function schedule(){if(!frame)frame=requestAnimationFrame(draw);}
-  function select(button){
-    active=button.dataset.stage;
-    buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
-    panels.forEach(function(p){p.hidden=p.id!==button.getAttribute('aria-controls');});highlight();
-  }
-  buttons.forEach(function(b,i){
-    b.addEventListener('click',function(){select(b);});
-    b.addEventListener('keydown',function(e){
-      var next=i;if(e.key==='ArrowRight'||e.key==='ArrowDown')next=(i+1)%buttons.length;
-      else if(e.key==='ArrowLeft'||e.key==='ArrowUp')next=(i+buttons.length-1)%buttons.length;
-      else if(e.key==='Home')next=0;else if(e.key==='End')next=buttons.length-1;else return;
-      e.preventDefault();buttons[next].focus({preventScroll:true});select(buttons[next]);
+  Object.keys(data.models).forEach(function(id){
+    var m=data.models[id],button=document.createElement('button');button.type='button';button.className='cf-specimen is-'+m.color+(m.planned?' is-planned':'');button.dataset.cfSpecimen=id;
+    button.setAttribute('aria-label',m.title+(m.planned?' — planned':''));button.setAttribute('aria-controls','cfSpecimenDetail');button.setAttribute('aria-pressed','false');button.tabIndex=-1;
+    var art=document.createElement('span');art.className='cf-specimen-art';art.setAttribute('aria-hidden','true');
+    var svg=svgNode('svg',{viewBox:'0 0 120 120',focusable:'false'}),use=svgNode('use',{href:'#cf-art-'+m.symbol});svg.appendChild(use);art.appendChild(svg);button.appendChild(art);
+    if(m.planned){var badge=document.createElement('span');badge.className='cf-specimen-flag';badge.textContent='PLANNED';button.appendChild(badge);}
+    var name=document.createElement('span');name.className='cf-specimen-name';name.textContent=m.label;button.appendChild(name);specimens.appendChild(button);nodes[id]=button;
+    button.addEventListener('click',function(){selectSpecimen(id,true);});
+    button.addEventListener('keydown',function(event){
+      var list=data.chapters[chapterIndex].models,at=list.indexOf(id),target=at;
+      if(event.key==='ArrowRight'||event.key==='ArrowDown')target=(at+1)%list.length;
+      else if(event.key==='ArrowLeft'||event.key==='ArrowUp')target=(at+list.length-1)%list.length;
+      else if(event.key==='Home')target=0;else if(event.key==='End')target=list.length-1;else return;
+      event.preventDefault();nodes[list[target]].focus({preventScroll:true});selectSpecimen(list[target],true);
     });
   });
-  if(window.ResizeObserver){var ro=new ResizeObserver(schedule);ro.observe(map);buttons.forEach(function(b){ro.observe(b);});}
-  window.addEventListener('resize',schedule);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(schedule);
-  if(buttons.length)select(buttons[0]);schedule();
+  function curve(a,b){
+    var dx=b.x-a.x,dy=b.y-a.y,d=Math.max(1,Math.sqrt(dx*dx+dy*dy)),gap=Math.min(50,d*.23),ux=dx/d,uy=dy/d;
+    var x1=a.x+ux*gap,y1=a.y+uy*gap,x2=b.x-ux*gap,y2=b.y-uy*gap,bend=Math.min(35,d*.1);
+    return 'M'+x1.toFixed(2)+' '+y1.toFixed(2)+' Q'+((x1+x2)/2-uy*bend).toFixed(2)+' '+((y1+y2)/2+ux*bend).toFixed(2)+' '+x2.toFixed(2)+' '+y2.toFixed(2);
+  }
+  function draw(){
+    var width=stage.clientWidth;if(!width)return;
+    var compact=width<370;stage.classList.toggle('is-compact',compact);
+    var height=stage.clientHeight,chapter=data.chapters[chapterIndex],positions=compact?chapter.mobile:chapter.positions,points={};
+    chapter.models.forEach(function(id,index){var button=nodes[id],p=positions[index],x=p[0]*width/100,y=p[1]*height/100;
+      button.style.transform='translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px) translate(-50%,-50%)';
+      var art=button.querySelector('.cf-specimen-art');points[id]={x:x,y:y-(button.offsetHeight-art.offsetHeight)/2};
+    });
+    wires.setAttribute('viewBox','0 0 '+width+' '+height);wires.replaceChildren();connections=[];
+    chapter.links.forEach(function(pair){var d=curve(points[pair[0]],points[pair[1]]),planned=pair[2]==='planned';
+      var line=svgNode('path',{d:d,'class':'cf-connection'+(planned?' is-planned':''),pathLength:'100'});
+      var pulse=svgNode('path',{d:d,'class':'cf-signal'+(planned?' is-planned':''),pathLength:'100'});
+      line.classList.toggle('is-selected',pair.indexOf(selected)>=0);wires.appendChild(line);wires.appendChild(pulse);connections.push({ids:pair,line:line});
+    });
+  }
+  function setChapter(index,manual){
+    if(index<0||index>=data.chapters.length)return;if(manual)stopTour();chapterIndex=index;
+    var chapter=data.chapters[index];root.classList.add('is-moving');if(motionTimer)clearTimeout(motionTimer);
+    stage.dataset.chapter=chapter.id;chapterButtons.forEach(function(button,i){button.setAttribute('aria-pressed',String(i===index));});
+    put('cfChapterKicker',chapter.kicker);put('cfChapterTitle',chapter.title);put('cfChapterBody',chapter.body);put('cfChapterNote',chapter.note);put('cfChapterStatus',chapter.status);put('cfStageCaption',chapter.caption);put('cfChapterCount',String(index+1).padStart(2,'0')+' / '+String(data.chapters.length).padStart(2,'0'));
+    prev.disabled=index===0;next.disabled=index===data.chapters.length-1;
+    Object.keys(nodes).forEach(function(id){var active=chapter.models.indexOf(id)>=0;nodes[id].classList.toggle('is-active',active);nodes[id].tabIndex=active?0:-1;nodes[id].setAttribute('aria-hidden',String(!active));});
+    selectSpecimen(chapter.defaultModel,false);draw();
+    motionTimer=setTimeout(function(){root.classList.remove('is-moving');motionTimer=0;},reduce.matches?0:620);
+  }
+  function stopTour(){if(tourTimer)clearTimeout(tourTimer);tourTimer=0;playing=false;tour.setAttribute('aria-pressed','false');tour.textContent='▷ Play story';}
+  function tourStep(){
+    if(!playing||!inView||document.hidden||reduce.matches){stopTour();return;}
+    if(chapterIndex===data.chapters.length-1){stopTour();return;}
+    setChapter(chapterIndex+1,false);tourTimer=setTimeout(tourStep,9000);
+  }
+  function startTour(){
+    if(reduce.matches||!inView||document.hidden)return;
+    if(chapterIndex===data.chapters.length-1)setChapter(0,false);
+    playing=true;tour.setAttribute('aria-pressed','true');tour.textContent='Ⅱ Pause story';tourTimer=setTimeout(tourStep,9000);
+  }
+  chapterButtons.forEach(function(button,index){
+    button.addEventListener('click',function(){setChapter(index,true);});
+    button.addEventListener('keydown',function(event){var target=index;
+      if(event.key==='ArrowRight'||event.key==='ArrowDown')target=Math.min(data.chapters.length-1,index+1);
+      else if(event.key==='ArrowLeft'||event.key==='ArrowUp')target=Math.max(0,index-1);
+      else if(event.key==='Home')target=0;else if(event.key==='End')target=data.chapters.length-1;else return;
+      event.preventDefault();chapterButtons[target].focus({preventScroll:true});setChapter(target,true);
+    });
+  });
+  prev.addEventListener('click',function(){setChapter(chapterIndex-1,true);});next.addEventListener('click',function(){setChapter(chapterIndex+1,true);});
+  tour.addEventListener('click',function(){if(playing)stopTour();else startTour();});
+  function explanation(id,item){var p=byId(id),strong=document.createElement('strong');strong.textContent=item.title+'. ';p.replaceChildren(strong,document.createTextNode(item.body));}
+  function compare(){
+    root.querySelectorAll('[data-cf-model]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfModel===currentModel));});
+    root.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfTreatment===currentTreatment));});
+    explanation('cfComparisonModel',data.comparisons.model[currentModel]);explanation('cfComparisonTreatment',data.comparisons.treatment[currentTreatment]);
+  }
+  root.querySelectorAll('[data-cf-model]').forEach(function(button){button.addEventListener('click',function(){stopTour();currentModel=button.dataset.cfModel;compare();});});
+  root.querySelectorAll('[data-cf-treatment]').forEach(function(button){button.addEventListener('click',function(){stopTour();currentTreatment=button.dataset.cfTreatment;compare();});});
+  function visibility(visible){inView=visible;root.classList.toggle('is-visible',visible&&stageInView&&!document.hidden);if(!visible)stopTour();}
+  function stageVisibility(visible){stageInView=visible;root.classList.toggle('is-visible',inView&&visible&&!document.hidden);}
+  function motionPreference(){if(reduce.matches)stopTour();tour.disabled=reduce.matches;tour.setAttribute('aria-label',reduce.matches?'Guided playback is disabled for reduced motion':'Play or pause the guided research story');}
+  root.classList.add('is-enhanced');setChapter(0,false);compare();motionPreference();
+  var box=root.getBoundingClientRect();visibility(box.bottom>0&&box.top<window.innerHeight);var stageBox=stage.getBoundingClientRect();stageVisibility(stageBox.bottom>0&&stageBox.top<window.innerHeight);
+  if(window.IntersectionObserver){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){visibility(entry.isIntersecting);});},{threshold:.02});observer.observe(root);var stageObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){stageVisibility(entry.isIntersecting);});},{threshold:.02});stageObserver.observe(stage);}
+  if(window.ResizeObserver){var resize=new ResizeObserver(draw);resize.observe(stage);}else window.addEventListener('resize',draw,{passive:true});
+  document.addEventListener('visibilitychange',function(){root.classList.toggle('is-visible',inView&&stageInView&&!document.hidden);if(document.hidden)stopTour();else resumeVideos();});
+  root.addEventListener('focusin',stopTour);
+  root.addEventListener('click',resumeVideos);
+  root.addEventListener('touchstart',resumeVideos,{passive:true});
+  if(reduce.addEventListener)reduce.addEventListener('change',motionPreference);else if(reduce.addListener)reduce.addListener(motionPreference);
 })();
 
 </script>
