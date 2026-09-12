@@ -2273,6 +2273,11 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 @media(max-width:700px){#cf-research{scroll-margin-top:78px}}
 @media(min-width:1051px){#cfJourney .cfj-node{width:184px;--cfj-art-size:clamp(100px,8.2vw,148px)}#cfJourney .cfj-node-art{width:var(--cfj-art-size);height:var(--cfj-art-size)}#cfJourney .cfj-node-name{font-size:14px}}
 @media(max-width:700px){#cfJourney .cfj-node-name,#cfJourney .cfj-node-flag{transform:scale(var(--cfj-label-scale,1));transform-origin:50% 0}}
+/* Give narrow portrait screens room for the longer planned-research chapter. */
+@media(max-width:360px){#cfJourney .cf-j-copy{padding:20px}#cfJourney #cfChapterTitle{font-size:24px}#cfJourney .cf-j-body{font-size:13px;line-height:1.5}}
+@media(max-width:360px) and (min-height:721px){#cfJourney:not(.is-static) .cf-j-layout{grid-template-rows:270px minmax(0,1fr)}}
+/* Gallery reveal offsets must not widen the document before entering view. */
+#gallery{overflow-x:clip;overflow-y:visible}
 </style>
 
 <!-- ========================= [3] PAGE STRUCTURE ========================= -->
@@ -7874,6 +7879,11 @@ var CF_STORY = {
           var d=curve(a,b,(width<450?30:52)*a.scale);g.appendChild(svg('path',{d:d,'class':'cfj-link'+(link[2]==='planned'?' is-planned':''),pathLength:100}));
         });wires.appendChild(g);groups.push(g);
       });style.textContent=css;
+      // Keep readable labels in step with adaptive node sizes after a viewport change.
+      if(chapter>=0)data.chapters[chapter].models.forEach(function(id){
+        var state=nodeState(id,chapter,width,height);
+        nodes[id].style.setProperty('--cfj-label-scale',width<450?String(1/state.scale):'1');
+      });
     }
     if(mode==='static')paintStatic();
   }
@@ -7889,11 +7899,12 @@ var CF_STORY = {
     intro.inert=hideIntro;intro.setAttribute('aria-hidden',String(hideIntro));
     root.classList.toggle('is-in-models',index>=0);
     root.dataset.chapter=index<0?'focus':data.chapters[index].id;
-    if(index>=0){
-      var ch=data.chapters[index];
-      put('cfChapterKicker',ch.kicker);put('cfChapterTitle',ch.title);put('cfChapterBody',bodies[index]);put('cfChapterNote',ch.note);put('cfChapterStatus',ch.status);put('cfStageCaption',ch.caption);
+    // The library is the incoming scene behind the intro, including reverse navigation.
+    {
+      var ch=data.chapters[Math.max(0,index)];
+      put('cfChapterKicker',ch.kicker);put('cfChapterTitle',ch.title);put('cfChapterBody',bodies[Math.max(0,index)]);put('cfChapterNote',ch.note);put('cfChapterStatus',ch.status);put('cfStageCaption',ch.caption);
       stage.dataset.chapter=ch.id;
-      if(ch.models.indexOf(selected)<0)selected=ch.defaultModel;
+      if(index>=0&&ch.models.indexOf(selected)<0)selected=ch.defaultModel;
     }
     Object.keys(nodes).forEach(function(id){
       var active=index>=0&&data.chapters[index].models.indexOf(id)>=0;
@@ -7917,11 +7928,12 @@ var CF_STORY = {
   function render(){frame=0;if(mode==='static'||document.hidden||dialog.open)return;applyProgress((topInset-root.getBoundingClientRect().top)/travel,false);}
   function requestRender(){if(mode!=='static'&&near&&!document.hidden&&!dialog.open&&!frame)frame=requestAnimationFrame(render);}
   function cancel(){if(frame){cancelAnimationFrame(frame);frame=0;}}
-  function scrollToStop(index,focus){
+  function scrollToStop(index,focus,immediate){
     index=Math.max(mode==='static'?1:0,Math.min(stops.length-1,index));
-    if(mode==='static'){activate(index-1,true);if(focus)buttons[index].focus({preventScroll:true});return;}
+    if(mode==='static'){activate(index-1,true);if(focus)buttons[index].focus({preventScroll:true});if(immediate&&typeof panel.scrollIntoView==='function')panel.scrollIntoView({block:'start',behavior:'instant'});return;}
     measure();var top=window.scrollY+root.getBoundingClientRect().top-topInset+travel*stops[index];
-    window.scrollTo({top:top,behavior:reduce.matches?'auto':'smooth'});
+    window.scrollTo({top:top,behavior:immediate?'instant':(reduce.matches?'auto':'smooth')});
+    if(immediate)render();
     if(focus)buttons[index].focus({preventScroll:true});
     put('cfJourneyAnnouncement',index===0?'A closer look':data.chapters[index-1].nav);
   }
@@ -7932,8 +7944,12 @@ var CF_STORY = {
       e.preventDefault();scrollToStop(to,true);
     });
   });
+  function routeLibrary(immediate){
+    scrollToStop(1,false,immediate);
+    if(mode==='static'&&!immediate&&typeof panel.scrollIntoView==='function')panel.scrollIntoView({block:'start',behavior:reduce.matches?'auto':'smooth'});
+  }
   // Links into the diagram target its library stop, including a direct URL fragment.
-  document.querySelectorAll('a[href="#cfStory"]').forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();scrollToStop(1,false);history.replaceState(null,'','#cfStory');});});
+  document.querySelectorAll('a[href="#cfStory"]').forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();if(cancelInitialRoute)cancelInitialRoute();routeLibrary(false);history.replaceState(null,'','#cfStory');});});
   function resize(){measure();if(mode!=='static')requestRender();}
   function visibility(){if(document.hidden)cancel();else requestRender();mediaVisibility();}
   function configure(){
@@ -7965,7 +7981,53 @@ var CF_STORY = {
   function watch(m){if(m.addEventListener)m.addEventListener('change',configure);else if(m.addListener)m.addListener(configure);}
   watch(reduce);watch(shortScreen);configure();compare();
   var appendix=byId('cfJourneyAppendix');if(appendix)appendix.classList.add('is-enhanced');
-  if(location.hash==='#cfStory')requestAnimationFrame(function(){scrollToStop(1,false);});
+  // A direct fragment must land after the browser and introductory veil settle.
+  // Keep these temporary hooks bounded and yield immediately to user interaction.
+  var cancelInitialRoute=null;
+  function coordinateInitialRoute(){
+    if(cancelInitialRoute)cancelInitialRoute();
+    if(location.hash!=='#cfStory')return;
+    var pending=true,ready=document.readyState==='complete',initialFrame=0,deadline=0,poll=0;
+    var html=document.documentElement,lockObserver=null;
+    var inputs=['wheel','touchstart','pointerdown','keydown','click'];
+    function cleanup(){
+      if(!pending)return;pending=false;
+      if(cancelInitialRoute===cleanup)cancelInitialRoute=null;
+      if(initialFrame)cancelAnimationFrame(initialFrame);initialFrame=0;
+      if(deadline)clearTimeout(deadline);if(poll)clearInterval(poll);
+      if(lockObserver)lockObserver.disconnect();
+      window.removeEventListener('load',pageReady);window.removeEventListener('pageshow',pageReady);
+      window.removeEventListener('hashchange',hashChanged);document.removeEventListener('visibilitychange',check);
+      inputs.forEach(function(type){window.removeEventListener(type,cleanup,true);});
+    }
+    function canLand(){return pending&&ready&&!document.hidden&&!html.classList.contains('intro-lock');}
+    function land(){
+      initialFrame=0;
+      if(location.hash!=='#cfStory'){cleanup();return;}
+      if(!canLand())return;
+      cleanup();routeLibrary(true);
+    }
+    function check(){
+      if(!canLand()||initialFrame)return;
+      if(!window.requestAnimationFrame){land();return;}
+      // Two settled frames allow native fragment positioning and its layout pass to finish.
+      initialFrame=requestAnimationFrame(function(){
+        initialFrame=0;if(canLand())initialFrame=requestAnimationFrame(land);
+      });
+    }
+    function pageReady(){ready=true;check();}
+    function hashChanged(){if(location.hash!=='#cfStory')cleanup();}
+    cancelInitialRoute=cleanup;
+    window.addEventListener('load',pageReady);window.addEventListener('pageshow',pageReady);
+    window.addEventListener('hashchange',hashChanged);document.addEventListener('visibilitychange',check);
+    inputs.forEach(function(type){window.addEventListener(type,cleanup,{capture:true,passive:true});});
+    if(window.MutationObserver){lockObserver=new MutationObserver(check);lockObserver.observe(html,{attributes:true,attributeFilter:['class']});}
+    else poll=setInterval(check,200); // Legacy fallback is bounded by the same deadline.
+    deadline=setTimeout(cleanup,20000);
+    check();
+  }
+  coordinateInitialRoute();
+  window.addEventListener('hashchange',function(){if(location.hash==='#cfStory')coordinateInitialRoute();else if(cancelInitialRoute)cancelInitialRoute();});
   root.addEventListener('click',mediaVisibility);
 })();
 </script>
