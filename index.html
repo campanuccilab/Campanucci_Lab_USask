@@ -159,6 +159,10 @@
 @keyframes cf-specimen-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 @media(prefers-reduced-motion:reduce){.cf-story.is-visible .cf-specimen[aria-pressed=true] .cf-specimen-art{animation:none!important}}
 
+
+@media(max-width:520px){.cf-chapter-copy>p:not(.cf-kicker),.cf-detail-body>p,.cf-comparison-explanation p{font-size:14px}.cf-stage-caption{font-size:12px}.cf-step-control{min-width:44px}}
+
+@media(max-width:359px){.cf-specimen-name{font-size:11px}}
 </style>
 </head>
 <body><!--
@@ -2247,7 +2251,7 @@ header.nav .theme-btn:hover{color:var(--fg);border-color:var(--hair);background:
       <div class="cf-detail-body"><p id="cfDetailBody">Human stem cell cultures are part of our living library.</p><div id="cfDetailMedia"></div></div>
     </div>
     <div class="cf-comparison">
-      <div class="cf-comparison-intro"><p class="cf-kicker">The question across every model</p><h4>What changes in CF?<br>What changes with treatment?</h4><p>Compare cystic fibrosis with wild-type controls and explore treatment conditions across the research models.</p></div>
+      <div class="cf-comparison-intro"><p class="cf-kicker">The question across every model</p><h4>What changes in CF?<br> What changes with treatment?</h4><p>Compare cystic fibrosis with wild-type controls and explore treatment conditions across the research models.</p></div>
       <div class="cf-comparison-controls">
         <div class="cf-selector" role="group" aria-label="Model comparison"><p>01 / Compare models</p><div><button type="button" data-cf-model="wt" aria-pressed="false" aria-controls="cfComparisonModel">Wild-type</button><button type="button" data-cf-model="cf" aria-pressed="true" aria-controls="cfComparisonModel">Cystic fibrosis</button></div></div>
         <div class="cf-selector" role="group" aria-label="Treatment comparison"><p>02 / Compare conditions</p><div><button type="button" data-cf-treatment="control" aria-pressed="true" aria-controls="cfComparisonTreatment">Control</button><button type="button" data-cf-treatment="eti" aria-pressed="false" aria-controls="cfComparisonTreatment">Trikafta <small>ETI</small></button><button type="button" data-cf-treatment="vtd" aria-pressed="false" aria-controls="cfComparisonTreatment">Alyftrek <small>VTD</small></button></div></div>
@@ -7500,10 +7504,17 @@ var CF_STORY = {
       line.classList.toggle('is-selected',pair.indexOf(selected)>=0);wires.appendChild(line);wires.appendChild(pulse);connections.push({ids:pair,line:line});
     });
   }
+  function revealChapterButton(button){
+    var nav=button.parentElement;if(!nav||nav.scrollWidth<=nav.clientWidth)return;
+    var b=button.getBoundingClientRect(),r=nav.getBoundingClientRect();
+    if(b.left<r.left)nav.scrollLeft-=r.left-b.left+6;
+    else if(b.right>r.right)nav.scrollLeft+=b.right-r.right+6;
+  }
   function setChapter(index,manual){
     if(index<0||index>=data.chapters.length)return;if(manual)stopTour();chapterIndex=index;
     var chapter=data.chapters[index];root.classList.add('is-moving');if(motionTimer)clearTimeout(motionTimer);
     stage.dataset.chapter=chapter.id;chapterButtons.forEach(function(button,i){button.setAttribute('aria-pressed',String(i===index));});
+    revealChapterButton(chapterButtons[index]);
     put('cfChapterKicker',chapter.kicker);put('cfChapterTitle',chapter.title);put('cfChapterBody',chapter.body);put('cfChapterNote',chapter.note);put('cfChapterStatus',chapter.status);put('cfStageCaption',chapter.caption);put('cfChapterCount',String(index+1).padStart(2,'0')+' / '+String(data.chapters.length).padStart(2,'0'));
     prev.disabled=index===0;next.disabled=index===data.chapters.length-1;
     Object.keys(nodes).forEach(function(id){var active=chapter.models.indexOf(id)>=0;nodes[id].classList.toggle('is-active',active);nodes[id].tabIndex=active?0:-1;nodes[id].setAttribute('aria-hidden',String(!active));});
