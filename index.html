@@ -2315,6 +2315,21 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 #cfJourney.is-enhanced.is-native:not(.is-static) .cfj-node-name,#cfJourney.is-enhanced.is-native:not(.is-static) .cfj-node-flag{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 100%}
 @keyframes cfj-node-labels{0%,27.999%{visibility:hidden;clip-path:inset(100% 0 0)}28%{visibility:visible;clip-path:inset(100% 0 0)}29%,100%{visibility:visible;clip-path:inset(0)}}
 
+/* Chapter connections stay legible over the preserved neural background. */
+#cfJourney .cf-j-connections .cfj-link-underlay{stroke:#101218;stroke-width:6;stroke-dasharray:none;opacity:.94;stroke-linecap:round}
+#cfJourney .cf-j-connections .cfj-link{stroke:var(--cfj-gold);stroke-width:1.75;stroke-linecap:round;opacity:.86}
+#cfJourney .cf-j-connections .cfj-link.is-planned{stroke:var(--cfj-violet);stroke-dasharray:4 6;opacity:.88}
+#cfJourney .cf-j-connections .cfj-signal{stroke:#fff2d8;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 94;stroke-dashoffset:100;opacity:0;animation:none}
+#cfJourney[data-cfj-running='true'] .cfj-wire-group[data-cfj-active='true'] .cfj-signal{opacity:.96;animation:cfj-signal-flow 3.4s linear infinite;animation-delay:var(--cfj-signal-delay,0s)}
+#cfJourney[data-cfj-running='true'] .cfj-wire-group[data-cfj-active='true'] .cfj-signal.is-planned{stroke:#e0d4f3;stroke-dasharray:3 97;opacity:.76;animation-duration:4.2s}
+@keyframes cfj-signal-flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+#cfJourney{--cfj-chapter-accent:var(--cfj-gold)}
+#cfJourney[data-chapter='signals']{--cfj-chapter-accent:var(--cfj-blue)}
+#cfJourney[data-chapter='brain'],#cfJourney[data-chapter='future']{--cfj-chapter-accent:var(--cfj-violet)}
+#cfJourney .cf-j-copy{border-top:2px solid var(--cfj-chapter-accent);transition:border-color .24s}
+#cfJourney .cf-j-kicker,#cfJourney .cf-j-status{color:var(--cfj-chapter-accent)}
+@media(prefers-reduced-motion:reduce){#cfJourney .cf-j-connections .cfj-signal{display:none!important}#cfJourney .cf-j-copy{transition:none}}
+
 </style>
 
 <!-- ========================= [3] PAGE STRUCTURE ========================= -->
@@ -7781,7 +7796,7 @@ var CF_STORY = {
   var stops=[0,.30,.44,.60,.76,.94],thresholds=[.28,.38,.54,.70,.86],holds=[.29,.42,.58,.74,.90],ends=[.34,.50,.66,.82,1];
   var ns='http://www.w3.org/2000/svg',nodes={},media={},detailMedia={},groups=[],chapter=-2,currentStop=0,selected='',mode='',frame=0,near=false,topInset=0,travel=1,progress=0;
   var observer=null,resizeObserver=null,focusReturn=null,lastWidth=0,lastHeight=0,lastGeometry='',currentModel='cf',currentTreatment='control';
-  var flights=[],sharedIds=['scg','ens','intestinal'];
+  var flights=[],sharedIds=['scg','ens','intestinal'],copyAnimations=[];
   world.classList.add('cfj-motion');world.style.animationName='cfj-camera';
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),shortScreen=window.matchMedia('(max-height: 560px)');
   var nativeOK=!!(window.CSS&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
@@ -7841,7 +7856,12 @@ var CF_STORY = {
     var figure=makeMedia(id,false);if(!figure)return;art.appendChild(figure);nodes[id].classList.add('has-media');
     var v=figure.querySelector('video');if(v)play(v);
   }
+  function signalState(){
+    root.dataset.cfjRunning=String(near&&!document.hidden&&!dialog.open&&!reduce.matches);
+    groups.forEach(function(g,i){g.dataset.cfjActive=String(i===chapter);});
+  }
   function mediaVisibility(){
+    signalState();
     Object.keys(media).forEach(function(id){var v=media[id].querySelector('video');if(!v)return;
       var active=mayPlayVideo(v);
       if(active)play(v);else v.pause();
@@ -7986,11 +8006,16 @@ var CF_STORY = {
       style.textContent=css;
       wires.setAttribute('viewBox','0 0 '+width+' '+height);wires.replaceChildren();groups=[];
       data.chapters.forEach(function(ch,index){
-        var g=svg('g',{'class':'cfj-wire-group cfj-motion'});g.style.animationName='cfj-wires-'+index;
+        var g=svg('g',{'class':'cfj-wire-group cfj-motion','data-cfj-chapter':ch.id,'data-cfj-active':String(index===chapter)});g.style.animationName='cfj-wires-'+index;
         var enter=index===0?0:holds[index]-.035,exit=index===4?1:ends[index];
         css+='@keyframes cfj-wires-'+index+'{0%{opacity:0}'+(Math.max(.001,enter-.01)*100)+'%{opacity:0}'+(enter*100)+'%{opacity:1}'+(exit*100)+'%{opacity:1}'+(Math.min(1,exit+.035)*100)+'%{opacity:0}100%{opacity:'+(index===4?1:0)+'}}';
-        ch.links.forEach(function(link){var a=nodeState(link[0],index,width,height),b=nodeState(link[1],index,width,height);a.y-=14*a.scale;b.y-=14*b.scale;
-          var d=curve(a,b,(width<450?30:52)*a.scale);g.appendChild(svg('path',{d:d,'class':'cfj-link'+(link[2]==='planned'?' is-planned':''),pathLength:100}));
+        ch.links.forEach(function(link,linkIndex){var a=nodeState(link[0],index,width,height),b=nodeState(link[1],index,width,height);a.y-=14*a.scale;b.y-=14*b.scale;
+          var d=curve(a,b,(width<450?30:52)*a.scale),planned=link[2]==='planned'?' is-planned':'';
+          ['cfj-link-underlay','cfj-link','cfj-signal'].forEach(function(kind){
+            var path=svg('path',{d:d,'class':kind+planned,pathLength:100,'data-cfj-from':link[0],'data-cfj-to':link[1]});
+            if(kind==='cfj-signal')path.style.setProperty('--cfj-signal-delay',String(linkIndex*-.8)+'s');
+            g.appendChild(path);
+          });
         });wires.appendChild(g);groups.push(g);
       });
       boxes.forEach(function(box){css+=flightFrames(box,geometry.targets[box.flight.id]);});style.textContent=css;
@@ -8006,8 +8031,18 @@ var CF_STORY = {
     if(chapter<0)return;Object.keys(nodes).forEach(function(id){var s=nodeState(id,chapter,lastWidth,lastHeight);nodes[id].style.transform=transform(s);nodes[id].style.opacity=String(s.opacity);});
     groups.forEach(function(g,i){g.style.opacity=i===chapter?'1':'0';});
   }
+  function cancelCopyEnter(){copyAnimations.forEach(function(a){a.cancel();});copyAnimations=[];}
+  function enterCopy(previous,index){
+    cancelCopyEnter();
+    // Animate only the content that changed; the outer arrival remains scroll-owned.
+    if(previous<0||index<0||reduce.matches||document.hidden)return;
+    ['cfChapterKicker','cfChapterTitle','cfChapterBody','cfChapterNote','cfChapterStatus'].forEach(function(id,i){
+      var el=byId(id);if(!el||typeof el.animate!=='function')return;
+      copyAnimations.push(el.animate([{opacity:.55,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}],{duration:260,delay:i*18,easing:'cubic-bezier(.2,.7,.3,1)',iterations:1}));
+    });
+  }
   function activate(index,announce){
-    if(index===chapter)return;chapter=index;currentStop=index+1;
+    if(index===chapter)return;var previous=chapter;chapter=index;currentStop=index+1;
     panel.setAttribute('aria-hidden',String(index<0));
     var hideIntro=mode!=='static'&&index>=0;
     if(hideIntro&&intro.contains(document.activeElement))buttons[currentStop].focus({preventScroll:true});
@@ -8031,7 +8066,7 @@ var CF_STORY = {
     buttons.forEach(function(b,i){b.setAttribute('aria-current',i===currentStop?'step':'false');b.setAttribute('aria-pressed',String(i===currentStop));});
     put('cfJourneyPosition',String(currentStop+1).padStart(2,'0')+' / 06 · '+(index<0?'A closer look':data.chapters[index].nav));
     if(announce)put('cfJourneyAnnouncement',index<0?'A closer look':data.chapters[index].nav);
-    if(mode==='static')paintStatic();mediaVisibility();
+    enterCopy(previous,index);if(mode==='static')paintStatic();mediaVisibility();
   }
   function chapterAt(p){var n=-1;thresholds.forEach(function(t,i){if(p>=t)n=i;});return n;}
   function applyProgress(p,announce){
@@ -8040,8 +8075,16 @@ var CF_STORY = {
     activate(chapterAt(progress),announce);
   }
   function measure(){topInset=parseFloat(getComputedStyle(pin).top)||0;travel=Math.max(1,root.offsetHeight-pin.offsetHeight);layout();}
-  function render(){frame=0;if(mode==='static'||document.hidden||dialog.open)return;applyProgress((topInset-root.getBoundingClientRect().top)/travel,false);}
-  function requestRender(){if(mode!=='static'&&near&&!document.hidden&&!dialog.open&&!frame)frame=requestAnimationFrame(render);}
+  function render(){
+    frame=0;if(mode==='static'||document.hidden||dialog.open)return;
+    // A tall sticky runway can receive stale intersection notifications. Its live
+    // rectangle is the source of truth for both CSS-fallback progress and chapter UI.
+    var r=root.getBoundingClientRect(),wasNear=near,next=clamp((topInset-r.top)/travel);
+    near=r.bottom>-200&&r.top<window.innerHeight+200;
+    if(near||next!==progress)applyProgress(next,false);
+    if(near!==wasNear)mediaVisibility();
+  }
+  function requestRender(){if(mode!=='static'&&!document.hidden&&!dialog.open&&!frame)frame=requestAnimationFrame(render);}
   function cancel(){if(frame){cancelAnimationFrame(frame);frame=0;}}
   function scrollToStop(index,focus,immediate){
     index=Math.max(mode==='static'?1:0,Math.min(stops.length-1,index));
@@ -8068,7 +8111,7 @@ var CF_STORY = {
   function resize(){measure();if(mode!=='static')requestRender();}
   function visibility(){if(document.hidden)cancel();else requestRender();mediaVisibility();}
   function configure(){
-    cancel();if(observer)observer.disconnect();if(resizeObserver)resizeObserver.disconnect();
+    cancel();cancelCopyEnter();if(observer)observer.disconnect();if(resizeObserver)resizeObserver.disconnect();
     window.removeEventListener('scroll',requestRender);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);
     root.classList.remove('is-native','is-static');intro.classList.remove('is-native');
     var staticMode=reduce.matches||shortScreen.matches||!window.IntersectionObserver||!window.requestAnimationFrame;
@@ -8081,7 +8124,11 @@ var CF_STORY = {
     if(staticMode){activate(0,false);paintStatic();}
     else{applyProgress((topInset-r.top)/travel,false);window.addEventListener('scroll',requestRender,{passive:true});}
     window.addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',visibility);
-    if(window.IntersectionObserver){observer=new IntersectionObserver(function(entries){near=entries[0].isIntersecting;if(near)requestRender();else{cancel();if(mode!=='static')render();}mediaVisibility();},{rootMargin:'200px 0px'});observer.observe(root);}
+    if(window.IntersectionObserver){observer=new IntersectionObserver(function(){
+      // Intersection is a wake-up hint, never a gate on chapter correctness.
+      if(mode==='static'){var r=root.getBoundingClientRect();near=r.bottom>-200&&r.top<window.innerHeight+200;mediaVisibility();}
+      else requestRender();
+    },{rootMargin:'200px 0px'});observer.observe(root);}
     if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(stage);resizeObserver.observe(pin);sharedIds.forEach(function(id){resizeObserver.observe(nodes[id]);});}
     mediaVisibility();
   }
