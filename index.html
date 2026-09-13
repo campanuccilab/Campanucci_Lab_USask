@@ -2301,7 +2301,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 @keyframes cfj-caption-arrive{0%,28%{visibility:hidden;transform:translateY(26px);clip-path:inset(100% 0 0)}30%,100%{visibility:visible;transform:none;clip-path:inset(0)}}
 @keyframes cfj-field-arrive{0%,18%{opacity:0;transform:scale(1.65) rotate(-28deg)}21%{opacity:.34;transform:scale(1.4) rotate(-18deg)}29%,100%{opacity:.34;transform:scale(1) rotate(0)}}
 @keyframes cfj-flight-label{0%,17.999%{opacity:0;transform:translate(-50%,10px)}18%,23%{opacity:1;transform:translate(-50%,0)}25%,100%{opacity:0;transform:translate(-50%,12px)}}
-@keyframes cfj-library-heading{0%,12.8%{opacity:0;transform:translate(-50%,25px)}15.4%,18%{opacity:1;transform:translate(-50%,0)}20.5%,100%{opacity:0;transform:translate(-50%,-100px)}}
+@keyframes cfj-library-heading{0%,12.8%{opacity:0;transform:translate(-50%,25px)}15.4%,21.5%{opacity:1;transform:translate(-50%,0)}24.5%,100%{opacity:0;transform:translate(-50%,-80px)}}
 @keyframes cfj-old-labels{0%,16.2%{opacity:0;transform:translate(-50%,12px)}17.8%{opacity:1;transform:translate(-50%,0)}18%,100%{opacity:0;transform:translate(-50%,-12px)}}
 @keyframes cfj-opening-orbits{0%{opacity:.23;transform:scale(.84) rotate(-10deg)}6%,12.2%{opacity:0;transform:scale(1.5) rotate(10deg)}17.6%{opacity:.29;transform:scale(1) rotate(8deg)}22%,100%{opacity:0;transform:scale(.72) rotate(24deg)}}
 @keyframes cfj-edge-release{0%,18%{opacity:1;transform:scale(1)}23%,100%{opacity:0;transform:scale(1.08)}}
@@ -2309,6 +2309,11 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 @media(prefers-reduced-motion:reduce){#cfJourney .cf-j-copy,#cfJourney .cf-j-stage-caption,#cfJourney .cf-j-field,#cfJourney .cfj-flight-caption,#cfJourney .cine-scene-edge{animation:none!important}}
 /* Static and reduced-motion layouts always use natural document height. */
 #cfJourney.is-enhanced.is-static{height:auto;min-height:0}
+
+/* Keep labels out of the flight paths; reveal them once the library is assembled. */
+#cfJourney.is-enhanced:not(.is-static) .cfj-node-name,#cfJourney.is-enhanced:not(.is-static) .cfj-node-flag{animation:cfj-node-labels 1s linear both paused;animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced.is-native:not(.is-static) .cfj-node-name,#cfJourney.is-enhanced.is-native:not(.is-static) .cfj-node-flag{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 100%}
+@keyframes cfj-node-labels{0%,27.999%{visibility:hidden;clip-path:inset(100% 0 0)}28%{visibility:visible;clip-path:inset(100% 0 0)}29%,100%{visibility:visible;clip-path:inset(0)}}
 
 </style>
 
