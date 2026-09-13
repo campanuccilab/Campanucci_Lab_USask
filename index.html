@@ -2150,8 +2150,8 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
 #cfJourney.is-enhanced .cfj-motion{animation-duration:1s;animation-timing-function:linear;animation-iteration-count:1;animation-fill-mode:both;animation-play-state:paused;animation-delay:calc(var(--cfj-p,0)*-1s)}
 #cfJourney.is-enhanced.is-native .cfj-motion{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 100%}
 #cfJourney.is-enhanced.is-native #cfCinema .cine-motion{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 20%}
-@keyframes cfj-intro-out{0%,19.5%{opacity:1;transform:scale(1);visibility:visible}23%{opacity:.7;transform:scale(.86);visibility:visible}26%,100%{opacity:0;transform:scale(.66);visibility:hidden}}
-@keyframes cfj-world-in{0%,19.5%{opacity:0;transform:scale(1.3);visibility:hidden}20%{opacity:0;transform:scale(1.3);visibility:visible}26%,100%{opacity:1;transform:scale(1);visibility:visible}}
+@keyframes cfj-intro-out{0%,27.999%{opacity:1;transform:none;visibility:visible}28%,100%{opacity:1;transform:none;visibility:hidden}}
+@keyframes cfj-world-in{0%,17.999%{opacity:1;transform:none;visibility:hidden}18%,100%{opacity:1;transform:none;visibility:visible}}
 #cfJourney .cf-j-layout{height:100%;display:grid;grid-template-columns:minmax(230px,.8fr) minmax(0,1.85fr);gap:clamp(18px,2.5vw,38px);align-items:center}
 #cfJourney .cf-j-copy{position:relative;padding:28px;border:1px solid rgba(207,188,155,.16);border-radius:14px;background:rgba(19,21,27,.9);align-self:center;z-index:3}
 #cfJourney .cf-j-kicker,#cfSpecimenDetail .cf-j-kicker{margin:0 0 17px;color:var(--cfj-gold,#cfbc9b);font:500 12px/1.5 var(--mono,monospace);letter-spacing:.1em;text-transform:uppercase}
@@ -2278,6 +2278,38 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 @media(max-width:360px) and (min-height:721px){#cfJourney:not(.is-static) .cf-j-layout{grid-template-rows:270px minmax(0,1fr)}}
 /* Gallery reveal offsets must not widen the document before entering view. */
 #gallery{overflow-x:clip;overflow-y:visible}
+
+/* Microscopy photographs remain solid as they become the library specimens. */
+#cfJourney.is-enhanced:not(.is-static) .cf-j-intro{z-index:6;pointer-events:none}
+#cfJourney.is-enhanced:not(.is-static) .cf-j-panel{z-index:3;transform:none;transform-origin:50% 50%}
+#cfJourney .cfj-flight-caption{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);padding:6px 10px;max-width:92%;width:max-content;border:1px solid rgba(207,188,155,.28);border-radius:6px;background:rgba(13,15,21,.92);color:#f0ede7;font:500 13px/1.35 var(--sans,Arial,sans-serif);text-align:center;white-space:normal;pointer-events:none}
+#cfJourney.is-enhanced:not(.is-static) .cf-j-copy,#cfJourney.is-enhanced:not(.is-static) .cf-j-stage-caption,#cfJourney.is-enhanced:not(.is-static) .cf-j-field,#cfJourney.is-enhanced:not(.is-static) .cfj-flight-caption,#cfJourney.is-enhanced:not(.is-static) .cine-scene-edge{animation-duration:1s;animation-timing-function:linear;animation-fill-mode:both;animation-play-state:paused;animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced.is-native:not(.is-static) .cf-j-copy,#cfJourney.is-enhanced.is-native:not(.is-static) .cf-j-stage-caption,#cfJourney.is-enhanced.is-native:not(.is-static) .cf-j-field,#cfJourney.is-enhanced.is-native:not(.is-static) .cfj-flight-caption,#cfJourney.is-enhanced.is-native:not(.is-static) .cine-scene-edge{animation-duration:auto;animation-play-state:running;animation-delay:0s;animation-timeline:--cf-journey;animation-range:contain 0% contain 100%}
+#cfJourney.is-enhanced:not(.is-static) .cf-j-copy{animation-name:cfj-copy-arrive;transform-origin:0 50%}
+#cfJourney.is-enhanced:not(.is-static) .cf-j-stage-caption{animation-name:cfj-caption-arrive}
+#cfJourney.is-enhanced:not(.is-static) .cf-j-field{animation-name:cfj-field-arrive}
+#cfJourney.is-enhanced:not(.is-static) .cfj-flight-caption{animation-name:cfj-flight-label}
+#cfJourney.is-enhanced:not(.is-static) .cine-scene-edge{animation-name:cfj-edge-release}
+#cfJourney.is-enhanced:not(.is-static) #cfCinema .cine-final-copy{animation-name:cfj-library-heading;animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced:not(.is-static) #cfCinema .cine-photo-label{animation-name:cfj-old-labels;animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced:not(.is-static) #cfCinema .cine-orbits{animation-name:cfj-opening-orbits;animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced.is-native:not(.is-static) #cfCinema .cine-final-copy,#cfJourney.is-enhanced.is-native:not(.is-static) #cfCinema .cine-photo-label,#cfJourney.is-enhanced.is-native:not(.is-static) #cfCinema .cine-orbits{animation-delay:0s;animation-range:contain 0% contain 100%}
+/* Generated photo frames use the full shared timeline, including the opening. */
+#cfJourney.is-enhanced:not(.is-static) #cfCinema .cine-photo.cfj-motion{animation-delay:calc(var(--cfj-p,0)*-1s)}
+#cfJourney.is-enhanced.is-native:not(.is-static) #cfCinema .cine-photo.cfj-motion{animation-delay:0s;animation-range:contain 0% contain 100%}
+@keyframes cfj-copy-arrive{0%,24.5%{visibility:hidden;transform:translate3d(-90px,12px,0);clip-path:inset(0 100% 0 0 round 14px)}24.501%{visibility:visible;transform:translate3d(-90px,12px,0);clip-path:inset(0 100% 0 0 round 14px)}29%,100%{visibility:visible;transform:translate3d(0,0,0);clip-path:inset(0 0 0 0 round 14px)}}
+@keyframes cfj-caption-arrive{0%,28%{visibility:hidden;transform:translateY(26px);clip-path:inset(100% 0 0)}30%,100%{visibility:visible;transform:none;clip-path:inset(0)}}
+@keyframes cfj-field-arrive{0%,18%{opacity:0;transform:scale(1.65) rotate(-28deg)}21%{opacity:.34;transform:scale(1.4) rotate(-18deg)}29%,100%{opacity:.34;transform:scale(1) rotate(0)}}
+@keyframes cfj-flight-label{0%,17.999%{opacity:0;transform:translate(-50%,10px)}18%,23%{opacity:1;transform:translate(-50%,0)}25%,100%{opacity:0;transform:translate(-50%,12px)}}
+@keyframes cfj-library-heading{0%,12.8%{opacity:0;transform:translate(-50%,25px)}15.4%,18%{opacity:1;transform:translate(-50%,0)}20.5%,100%{opacity:0;transform:translate(-50%,-100px)}}
+@keyframes cfj-old-labels{0%,16.2%{opacity:0;transform:translate(-50%,12px)}17.8%{opacity:1;transform:translate(-50%,0)}18%,100%{opacity:0;transform:translate(-50%,-12px)}}
+@keyframes cfj-opening-orbits{0%{opacity:.23;transform:scale(.84) rotate(-10deg)}6%,12.2%{opacity:0;transform:scale(1.5) rotate(10deg)}17.6%{opacity:.29;transform:scale(1) rotate(8deg)}22%,100%{opacity:0;transform:scale(.72) rotate(24deg)}}
+@keyframes cfj-edge-release{0%,18%{opacity:1;transform:scale(1)}23%,100%{opacity:0;transform:scale(1.08)}}
+@media(max-width:700px){#cfJourney .cfj-flight-caption{font-size:12px;padding:4px 7px;bottom:6px}}
+@media(prefers-reduced-motion:reduce){#cfJourney .cf-j-copy,#cfJourney .cf-j-stage-caption,#cfJourney .cf-j-field,#cfJourney .cfj-flight-caption,#cfJourney .cine-scene-edge{animation:none!important}}
+/* Static and reduced-motion layouts always use natural document height. */
+#cfJourney.is-enhanced.is-static{height:auto;min-height:0}
+
 </style>
 
 <!-- ========================= [3] PAGE STRUCTURE ========================= -->
@@ -7741,9 +7773,10 @@ var CF_STORY = {
   var section=root.closest('section'),dialog=document.getElementById('cfSpecimenDetail'),close=document.getElementById('cfDetailClose');
   if(!stage||!world||!host||!wires||!panel||!pin||!intro||!dialog)return;
   var buttons=Array.from(root.querySelectorAll('[data-cfj-stop]'));
-  var stops=[0,.28,.44,.60,.76,.94],thresholds=[.23,.38,.54,.70,.86],holds=[.26,.42,.58,.74,.90],ends=[.34,.50,.66,.82,1];
+  var stops=[0,.30,.44,.60,.76,.94],thresholds=[.28,.38,.54,.70,.86],holds=[.29,.42,.58,.74,.90],ends=[.34,.50,.66,.82,1];
   var ns='http://www.w3.org/2000/svg',nodes={},media={},detailMedia={},groups=[],chapter=-2,currentStop=0,selected='',mode='',frame=0,near=false,topInset=0,travel=1,progress=0;
-  var observer=null,resizeObserver=null,focusReturn=null,lastWidth=0,lastHeight=0,currentModel='cf',currentTreatment='control';
+  var observer=null,resizeObserver=null,focusReturn=null,lastWidth=0,lastHeight=0,lastGeometry='',currentModel='cf',currentTreatment='control';
+  var flights=[],sharedIds=['scg','ens','intestinal'];
   world.classList.add('cfj-motion');world.style.animationName='cfj-camera';
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),shortScreen=window.matchMedia('(max-height: 560px)');
   var nativeOK=!!(window.CSS&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
@@ -7756,6 +7789,15 @@ var CF_STORY = {
     'Planned studies with hippocampal neurons and stem-cell-derived brain organoids will investigate possible mechanisms behind reported symptoms during CFTR-modulator treatment.',
     'We plan to differentiate human stem cells into neuronal and cardiac muscle cultures, then develop a future SCG–cardiac muscle co-culture.'
   ];
+  [['scg','main'],['ens','left'],['intestinal','right']].forEach(function(pair){
+    var photo=intro.querySelector('.cine-photo-'+pair[1]);if(!photo)return;
+    var m=data.models[pair[0]],image=photo.querySelector('img'),preview=m.video?(m.poster||m.image):m.image;
+    if(image){if(preview&&image.getAttribute('src')!==preview)image.src=preview;image.style.objectPosition=m.position||'50% 50%';}
+    photo.classList.remove('cine-motion');photo.classList.add('cfj-motion','cfj-flight-photo');
+    photo.style.animationName='cfj-photo-'+pair[0];photo.dataset.cfjPhoto=pair[0];
+    var caption=document.createElement('figcaption');caption.className='cfj-flight-caption';caption.setAttribute('aria-hidden','true');caption.textContent=m.label;photo.appendChild(caption);
+    flights.push({id:pair[0],role:pair[1],photo:photo});
+  });
   function byId(id){return document.getElementById(id);}
   function put(id,text){var el=byId(id);if(el&&el.textContent!==text)el.textContent=text;}
   function clamp(n){return Math.max(0,Math.min(1,n));}
@@ -7826,6 +7868,8 @@ var CF_STORY = {
     var art=document.createElement('span');art.className='cfj-node-art';art.setAttribute('aria-hidden','true');var icon=svg('svg',{viewBox:'0 0 120 120',focusable:'false'});icon.appendChild(svg('use',{href:'#cf-art-'+m.symbol}));art.appendChild(icon);button.appendChild(art);
     var label=document.createElement('span');label.className='cfj-node-name';label.textContent=m.label;button.appendChild(label);
     if(m.planned){var flag=document.createElement('span');flag.className='cfj-node-flag';flag.textContent='Planned';button.appendChild(flag);}
+    if(sharedIds.indexOf(id)>=0)button.classList.add('cfj-shared-target');
+    button.style.setProperty('--cfj-object-position',m.position||'50% 50%');
     host.appendChild(button);nodes[id]=button;
     // Image assets reuse browser cache; video slots are deferred until their chapter.
     if(m.image&&!m.video)mountStageMedia(id);
@@ -7852,7 +7896,69 @@ var CF_STORY = {
     return{x:width*(side<0?-.16:1.16),y:height*(.18+(order%3)*.3),scale:.38,opacity:0,angle:side*10};
   }
   function transform(s){return 'translate3d('+s.x.toFixed(2)+'px,'+s.y.toFixed(2)+'px,0) translate(-50%,-50%) scale('+s.scale+') rotate('+s.angle+'deg)';}
-  function frameText(p,s){return (p*100).toFixed(2)+'%{transform:'+transform(s)+';opacity:'+s.opacity+'}';}
+  function frameText(p,s){return (p*100).toFixed(3)+'%{transform:'+transform(s)+';opacity:'+s.opacity+';visibility:'+(s.visibility||'visible')+'}';}
+  // Offset chains deliberately ignore the current scroll-animated transforms.
+  function offsetTo(el,ancestor){
+    var x=0,y=0,guard=0;
+    while(el&&el!==ancestor&&guard++<30){x+=el.offsetLeft||0;y+=el.offsetTop||0;el=el.offsetParent;}
+    return {x:x,y:y};
+  }
+  function libraryGeometry(width,height){
+    var origin=offsetTo(stage,pin),targets={};
+    sharedIds.forEach(function(id){
+      var button=nodes[id],art=button.querySelector('.cfj-node-art'),inside=offsetTo(art,stage),state=nodeState(id,0,width,height);
+      targets[id]={x:origin.x+state.x-button.offsetWidth/2+inside.x+art.offsetWidth/2,y:origin.y+state.y-button.offsetHeight/2+inside.y+art.offsetHeight/2,width:art.offsetWidth,height:art.offsetHeight};
+    });
+    return {origin:origin,targets:targets};
+  }
+  function readFlights(){
+    // Read all three authored boxes together, rather than the in-flight rectangles.
+    flights.forEach(function(f){f.photo.style.animationName='none';});
+    var result=flights.map(function(f){
+      var el=f.photo,cs=getComputedStyle(el),parent=offsetTo(el.offsetParent,pin);
+      function variable(name,fallback){return cs.getPropertyValue(name).trim()||fallback;}
+      return {flight:f,left:el.offsetLeft,top:el.offsetTop,width:el.offsetWidth,height:el.offsetHeight,parent:parent,radius:cs.borderRadius||'16px',
+        world:variable('--cine-main-world-scale','1.5'),mainScale:variable('--cine-main-final-scale','.49'),mainY:variable('--cine-main-final-y','0%'),
+        sideScale:variable('--cine-side-final-scale','.66'),sideX:variable('--cine-side-final-x','87%'),sideY:variable('--cine-side-final-y','14%')};
+    });
+    flights.forEach(function(f){f.photo.style.animationName='cfj-photo-'+f.id;});return result;
+  }
+  function photoFrame(p,box,pose,opacity,radius){
+    return (p*100).toFixed(3)+'%{left:'+box.left.toFixed(2)+'px;top:'+box.top.toFixed(2)+'px;width:'+box.width.toFixed(2)+'px;height:'+box.height.toFixed(2)+'px;transform:'+pose+';opacity:'+opacity+';border-radius:'+(radius||box.radius)+'}';
+  }
+  function flightFrames(box,target){
+    if(!box.width||!box.height||!target.width||!target.height)return '';
+    var role=box.flight.role,css='@keyframes cfj-photo-'+box.flight.id+'{',center='translate(-50%,-50%) ',finalPose;
+    function pose(p,value,opacity){css+=photoFrame(p,box,center+value,opacity===undefined?1:opacity);}
+    // These are the accepted original photo poses, on their original 0–20% clock.
+    if(role==='main'){
+      pose(0,'scale(.48) rotateY(-18deg) rotateZ(-8deg)');pose(.03,'scale(.72) rotateY(-10deg) rotateZ(-4deg)');
+      pose(.066,'scale('+box.world+') rotateY(0) rotateZ(0)');pose(.108,'scale('+box.world+') rotateY(0) rotateZ(0)');pose(.126,'scale(1.12) rotateY(0) rotateZ(0)');
+      finalPose='translateY('+box.mainY+') scale('+box.mainScale+') rotateY(0) rotateZ(-3deg)';pose(.172,finalPose);pose(.18,finalPose);
+    }else{
+      var left=role==='left',sign=left?-1:1;
+      pose(0,'translate('+(sign*90)+'%,'+(left?'-16%':'3%')+') rotateY('+(left?18:-18)+'deg) rotateZ('+(left?-12:11)+'deg) scale(.72)');
+      var away='translate('+(sign*235)+'%,'+(left?'-35%':'-10%')+') rotateY('+(left?24:-24)+'deg) rotateZ('+(left?-18:18)+'deg) scale(1.12)';
+      pose(.054,away,0);pose(.112,away,0);pose(.128,'translate('+(sign*170)+'%,'+(left?'30%':'45%')+') rotateY('+(left?12:-12)+'deg) rotateZ('+(left?-16:16)+'deg) scale(.8)',0);
+      finalPose='translate('+(left?'calc('+box.sideX+' * -1)':box.sideX)+','+box.sideY+') rotateY(0) rotateZ('+(left?-9:9)+'deg) scale('+box.sideScale+')';pose(.178,finalPose);pose(.18,finalPose);
+    }
+    var destination={left:target.x-box.parent.x,top:target.y-box.parent.y,width:target.width,height:target.height,radius:'50%'};
+    css+=photoFrame(.28,destination,center+'translate(0,0) scale(1) rotateY(0) rotateZ(0)',1,'50%');
+    css+=photoFrame(1,destination,center+'translate(0,0) scale(1) rotateY(0) rotateZ(0)',1,'50%');return css+'}';
+  }
+  function libraryFrames(id,state,width,height){
+    if(sharedIds.indexOf(id)>=0){
+      var hidden=Object.assign({},state,{opacity:0,visibility:'hidden'});
+      return frameText(0,hidden)+frameText(.2799,hidden)+frameText(.28,state)+frameText(holds[0],state)+frameText(ends[0],state);
+    }
+    var order=data.chapters[0].models.filter(function(key){return sharedIds.indexOf(key)<0;}).indexOf(id);
+    if(order<0)return frameText(0,state)+frameText(holds[0],state)+frameText(ends[0],state);
+    var starts=[[-.22,.16],[.46,-.28],[1.22,.38],[.7,1.28],[-.22,.84],[.88,-.28]],p=starts[order];
+    var depths=[.5,1.65,.65,1.35,.45,1.8],depth=width<450?Math.min(1.25,depths[order]):depths[order];
+    var start={x:width*p[0],y:height*p[1],scale:depth,opacity:1,angle:order%2?12:-12,visibility:'hidden'},begin=.205+order*.004,end=.255+order*.004;
+    var visible=Object.assign({},start,{visibility:'visible'});
+    return frameText(0,start)+frameText(begin-.0001,start)+frameText(begin,visible)+frameText(end,state)+frameText(holds[0],state)+frameText(ends[0],state);
+  }
   function curve(a,b,gap){
     var dx=b.x-a.x,dy=b.y-a.y,d=Math.max(1,Math.hypot(dx,dy)),g=Math.min(gap,d*.28),ux=dx/d,uy=dy/d;
     var x=a.x+ux*g,y=a.y+uy*g,ex=b.x-ux*g,ey=b.y-uy*g,bend=Math.min(40,d*.12);
@@ -7860,12 +7966,15 @@ var CF_STORY = {
   }
   function layout(){
     var width=stage.clientWidth,height=stage.clientHeight;if(!width||!height)return;
-    var changed=width!==lastWidth||height!==lastHeight;lastWidth=width;lastHeight=height;
+    var geometry=libraryGeometry(width,height),pinWidth=pin.clientWidth,pinHeight=pin.clientHeight;
+    var key=[width,height,pinWidth,pinHeight,geometry.origin.x,geometry.origin.y];
+    sharedIds.forEach(function(id){var t=geometry.targets[id];key.push(t.x,t.y,t.width,t.height);});
+    key=key.join('|');var changed=key!==lastGeometry;lastGeometry=key;lastWidth=width;lastHeight=height;
     if(changed){
-      var css='';
+      var boxes=mode==='static'?[]:readFlights(),css='';
       Object.keys(nodes).forEach(function(id){
         var s=nodeState(id,0,width,height),name='cfj-node-'+id;
-        css+='@keyframes '+name+'{'+frameText(0,s)+frameText(holds[0],s)+frameText(ends[0],s);
+        css+='@keyframes '+name+'{'+libraryFrames(id,s,width,height);
         for(var i=1;i<data.chapters.length;i++){s=nodeState(id,i,width,height);css+=frameText(holds[i],s)+frameText(ends[i],s);}
         css+='}';nodes[id].style.animationName=name;
       });
@@ -7878,7 +7987,8 @@ var CF_STORY = {
         ch.links.forEach(function(link){var a=nodeState(link[0],index,width,height),b=nodeState(link[1],index,width,height);a.y-=14*a.scale;b.y-=14*b.scale;
           var d=curve(a,b,(width<450?30:52)*a.scale);g.appendChild(svg('path',{d:d,'class':'cfj-link'+(link[2]==='planned'?' is-planned':''),pathLength:100}));
         });wires.appendChild(g);groups.push(g);
-      });style.textContent=css;
+      });
+      boxes.forEach(function(box){css+=flightFrames(box,geometry.targets[box.flight.id]);});style.textContent=css;
       // Keep readable labels in step with adaptive node sizes after a viewport change.
       if(chapter>=0)data.chapters[chapter].models.forEach(function(id){
         var state=nodeState(id,chapter,width,height);
@@ -7961,13 +8071,13 @@ var CF_STORY = {
     root.classList.toggle('is-static',staticMode);root.classList.toggle('is-native',mode==='native');
     intro.classList.toggle('is-enhanced',!staticMode);section.classList.add('cf-cinema-active','cf-journey-active');
     Object.keys(nodes).forEach(function(id){nodes[id].style.removeProperty('transform');nodes[id].style.removeProperty('opacity');});groups.forEach(function(g){g.style.removeProperty('opacity');});
-    buttons[0].disabled=staticMode;chapter=-2;measure();
+    buttons[0].disabled=staticMode;chapter=-2;lastGeometry='';measure();
     var r=root.getBoundingClientRect();near=r.bottom>-200&&r.top<window.innerHeight+200;
     if(staticMode){activate(0,false);paintStatic();}
     else{applyProgress((topInset-r.top)/travel,false);window.addEventListener('scroll',requestRender,{passive:true});}
     window.addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',visibility);
     if(window.IntersectionObserver){observer=new IntersectionObserver(function(entries){near=entries[0].isIntersecting;if(near)requestRender();else{cancel();if(mode!=='static')render();}mediaVisibility();},{rootMargin:'200px 0px'});observer.observe(root);}
-    if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(stage);resizeObserver.observe(pin);}
+    if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(stage);resizeObserver.observe(pin);sharedIds.forEach(function(id){resizeObserver.observe(nodes[id]);});}
     mediaVisibility();
   }
   function explanation(id,item){var el=byId(id);if(!el)return;var strong=document.createElement('strong');strong.textContent=item.title+'. ';el.replaceChildren(strong,document.createTextNode(item.body));}
@@ -8030,6 +8140,7 @@ var CF_STORY = {
   window.addEventListener('hashchange',function(){if(location.hash==='#cfStory')coordinateInitialRoute();else if(cancelInitialRoute)cancelInitialRoute();});
   root.addEventListener('click',mediaVisibility);
 })();
+
 </script>
 </body>
 </html>
