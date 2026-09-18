@@ -246,6 +246,13 @@
        timeout is a fail-safe in case that script never runs. */
     if(!reduce){ r.classList.add("intro-lock"); r.classList.add("hero-hold");
       setTimeout(function(){
+        /* Whichever path releases intro-lock must also take the veil down, or
+           the veil outlives the lock and eats every click while the page
+           scrolls normally. Arming the removal here (t~0) closes the gap at
+           source; the CSS rule above guards the paths where the node survives
+           anyway. Removing it twice is safe — finish() checks parentNode. */
+        var v=document.getElementById("introVeil");
+        if(v&&v.parentNode) v.parentNode.removeChild(v);
         r.classList.remove("intro-lock"); r.classList.remove("hero-hold");
       },9000); }
   }catch(e){}})();
@@ -1373,6 +1380,23 @@
      display scaling >100% the veil overflowed the screen — droplet off-centre,
      sketch not lining up with the real background. This was a real bug. */
   #introVeil{position:fixed;inset:0;width:100%;height:100%;z-index:300;display:block;background:var(--bg)}
+  /* ⚠️ THE VEIL MUST NOT OUTLIVE THE SCROLL LOCK. The veil is removed by
+     finish() in the intro script near the END of this file; `intro-lock` is
+     removed by a SEPARATE 9s timer armed in the <head>. Those two timers start
+     at different moments — the head one at t≈0, the veil one only once ~517 KB
+     more of this file has been parsed — so the veil can survive the scroll
+     unlock. While it does, it is a full-viewport z-index:300 canvas with no
+     pointer-events, so it swallows EVERY CLICK while scrolling still works.
+     That exact symptom pair was reported from a phone.
+     Keyed on :not(.intro-lock) rather than a flat pointer-events:none so the
+     opening animation stays deliberately click-proof while it is running, and
+     only the window where scrolling is already unlocked is neutralised.
+     Specificity (1,1,1) beats the rule above, so order does not matter.
+     This also covers the UNBOUNDED case: if a JS error anywhere before the
+     intro script means setTimeout(finish,9000) is never armed, the veil would
+     otherwise be permanent — the head timer still clears intro-lock, so this
+     rule still makes it click-transparent. */
+  html:not(.intro-lock) #introVeil{pointer-events:none}
   html.intro-lock, html.intro-lock body{overflow:hidden}
   html.intro-lock{scroll-snap-type:none}
   /* The whole banner — words AND photo deck — waits out the opening: veil,
@@ -3153,10 +3177,16 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       /* SCG and Co-culture used to sit here too. They moved to the Awards
          section, which shows them large and credited — carrying them in both
          places put the same two photos on the page twice. */
-      ["Enteric Neurons",  "big",   "images/ENS2026.webp"],
-      ["Intestinal Organoid",         "big", "images/Organoid2026.webp"],
-      ["DRG neurons",            "big",  "images/DRG.webp"],
-      ["Human stem cells",       "big",  "images/StemCells.webp"],
+      /* The 4th field is the category, and it is REQUIRED here. classify()
+         otherwise infers it from the filename against a hardcoded list
+         (ENS|Organoid|SCG|Co-culture), which these renamed files do not match —
+         they fell through to "bench" and the Microscopy filter button vanished
+         because no tile classified as microscopy any more. Stating it beats
+         widening that regex: it cannot break on the next rename. */
+      ["Enteric Neurons",  "big",   "images/ENS2026.webp", "microscopy"],
+      ["Intestinal Organoid",         "big", "images/Organoid2026.webp", "microscopy"],
+      ["DRG neurons",            "big",  "images/DRG.webp", "microscopy"],
+      ["Human stem cells",       "big",  "images/StemCells.webp", "microscopy"],
       ["Organoid section",       "sm",   ""],
       ["Western blot",           "big",  "images/WesternBlot.jpeg"],
       /* A VIDEO path here gives a silent looping clip instead of a photo —
