@@ -131,6 +131,10 @@
 .cf-comparison-explanation p{font:12px/1.8 var(--sans,Arial,sans-serif);color:var(--cf-muted)}
 .cf-comparison-explanation p+p{margin-top:14px}
 .cf-comparison-explanation strong{color:var(--cf-ink);font-weight:600}
+/* A note for one specific genotype + treatment pairing (comparisons.notes).
+   Set apart by a gold rule so it reads as a caveat on the two lines above. */
+.cf-comparison-explanation .cf-comparison-note{padding-left:12px;border-left:2px solid var(--cf-gold,#c9a56e);color:var(--cf-ink)}
+.cf-comparison-explanation .cf-comparison-note[hidden]{display:none}
 .cf-science-note{border-top:1px solid var(--cf-line);margin-top:32px;padding-top:8px}
 .cf-science-note summary{cursor:pointer;color:var(--cf-muted);font:11px/1.7 var(--sans,Arial,sans-serif);padding:16px 4px;min-height:44px}
 .cf-science-note>div{padding:24px;background:rgba(28,31,37,.7);border-radius:8px}
@@ -190,6 +194,15 @@
 @media(max-width:960px){#galGrid.gf-managed{grid-template-columns:repeat(2,minmax(0,1fr))}#gallery .gf-toolbar{gap:10px}#gallery .gf-filter{padding:11px 13px}}
 @media(max-width:640px){#gallery .gf-toolbar{display:block;margin-bottom:22px;padding-bottom:14px}#gallery .gf-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:4px;padding:5px}#gallery .gf-filter{min-height:46px;justify-content:space-between;padding:11px 12px;font-size:13px}#gallery .gf-filter-count{min-width:20px;height:20px;font-size:10px}#gallery .gf-status{font-size:11px;padding:14px 0 0}#galGrid.gf-managed,#galGrid.gf-managed[data-gf-count='2']{grid-template-columns:minmax(0,1fr);grid-auto-rows:250px;gap:14px}#galGrid.gf-managed[data-gf-count='1']{grid-auto-rows:auto}#galGrid.gf-managed[data-gf-count='1']>.gal{min-height:230px;aspect-ratio:4/3}}
 @media(prefers-reduced-motion:reduce){#gallery .gf-filter{transition:none}}
+/* "Show more" sits centred under the grid in the filter chips' vocabulary: same
+   panel fill, hairline, radius, 44 px touch target and mono count badge. */
+#gallery .gf-more-wrap{display:flex;justify-content:center;margin:28px 0 0}
+#gallery .gf-more-wrap[hidden]{display:none}
+#gallery .gf-more{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:11px 22px;border:1px solid var(--hair,rgba(207,188,155,.2));border-radius:11px;background:var(--panel-soft,#16191f);color:var(--fg,#eeeae4);font:500 13px/1.4 var(--sans,Arial,sans-serif);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .18s,color .18s}
+#gallery .gf-more-count{display:inline-grid;place-items:center;min-width:24px;height:20px;padding:0 5px;border:1px solid currentColor;border-radius:5px;font:500 10px/1 var(--mono,monospace);opacity:.65}
+#gallery .gf-more:focus-visible{outline:2px solid var(--accent-ink,#d1be9d);outline-offset:5px}
+@media(hover:hover) and (pointer:fine){#gallery .gf-more:hover{border-color:var(--accent,#cdbb9b);color:var(--accent-ink,#d1be9d)}}
+@media(prefers-reduced-motion:reduce){#gallery .gf-more{transition:none}}
 
 
 </style>
@@ -1793,6 +1806,15 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 .member .avatar{width:calc(100% - 24px);margin:12px auto 0;border-radius:12px}
 .member .m-txt{padding:16px 20px 20px}
 
+/* Members whose photo has not been provided yet (4th field ""). avatar() already
+   falls back to the member's gradient with their initials, but at the base
+   2.4rem those initials sit small in a ~274 px tile and read as a broken image.
+   Set large, they read as a deliberate monogram. The tile keeps aspect-ratio:1,
+   so the card stays exactly as tall as its photographed neighbours. There is no
+   zoom cursor: the lightbox only claims tiles that contain an <img>. */
+.member.no-photo .avatar{box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.member.no-photo .avatar .init{font-size:clamp(3.2rem,7vw,4.6rem);font-weight:500;letter-spacing:.04em;opacity:.9}
+
 /* Opaque photo backing also covers the carousel while cards change. */
 .welcome-visual .deck{background:var(--panel);isolation:isolate}
 
@@ -2450,7 +2472,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       <a href="#awards">Awards</a>
       <a href="#gallery">Gallery</a>
       <a href="#support">Support</a>
-      <a href="#join" class="nav-cta">Join Us <span aria-hidden="true">→</span></a>
+      <a href="#join" class="nav-cta">Join us <span aria-hidden="true">→</span></a>
     </nav>
     <button class="theme-btn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
     <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-controls="navlinks" aria-expanded="false">☰</button>
@@ -2473,7 +2495,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         <div class="hero-cta reveal" style="--d:500ms">
           <a href="#research" class="btn btn-primary" data-c="hero.button1">Explore our research →</a>
           <a href="#join" class="btn btn-ghost" data-c="hero.button2">Join the lab</a>
-          <a href="#contact" class="btn btn-support" data-c="hero.supportButton">Support our research</a>
+          <a href="#support" class="btn btn-support" data-c="hero.supportButton">Support our research</a>
         </div>
         <div class="hero-tags reveal" style="--d:620ms" id="heroTags"></div>
       </div>
@@ -2509,7 +2531,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       <div class="stat-card">
         <p class="eyebrow" style="margin-bottom:16px" data-c="about.statsTitle">At a glance</p>
         <div class="stats" id="statsGrid"></div>
-        <p style="font-size:13px;color:var(--sub);margin-top:18px;line-height:1.5" data-c="about.statsNote">Replace these with real numbers once you're ready.</p>
+        <p style="font-size:13px;color:var(--sub);margin-top:18px;line-height:1.5" data-c="about.statsNote">Citation metrics from Google Scholar, August 2026. Home to diversity, curiosity, and innovative ideas.</p>
       </div>
     </div>
   </div>
@@ -2566,7 +2588,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         <div class="cf-j-copy" id="cfChapterText">
           <p class="cf-j-kicker" id="cfChapterKicker">01 / The starting point</p>
           <h4 id="cfChapterTitle">Many models.<br>One shared question.</h4>
-          <p class="cf-j-body" id="cfChapterBody">From individual cells to three-dimensional organoids, each preparation gives us a different window into cystic fibrosis.</p>
+          <p class="cf-j-body" id="cfChapterBody">From primary neurons and stem cells to organoids, tissue preparations and the whole animal, each model offers a different window into cystic fibrosis.</p>
           <p class="cf-j-note" id="cfChapterNote">Select a specimen to meet the models behind the work.</p>
           <span class="cf-j-status" id="cfChapterStatus">Data collection underway</span>
         </div>
@@ -2590,7 +2612,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         <button type="button" data-cfj-stop="0" aria-label="In focus: cystic fibrosis" aria-current="step" aria-controls="cfCinema"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Focus</span></button>
         <button type="button" data-cfj-stop="1" aria-label="Living library" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Library</span></button>
         <button type="button" data-cfj-stop="2" aria-label="Gut connections" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Gut</span></button>
-        <button type="button" data-cfj-stop="3" aria-label="Read the signals" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Signals</span></button>
+        <button type="button" data-cfj-stop="3" aria-label="Watch movement" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Movement</span></button>
         <button type="button" data-cfj-stop="4" aria-label="Brain questions" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Brain</span></button>
         <button type="button" data-cfj-stop="5" aria-label="Future connections" aria-controls="cfStory"><span class="cf-j-stop-dot" aria-hidden="true"></span><span>Future</span></button>
       </div>
@@ -2604,22 +2626,22 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 </dialog>
 <div class="cf-j-appendix cf-program-card cf-story" id="cfJourneyAppendix">
   <div class="cf-comparison">
-      <div class="cf-comparison-intro"><p class="cf-kicker">The question across every model</p><h4>What changes in CF?<br> What changes with treatment?</h4><p>Compare cystic fibrosis with wild-type controls and explore treatment conditions across the research models.</p></div>
+      <div class="cf-comparison-intro"><p class="cf-kicker">The question across every model</p><h4>What changes in CF?<br> What changes with treatment?</h4><p>Compare F508del cystic fibrosis models with heterozygous carriers and wild-type controls, and explore treatment conditions across the research models.</p></div>
       <div class="cf-comparison-controls">
-        <div class="cf-selector" role="group" aria-label="Model comparison"><p>01 / Compare models</p><div><button type="button" data-cf-model="wt" aria-pressed="false" aria-controls="cfComparisonModel">Wild-type</button><button type="button" data-cf-model="cf" aria-pressed="true" aria-controls="cfComparisonModel">Cystic fibrosis</button></div></div>
+        <div class="cf-selector" role="group" aria-label="Model comparison"><p>01 / Compare models</p><div><button type="button" data-cf-model="wt" aria-pressed="false" aria-controls="cfComparisonModel">Wild-type</button><button type="button" data-cf-model="het" aria-pressed="false" aria-controls="cfComparisonModel">Heterozygous <small>F508del/+</small></button><button type="button" data-cf-model="cf" aria-pressed="true" aria-controls="cfComparisonModel">Cystic fibrosis <small>F508del</small></button></div></div>
         <div class="cf-selector" role="group" aria-label="Treatment comparison"><p>02 / Compare conditions</p><div><button type="button" data-cf-treatment="control" aria-pressed="true" aria-controls="cfComparisonTreatment">Control</button><button type="button" data-cf-treatment="eti" aria-pressed="false" aria-controls="cfComparisonTreatment">Trikafta <small>ETI</small></button><button type="button" data-cf-treatment="vtd" aria-pressed="false" aria-controls="cfComparisonTreatment">Alyftrek <small>VTD</small></button></div></div>
-        <p class="cf-design-note">Study design · No experimental results shown</p><div class="cf-comparison-explanation" aria-live="polite" aria-atomic="true"><p id="cfComparisonModel"></p><p id="cfComparisonTreatment"></p></div>
+        <p class="cf-design-note">Study design · No experimental results shown</p><div class="cf-comparison-explanation" aria-live="polite" aria-atomic="true"><p id="cfComparisonModel"></p><p id="cfComparisonTreatment"></p><p id="cfComparisonNote" class="cf-comparison-note" hidden></p></div>
       </div>
     </div>
 <div class="cf-static-fallback">
     <ol>
-      <li><h4>Living library</h4><p>Our cultures include human stem cells; DRG, SCG, enteric and hippocampal neurons; intestinal organoids; human-stem-cell-derived brain organoids; and smooth muscle. Intestinal organ-bath work provides a separate tissue preparation.</p></li>
-      <li><h4>Gut connections</h4><p>We combine DRG neurons, enteric neurons and intestinal organoids in co-culture to study relationships between these components.</p></li>
-      <li><h4>Read the signals</h4><p>Electrical recordings, smooth muscle contraction and intestinal organ-bath studies provide complementary measurements of function.</p></li>
+      <li><h4>Living library</h4><p>Our cultures include human stem cells; primary DRG, SCG, enteric and hippocampal neurons; intestinal organoids; human-stem-cell-derived brain organoids; and smooth muscle. Intestinal organ-bath work provides a separate tissue preparation, and whole-animal gut transit extends the work to the whole animal.</p></li>
+      <li><h4>Gut connections</h4><p>We bring DRG neurons, enteric neurons and intestinal organoids together in co-culture to study how these components interact.</p></li>
+      <li><h4>Watch movement</h4><p>Smooth muscle culture, the intestinal organ bath and whole-animal gut transit offer complementary views of gut function, from cells to intact tissue to the whole animal, in separate experiments.</p></li>
       <li><h4>Brain questions</h4><p>Data collection is underway in our brain research, using brain slices, hippocampal neurons and human-stem-cell-derived brain organoids to investigate CF and responses to CFTR modulators.</p></li>
-      <li><h4>Future connections</h4><p>We plan to differentiate human stem cells into neuronal and cardiac muscle cultures, and to develop a future SCG–cardiac muscle co-culture.</p></li>
+      <li><h4>Future connections</h4><p>We plan to differentiate human stem cells into SCG neurons, cardiac muscle and enteric neurons, then co-culture the stem-cell-derived SCG neurons with stem-cell-derived cardiac muscle.</p></li>
     </ol>
-    <p>Across these models, our research aims to compare cystic fibrosis with wild-type controls and investigate responses across treatment conditions, including Trikafta (ETI) and Alyftrek (VTD).</p>
+    <p>Across these models, our research aims to compare F508del cystic fibrosis models with heterozygous carriers and wild-type controls, and to investigate responses across treatment conditions, including Trikafta (ETI) and Alyftrek (VTD).</p>
   </div>
 <details class="cf-science-note"><summary>About the brain research question &amp; treatment names</summary><div><p>ETI combines elexacaftor, tezacaftor and ivacaftor (Trikafta). VTD combines vanzacaftor, tezacaftor and deutivacaftor (Alyftrek).</p><p>Current U.S. prescribing information describes postmarketing neuropsychiatric reports in people taking these treatments or drugs with the same or similar active ingredients. These reports motivate questions; they do not establish the cellular mechanism being investigated here. Data collection is underway in the brain research shown above.</p><p><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f354423a-85c2-41c3-a9db-0f3aee135d8d" target="_blank" rel="noopener noreferrer">Trikafta prescribing information ↗</a><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7e635909-c6fd-4f0d-ae77-cdff03653a20" target="_blank" rel="noopener noreferrer">Alyftrek prescribing information ↗</a></p></div></details>
 <svg class="cf-art-defs" aria-hidden="true" width="0" height="0"><defs>
@@ -2634,7 +2656,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     <symbol id="cf-art-muscle" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M4 35Q57 2 115 31Q64 62 4 35Z"/><path d="M5 65Q62 30 116 62Q65 95 5 65Z"/><path d="M5 94Q60 63 116 94Q59 120 5 94Z"/></g><g class="cf-art-nucleus"><ellipse cx="59" cy="32" rx="14" ry="4"/><ellipse cx="62" cy="62" rx="14" ry="4"/><ellipse cx="57" cy="94" rx="14" ry="4"/></g></symbol>
     <symbol id="cf-art-bath" viewBox="0 0 120 120"><path class="cf-art-branch" d="M35 21V101Q60 115 85 101V21M29 21H91M60 8V34M46 8H74M60 82V106"/><path class="cf-art-membrane" d="M38 52Q60 57 82 52V98Q60 108 38 98Z"/><path class="cf-art-muscle-tissue" d="M52 35Q59 31 68 37L68 78Q59 84 52 78Z"/><g class="cf-art-grain"><circle cx="43" cy="86" r="2"/><circle cx="76" cy="78" r="2"/><circle cx="73" cy="65" r="1.5"/><circle cx="44" cy="68" r="1.5"/></g><path class="cf-art-branch" d="M84 14H99V90"/></symbol>
     <symbol id="cf-art-recording" viewBox="0 0 120 120"><path class="cf-art-branch" d="M8 30H25L30 12L36 47L43 24L48 31H65M12 98Q57 117 107 97M48 74L27 60L9 62M50 77L29 96M54 79L81 94L101 84M54 71L61 53"/><circle class="cf-art-membrane" cx="52" cy="78" r="13"/><circle class="cf-art-nucleus" cx="52" cy="78" r="4"/><path class="cf-art-muscle-tissue" d="M99 8L110 18L66 68L60 73L62 63Z"/></symbol>
-    <symbol id="cf-art-cardiac" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M22 13L43 9L54 41L76 24L92 40L64 62L84 99L64 112L45 75L25 96L10 79L34 55Z"/></g><g class="cf-art-branch"><path d="M22 31L46 24M29 46L52 38M42 60L62 49M50 77L72 65M57 93L79 82M25 69L36 80M64 43L74 55"/></g><ellipse class="cf-art-nucleus" cx="48" cy="57" rx="5" ry="10"/></symbol>
+    <symbol id="cf-art-transit" viewBox="0 0 120 120"><path class="cf-art-membrane" d="M24 78C20 58 38 45 58 44C70 43 80 45 88 49C96 47 104 51 107 58C109 63 105 67 99 68C95 74 86 79 74 81C62 84 44 85 34 84C28 83 25 81 24 78Z"/><circle class="cf-art-membrane" cx="87" cy="43" r="7"/><circle class="cf-art-nucleus" cx="99" cy="56" r="2"/><path class="cf-art-branch" d="M24 78C12 80 8 90 12 98C16 106 28 106 32 99M44 84L41 93M70 82L72 91"/><path class="cf-art-branch" d="M86 60C74 55 62 56 56 61C50 66 60 70 58 74C56 78 46 78 38 74"/><g class="cf-art-grain"><circle cx="80" cy="57.5" r="2.4"/><circle cx="67" cy="56.5" r="2.4"/><circle cx="56" cy="63" r="2.4"/><circle cx="57" cy="72" r="2.4"/><circle cx="46" cy="77" r="2.4"/></g></symbol>
+<symbol id="cf-art-cardiac" viewBox="0 0 120 120"><g class="cf-art-membrane"><path d="M22 13L43 9L54 41L76 24L92 40L64 62L84 99L64 112L45 75L25 96L10 79L34 55Z"/></g><g class="cf-art-branch"><path d="M22 31L46 24M29 46L52 38M42 60L62 49M50 77L72 65M57 93L79 82M25 69L36 80M64 43L74 55"/></g><ellipse class="cf-art-nucleus" cx="48" cy="57" rx="5" ry="10"/></symbol>
   </defs></svg>
 </div>
 <div class="cf-program-outro"><div><p class="eyebrow">From models to measurements</p><h3>The next step: listen to the cells.</h3><p>Explore the techniques we use to record activity, image connections and measure function.</p></div><a class="btn btn-ghost" href="#techniques">Explore our techniques <span aria-hidden="true">↗</span></a></div>
@@ -2671,7 +2694,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     <div class="sec-head">
       <p class="eyebrow chapter-label" data-c="publications.eyebrow">Selected publications</p>
       <h2 data-c="publications.heading">Recent work</h2>
-      <p data-c="publications.intro">A placeholder list.</p>
+      <p data-c="publications.intro"></p>
     </div>
     <div id="pubList"></div>
     <a href="#" class="btn btn-ghost" style="margin-top:26px" id="pubLink">View full publication list</a>
@@ -2726,7 +2749,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     <a class="support-story-link" href="#cf-research">Explore the science behind your support <span aria-hidden="true">↗</span></a>
     <div class="support-priorities"><article class="support-priority"><p class="eyebrow">01 / Ways to support</p><h3 data-c="support.priorities.0.title">Train emerging scientists</h3><p data-c="support.priorities.0.body">Talk with us about supporting hands-on research training and opportunities for students.</p></article>
 <article class="support-priority"><p class="eyebrow">02 / Ways to support</p><h3 data-c="support.priorities.1.title">Enable experiments</h3><p data-c="support.priorities.1.body">Discuss the experimental resources and tools needed to investigate neuronal activity.</p></article>
-<article class="support-priority"><p class="eyebrow">03 / Ways to support</p><h3 data-c="support.priorities.2.title">Advance future studies</h3><p data-c="support.priorities.2.body">Explore opportunities to support the next questions in our CF and CFTR modulator research.</p></article></div>
+<article class="support-priority"><p class="eyebrow">03 / Ways to support</p><h3 data-c="support.priorities.2.title">Advance future studies</h3><p data-c="support.priorities.2.body">Explore opportunities to support the next questions in our CF and CFTR-modulator research.</p></article></div>
     <div class="support-invitation"><div><h3 data-c="support.invitationHeading">Be part of the work ahead.</h3><p data-c="support.invitationText">Interested in contributing? Contact us to discuss the lab’s research priorities and ways to help.</p></div><a class="btn btn-primary" href="#contact" data-c="support.button">Discuss supporting our research →</a></div>
   </div>
 </section>
@@ -2876,7 +2899,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     photos: [
       ["The whole lab",          "images/Lab3.jpeg",  "50% 55%"],
       ["Social gathering",       "images/Lab1.jpeg",  "50% 50%"],
-      ["Honey Bees",             "images/Lab2.jpeg",  "50% 25%"],
+      ["Honey bees",             "images/Lab2.jpeg",  "50% 25%"],
       /* Sept 2026, and asked for at this exact position. Same master/export
          arrangement as Lab12 below: Lab17.jpg is the 4000x3000 / 2.9 MB file
          off the camera and stays in the folder unreferenced; the site points
@@ -2930,15 +2953,15 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   hero: {
     eyebrow: "Neuroscience &middot; Electrophysiology",
     title: "From single cells to living systems",
-    lead:    "We study <b>neuronal activity</b> across health and disease, from single-channel currents to whole-organism behavior. Our flagship project investigates <b>CFTR modulators for cystic fibrosis</b>, alongside curiosity-driven work in <b>honey bees</b> and <b>diabetes</b>.",
+    lead:    "We study <b>neuronal activity</b> across health and disease, from single-channel currents to whole-organism behavior. Our flagship program investigates <b>CFTR modulators for cystic fibrosis</b>, alongside curiosity-driven work in <b>honey bees</b> and <b>diabetes</b>.",
     button1: "Explore our research &rarr;",
     button2: "Join the lab",
     supportButton: "Support our research",
     /* colour choices: teal, amber, violet */
     tags: [
       ["teal",   "Cystic fibrosis &middot; CFTR modulators"],
-      ["amber",  "Honey bee &mdash; Herbicidal effects"],
-      ["violet", "Diabetes &mdash; Neuropathy"]
+      ["amber",  "Honey bee &mdash; herbicidal effects"],
+      ["violet", "Diabetes &mdash; neuropathy"]
     ]
   },
 
@@ -2947,8 +2970,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     eyebrow: "About the lab",
     heading: "Where electrophysiology meets translational discovery",
     paragraphs: [
-      "The <b>Campanucci Lab</b>, led by <b>Dr. Veronica Campanucci</b> in the Department of Anatomy, Physiology, and Pharmacology, College of Medicine at the University of Saskatchewan, focuses on understanding how chronic conditions affect the nervous system. To broaden our understanding of the nervous system physiology, we also employ invertebrate model systems, including fruit flies and honeybees.",
-      "Our research takes a multidisciplinary approach, spanning patch-clamp electrophysiology, brain slice recordings, organoids and organ-on-chip models, stem-cell derived cultures, in situ preparations, immunofluorescent imaging, and protein analysis.",
+      "The <b>Campanucci Lab</b>, led by <b>Dr. Veronica Campanucci</b> in the Department of Anatomy, Physiology, and Pharmacology, College of Medicine at the University of Saskatchewan, focuses on understanding how chronic conditions affect the nervous system. To broaden our understanding of nervous-system physiology, we also employ invertebrate model systems, including fruit flies and honey bees.",
+      "Our research takes a multidisciplinary approach, spanning patch-clamp electrophysiology, brain slice recordings, organoids and organ-on-chip models, stem-cell-derived cultures, in situ preparations, immunofluorescent imaging, and protein analysis.",
       "We believe good science is welcoming science. The lab is a place where clinicians, biologists, and students work side by side, and where trainees learn techniques hands-on from day one."
     ],
     statsTitle: "At a glance",
@@ -2971,7 +2994,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   /* ===== 4. RESEARCH PROGRAMS =====
      colour: teal / amber / violet     icon: wave / bee / drop            */
   research: {
-    eyebrow: "Research projects",
+    eyebrow: "Research programs",
     heading: "Three questions, one common goal: neuronal activity",
     intro: "Cystic fibrosis is our flagship program. Complementary studies in honey bees and diabetes explore how disease and environmental stress affect neuronal function.",
     /* This real microscopy image supports the flagship program. The research frame uses a centred crop to fill its width.
@@ -2990,7 +3013,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         body:"We investigate nervous-system changes in cystic fibrosis and responses to CFTR modulators. Our work connects recordings from individual neurons with organoid, tissue and whole-animal studies.",
         bullets:[
           "Measure neuronal activity with patch-clamp and brain slice recordings.",
-          "Study epithelial and tissue function using organoids, gut-on-a-chip models and organ bath assays.",
+          "Study epithelial and tissue function using organoids and gut-on-a-chip models, and intestinal contraction using organ-bath assays.",
           "Connect cellular findings with intestinal motility, behaviour and humanized mouse models."
         ]},
       { colour:"amber", icon:"bee", label:"Complementary program",
@@ -3009,7 +3032,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         bullets:[
           "Autonomic neurons: heart and blood vessel regulation.",
           "Sensory neurons: sensation and peripheral neuropathy.",
-          "Central neurons: cognitive changes associated with type II diabetes."
+          "Central neurons: cognitive changes associated with type 2 diabetes."
         ]}
     ]
   },
@@ -3022,12 +3045,15 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     list: [
       ["Electrophysiology",   "Patch-clamp and extracellular recording of ionic currents and action potentials — the core of everything we do."],
       ["Cell &amp; neuron culture","Primary neurons and cell lines grown and maintained for functional, molecular, and pharmacological study."],
-      ["Organoids",           "Brain and stem-cell–derived 3D organoids that recapitulate tissue-level architecture and activity."],
-      ["Organ bath",          "Intact-tissue and Ussing-chamber physiology to measure transport and contractile responses to drugs."],
+      ["Organoids",           "Brain and stem-cell-derived 3D organoids that recapitulate tissue-level architecture and activity."],
+      /* No Ussing chamber: the lab does not use that technique (confirmed 26 Sep
+         2026). "Transport" went with it -- epithelial ion transport is what a
+         Ussing chamber measures; the organ bath measures contraction. */
+      ["Organ bath",          "Intact-tissue physiology to measure contractile responses to drugs."],
       ["Immunostaining",      "Fluorescence labeling to map proteins, channels, and cell types across our models."],
       ["Western blot",        "Quantitative protein detection to track expression, processing, and modulation of targets like CFTR."],
       ["PCR",                 "Quantitative and endpoint PCR for genotyping, expression profiling, and variant work."],
-      ["Mouse models",        "In vivo validation that connects cellular mechanism to physiology, behavior, and disease."]
+      ["Mouse models",        "In vivo work, including whole-animal gut transit, that connects cellular mechanism to physiology, behavior, and disease."]
     ]
   },
 
@@ -3055,7 +3081,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         ]],
         ["Postdoctoral Experience", [
           "Department of Physiology, McGill University (Montréal)",
-          "Neuroscience and mental Health, The Hospital for Sick Children (Toronto)"
+          "Neuroscience and Mental Health, The Hospital for Sick Children (Toronto)"
         ]]
       ]
     },
@@ -3065,11 +3091,19 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       /* The 5th field is the crop. This is a tall standing photo, so a square
          avatar with the default "50% 50%" would centre on his chest and cut the
          head off; "50% 0%" takes the top band, which is where the face is. */
-      ["Jose Jesus Guzman Mendoza","Postdoctoral Researcher", "Flow cytometry and cell sorting, Nanoparticle engineering and drug delivery systems, Molecular biology, Gene expression, Cell culture, Immunochemistry, Immunological assays, In-vivo bioluminescence imaging, Preclinical animal models", "images/Jesus.jpeg", "50% 0%"],
-      ["Omar Morales","PhD Student",           "Stem cell culture/differentiation, Cell/Organoid culture, Immunohistochemistry, PCR, Western Blot", "images/Omar.jpeg"],
+      ["Jose Jesus Guzman Mendoza","Postdoctoral Researcher", "Flow cytometry and cell sorting, Nanoparticle engineering and drug delivery systems, Molecular biology, Gene expression, Cell culture, Immunochemistry, Immunological assays, In vivo bioluminescence imaging, Preclinical animal models", "images/Jesus.jpeg", "50% 0%"],
+      ["Omar Morales","PhD Student",           "Stem cell culture/differentiation, Cell/organoid culture, Immunohistochemistry, PCR, Western blot", "images/Omar.jpeg"],
       ["[Member Name]","PhD Student",            "Honey bee neural recording",         ""],
       ["Ashtyn Ekstrand","MSc Student",            "Organ bath, Organoid culture, Immunohistochemistry","images/Ashtyn.webp"],
       ["Frances Dy","MSc Student",    "Electrophysiology, Cell culture, Immunocytochemistry","images/Frances.jpeg"],
+      /* NO PHOTO YET is a supported state, not a placeholder: leave the 4th
+         field "" and the card shows the name, role and work with a monogram
+         tile in place of the picture (see .member.no-photo in the CSS). Only a
+         name containing "[" is hidden. When the photo arrives, put its path in
+         the 4th field -- nothing else changes. */
+      ["Kobe Regunath","MSc Student",             "Immunohistochemistry, Brain organoid culture, Stem cell culture/differentiation", ""],
+      ["Martin Hasal","Honours Student",          "Immunohistochemistry, Brain organoid culture, Stem cell culture/differentiation", ""],
+      ["Kaleb Whittingstall","Honours Student",   "Electrophysiology, Cell culture", ""],
       ["Elijah Masiowski","Volunteer",           "Immunohistochemistry, Organ bath",   "images/Eli.jpeg", "50% 20%"],
       ["[Member Name]","Postdoctoral Fellow",    "Organ bath &amp; tissue physiology",  ""],
       ["[Member Name]","Undergraduate Researcher","Immunostaining &amp; imaging",       ""],
@@ -3107,7 +3141,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       ["2025","Hyperglycemia-induced mitochondrial abnormalities in autonomic neurons via the RAGE axis","M.G. Otero, N. Henao-Romero, T.M. Krysak, M.T. Vu-Lu, O.O.M. Morales, Z. Momeni, Y. Yamamoto, T.L. Falzone, V.A. Campanucci","Scientific Reports 15, 25231","Diabetes &amp; RAGE","https://doi.org/10.1038/s41598-025-10933-y"],
       ["2024","Pulmonary ionocytes regulate airway surface liquid pH in primary human bronchial epithelial cells","X. Luan, N. Henao Romero, V.A. Campanucci, Y. Le, J. Mustofa, J.S. Tam, J.P. Ianowski","American Journal of Respiratory and Critical Care Medicine 210(6), 788&ndash;800","Cystic fibrosis &mdash; airway","https://doi.org/10.1164/rccm.202309-1565OC"],
       ["2022","Voltage-gated sodium channels in diabetic sensory neuropathy: function, modulation, and therapeutic potential","S. Bigsby, J. Neapetung, V.A. Campanucci","Frontiers in Cellular Neuroscience 16, 994585","Review &mdash; diabetic neuropathy","https://doi.org/10.3389/fncel.2022.994585"],
-      ["2021","cAMP triggers Na+ absorption by distal airway surface epithelium in cystic fibrosis swine","X. Luan, Y. Le, S. Jagadeeshan, B. Murray, J.L. Carmalt, T. Duke, et al., V.A. Campanucci, T.E. Machen, J.S. Tam, J.P. Ianowski","Cell Reports 37(1), 109795","Cystic fibrosis &mdash; airway","https://doi.org/10.1016/j.celrep.2021.109795"],
+      ["2021","cAMP triggers Na+ absorption by distal airway surface epithelium in cystic fibrosis swine","X. Luan, Y. Le, S. Jagadeeshan, B. Murray, J.L. Carmalt, T. Duke, S. Beazley, M. Fujiyama, K. Swekla, B. Gray, M. Burmester, V.A. Campanucci, A. Shipley, T.E. Machen, J.S. Tam, J.P. Ianowski","Cell Reports 37(1), 109795","Cystic fibrosis &mdash; airway","https://doi.org/10.1016/j.celrep.2021.109795"],
       ["2021","Lipopolysaccharides induce a RAGE-mediated sensitization of sensory neurons and fluid hypersecretion in the upper airways","M. Nair, S. Jagadeeshan, G. Katselis, X. Luan, Z. Momeni, N. Henao-Romero, P. Chumala, J.S. Tam, Y. Yamamoto, J.P. Ianowski, V.A. Campanucci","Scientific Reports 11, 8336","Airway inflammation &amp; RAGE","https://doi.org/10.1038/s41598-021-86069-6"]
     ]
   },
@@ -3145,7 +3179,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   },
 
   /* ===== 9. GALLERY =====
-     [ caption , tile size , photo (or "" for a generated placeholder), optional category ]
+     [ caption , tile size , photo , optional category ]  -- an entry whose photo is "" is SKIPPED, not painted
      Review 2 categories: "microscopy", "bench", "videos". Omit to infer from filename.
      tile size: big / tall / wide / sm
      To use your own photo:  ["Our patch rig","big","images/rig.jpg"]
@@ -3203,18 +3237,36 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     heading: "Life at the bench",
     intro:   "Microscopy, rigs, and the day-to-day of the lab.",
     list: [
-      /* SCG and Co-culture used to sit here too. They moved to the Awards
-         section, which shows them large and credited — carrying them in both
-         places put the same two photos on the page twice. */
+      /* EVERY IMAGE USED IN RESEARCH, TECHNIQUES OR AWARDS ALSO BELONGS HERE.
+         That is the lab's rule since 26 Sep 2026, and tests\Test-Site.ps1
+         enforces it ("every research and award image is also in the gallery").
+         It deliberately reverses an earlier choice: SCG and Co-culture were once
+         taken OUT of the gallery because the Awards section already showed them,
+         and showing them twice was treated as a defect. It is now intended.
+         When you add an image to any of those sections, add a line for it here.
+         The gallery shows six tiles at a time behind a "Show more" button (see
+         #gallery-filter-interactions), so this list can grow without limit. */
       /* The 4th field is the category, and it is REQUIRED here. classify()
          otherwise infers it from the filename against a hardcoded list
          (ENS|Organoid|SCG|Co-culture), which these renamed files do not match —
          they fell through to "bench" and the Microscopy filter button vanished
          because no tile classified as microscopy any more. Stating it beats
          widening that regex: it cannot break on the next rename. */
-      ["Enteric Neurons",  "big",   "images/ENS2026.webp", "microscopy"],
-      ["Intestinal Organoid",         "big", "images/Organoid2026.webp", "microscopy"],
-      ["DRG neurons",            "big",  "images/DRG.webp", "microscopy"],
+      ["Co-culture · award winner 2026",       "big", "images/Co-culture.webp", "microscopy"],
+      ["SCG neurons · award runner-up 2025",   "big", "images/SCG.webp",        "microscopy"],
+      /* Two DIFFERENT enteric images, not a duplicate: ENS.webp is a dense
+         network of many neurons (used by the research journey's enteric node),
+         ENS2026.webp a close-up of two neurons. */
+      ["Enteric neurons · network",            "big", "images/ENS.webp",        "microscopy"],
+      ["Enteric neurons · close-up",           "big", "images/ENS2026.webp",    "microscopy"],
+      /* Likewise two different organoid images: Organoid.webp is a whole organoid
+         at low magnification (used on the Organoids technique card),
+         Organoid2026.webp a close-up with a 10 um scale bar. */
+      ["Intestinal organoid · whole organoid", "big", "images/Organoid.webp",    "microscopy"],
+      ["Intestinal organoid · close-up",       "big", "images/Organoid2026.webp", "microscopy"],
+      /* The photo is DRG neurons co-cultured WITH an intestinal organoid (see the
+         journey's DRG imageAlt), and gallery alt text is built from the caption. */
+      ["DRG neurons with an intestinal organoid · co-culture", "big", "images/DRG.webp", "microscopy"],
       ["Human stem cells",       "big",  "images/StemCells.webp", "microscopy"],
       ["Dentate gyrus · immunostaining", "big", "images/Dentate-gyrus-immuno.png", "microscopy", 0],
       ["Hippocampus · histology", "big", "images/Hippocampus-histo.png", "microscopy", 180],
@@ -3233,7 +3285,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          so the size class IS the crop: "big" is 2.5:1 and would leave a
          letterbox slice of the middle. Lowercase "lab14" is the real
          filename — see the note in the welcome deck.                       */
-      ["Brain slice recording",  "tall", "images/lab14.jpeg"]
+      ["Brain slice recording",  "tall", "images/lab14.jpeg"],
+      /* Also in the welcome deck. Was hardcoded in the renderer until 26 Sep 2026. */
+      ["Under the scope",        "sm",   "images/Lab8.jpeg"]
     ]
   },
 
@@ -3247,7 +3301,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     ],
     button: "Get in touch &rarr;",
     roles: [
-      ["PhD Students","Open","Fully immerse in a research program from day one. We support fellowship applications and hands-on training across all lab techniques."],
+      ["PhD Students","Open","Immerse yourself fully in a research program from day one. We support fellowship applications and hands-on training across all lab techniques."],
       ["Postdoctoral Researchers","Inquire","Lead a project in CF, honey bee, or diabetes neuroscience. Bring your ideas &mdash; we'll help you build them into a program."],
       ["Undergraduates &amp; Volunteers","Rolling","Get real bench experience: cell culture, immunostaining, molecular biology, and a first look at electrophysiology."]
     ]
@@ -3270,12 +3324,12 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     },
     {
       "title": "Advance future studies",
-      "body": "Explore opportunities to support the next questions in our CF and CFTR modulator research."
+      "body": "Explore opportunities to support the next questions in our CF and CFTR-modulator research."
     }
   ],
   "invitationHeading": "Be part of the work ahead.",
   "invitationText": "Interested in contributing? Contact us to discuss the lab’s research priorities and ways to help.",
-  "button": "Discuss supporting our research"
+  "button": "Discuss supporting our research &rarr;"
 },
 
   contact: {
@@ -3294,7 +3348,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       ["Principal Inv.", "Dr. Veronica Campanucci"],
       ["Department",     "Anatomy, Physiology &amp; Pharmacology, College of Medicine"],
       ["Institution",    "University of Saskatchewan"],
-      ["Office",         "GD30.3 Health Sciences Building, 107 Wiggins Rd, Saskatoon, SK S7N 5E5"],
+      ["Office",         "GD30.2 Health Sciences Building, 107 Wiggins Rd, Saskatoon, SK S7N 5E5"],
       ["Faculty profile","College of Medicine directory", "https://medicine.usask.ca/profiles/anatomy-physiology-pharmacology/veronica-campanucci.php"]
     ],
     /* --- the map card -------------------------------------------------
@@ -3461,7 +3515,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
        to sit behind. It must NOT wrap the avatar too — the veil would then
        bloom around the photo as well, which reads as a smudge round the edge
        of the picture rather than as contrast behind the words. */
-    return '<div class="member">'+avatar(m[3],m[0],p,initials(m[0]),m[4])+
+    return '<div class="member'+(m[3]?'':' no-photo')+'">'+avatar(m[3],m[0],p,initials(m[0]),m[4])+
       '<div class="m-txt"><h3>'+markPh(m[0])+'</h3><div class="role">'+m[1]+
       '</div><p class="bio">'+m[2]+'</p></div></div>';
   }).join("");
@@ -3820,9 +3874,11 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
      so there is nothing left to generate.) */
 
   // gallery tiles — procedural microscopy-like fields
-  /* Curated review gallery: real lab imagery, including a photo already used in the welcome deck. */
+  /* SITE.gallery.list is the ONLY source of gallery tiles. Entries whose photo
+     is "" are skipped here, not painted. ("Under the scope" used to be pushed
+     on at this point, invisible to anyone editing the config; since 26 Sep 2026
+     it is an ordinary entry at the end of the list.) */
   var galItems=(SITE.gallery.list||[]).filter(function(g){return !!g[2];}).map(function(g){ return [g[0],g[1],g[2],g[3],g[4]]; });
-  galItems.push(["Under the scope","sm","images/Lab8.jpeg"]);
   var gg=document.getElementById("galGrid");
   var GALKINDS=["rig","calcium","stain","trace","organoid","blot","bee","culture"];
   gg.innerHTML=galItems.map(function(g,i){
@@ -7283,16 +7339,24 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     });
   }
 
-  /* Technique details use existing lab photographs and research descriptions. */
+  /* Technique details use existing lab photographs and research descriptions.
+     INDEX-ALIGNED with SITE.techniques.list: entry N is the expanded detail for
+     technique card N (0 Electrophysiology, 1 Cell & neuron culture, 2 Organoids,
+     3 Organ bath, 4 Immunostaining, 5 Western blot, 6 PCR, 7 Mouse models).
+     Every image used here must also have a gallery entry - Test-Site.ps1 checks.
+     Fixed 26 Sep 2026: card 1 paired the enteric-neuron image with honey-bee
+     "mushroom-body neurons" text; card 3 said "epithelial ... function", which
+     is Ussing-chamber work the lab does not do, and was a verbatim copy of
+     card 2's text. */
   var techniqueDetails=[
     {image:'images/lab14.jpeg',caption:'Brain slice recording',text:'Measure neuronal activity with patch-clamp and brain slice recordings.',link:'#research',label:'Explore our research'},
-    {image:'images/ENS.webp',caption:'Enteric neurons',text:'Record electrical activity in cultured mushroom-body neurons.',link:'#research',label:'Explore our research'},
-    {image:'images/Organoid.webp',caption:'Intestinal organoid',text:'Study epithelial and tissue function using organoids, gut-on-a-chip models and organ bath assays.',link:'#research',label:'Explore our research'},
-    {text:'Study epithelial and tissue function using organoids, gut-on-a-chip models and organ bath assays.',link:'#research',label:'Explore our research',caption:'Tissue physiology'},
+    {image:'images/ENS.webp',caption:'Enteric neurons',text:'Grow primary neurons, such as these enteric neurons, and cell lines for functional, molecular and pharmacological study.',link:'#research',label:'Explore our research'},
+    {image:'images/Organoid.webp',caption:'Intestinal organoid',text:'Study epithelial and tissue function using organoids and gut-on-a-chip models.',link:'#research',label:'Explore our research'},
+    {text:'Measure the contractile responses of intact intestinal tissue to drugs in the organ bath.',link:'#research',label:'Explore our research',caption:'Tissue physiology'},
     {image:'images/SCG.webp',caption:'SCG neuron · Image: Minh Vu',text:'Examine cellular and protein changes using immunofluorescence and Western blotting.',link:'#awards',label:'Explore the award images'},
     {image:'images/WesternBlot.jpeg',caption:'Western blot at the bench',text:'Examine cellular and protein changes using immunofluorescence and Western blotting.',link:'#research',label:'Explore our research'},
     {text:'Quantitative and endpoint PCR for genotyping, expression profiling, and variant work.',link:'#contact',label:'Discuss a collaboration',caption:'Molecular analysis'},
-    {text:'Connect cellular findings with intestinal motility, behaviour and humanized mouse models.',link:'#research',label:'Explore our research',caption:'Whole-organism studies'}
+    {text:'Connect cellular findings with whole-animal gut transit, intestinal motility, behaviour and humanized mouse models.',link:'#research',label:'Explore our research',caption:'Whole-organism studies'}
   ];
   var techGrid=document.getElementById('techGrid'),cards=techGrid?all('.tech',techGrid):[];
   cards.forEach(function(card,i){
@@ -7409,7 +7473,7 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "stem",
       "color": "blue",
-      "body": "Human stem cell cultures are part of our living library. They provide a starting point for the lab’s stem-cell-derived models, with further neuronal and cardiac differentiation planned.",
+      "body": "Human stem cell cultures are part of our living library and the starting point for the lab’s stem-cell-derived models: brain organoids today, with differentiation into SCG neurons, enteric neurons and cardiac muscle planned.",
       "image": "images/StemCells.webp",
       "video": "",
       "poster": "",
@@ -7432,10 +7496,10 @@ var CF_STORY = {
     "scg": {
       "title": "SCG neurons",
       "label": "SCG neurons",
-      "kind": "Current culture",
+      "kind": "Current culture · primary",
       "symbol": "scg",
       "color": "violet",
-      "body": "Superior cervical ganglion (SCG) neurons are part of our primary neuronal culture work. Bringing SCG neurons together with cardiac muscle is a future direction.",
+      "body": "Superior cervical ganglion (SCG) neurons are part of our primary neuronal culture work, and this image is from a primary culture. Deriving SCG neurons from human stem cells is a separate, planned line of work.",
       "image": "images/SCG.webp",
       "video": "",
       "poster": "",
@@ -7483,7 +7547,7 @@ var CF_STORY = {
     "brain": {
       "title": "Human-stem-cell-derived brain organoids",
       "label": "Brain organoids",
-      "kind": "Current culture · human stem-cell-derived",
+      "kind": "Current culture · human-stem-cell-derived",
       "symbol": "brain",
       "color": "violet",
       "body": "These brain organoids are derived from human stem cells. Together with hippocampal neuronal cultures and brain slices, they form part of our ongoing brain research into CF and responses to CFTR modulators.",
@@ -7507,7 +7571,7 @@ var CF_STORY = {
     "bath": {
       "title": "Intestinal organ bath",
       "label": "Intestinal organ bath",
-      "kind": "Tissue preparation",
+      "kind": "Current tissue preparation",
       "symbol": "bath",
       "color": "gold",
       "body": "The intestinal organ bath studies contraction in an intact tissue preparation. This provides a tissue-level view alongside the lab’s cultured-cell experiments.",
@@ -7516,26 +7580,36 @@ var CF_STORY = {
       "poster": "",
       "credit": ""
     },
-    "recording": {
-      "title": "Electrophysiology",
-      "label": "Electrical recordings",
-      "kind": "Measurement approach",
-      "symbol": "recording",
+    /* Chapter 03 measures gut function at three scales: cells (smooth muscle
+       culture), intact tissue (organ bath) and the whole animal (this node).
+       It replaced "recording" (electrical recordings) on 26 Sep 2026 -- the lab
+       asked for recordings to come out of chapter 03. Electrophysiology is still
+       a lab technique; it is simply not part of this chapter's story. */
+    "transit": {
+      "title": "Whole-animal gut transit",
+      "label": "Whole-animal gut transit",
+      "kind": "Measurement approach · in vivo",
+      "symbol": "transit",
       "color": "blue",
-      "body": "Electrophysiological recordings measure electrical activity. They are one of the approaches we use to investigate neuronal function and responses across our research models.",
+      "body": "Whole-animal gut transit follows how contents move along the intestine in the whole animal. It adds an in vivo view of gut function to our cellular and tissue-level measurements, and is shown here as a separate experiment.",
       "image": "",
       "video": "",
       "poster": "",
       "credit": ""
     },
+    /* KEY KEPT AS "futureNeuron" for continuity with the Sep 2026 journey
+       fixtures, but since 26 Sep 2026 this node is specifically STEM-CELL-DERIVED
+       SCG neurons. That differentiation has NOT been done yet, so the node is
+       planned and carries no photo. Do not give it images/SCG.webp: that picture
+       is a PRIMARY culture and belongs to the "scg" node. */
     "futureNeuron": {
-      "title": "Stem-cell-derived neuronal cultures",
-      "label": "Neuronal cultures",
-      "kind": "Planned differentiation",
-      "symbol": "hippocampal",
-      "color": "blue",
+      "title": "Stem-cell-derived SCG neurons",
+      "label": "SCG neurons",
+      "kind": "Planned differentiation & co-culture",
+      "symbol": "scg",
+      "color": "violet",
       "planned": true,
-      "body": "A future direction is to differentiate human stem cells into neuronal cultures. This planned branch is distinct from the primary neuronal cultures already in the lab.",
+      "body": "We plan to differentiate human stem cells into superior cervical ganglion (SCG) neurons. This has not been done yet and is distinct from our primary SCG cultures. The stem-cell-derived SCG neurons will then be co-cultured with stem-cell-derived cardiac muscle.",
       "image": "",
       "video": "",
       "poster": "",
@@ -7548,7 +7622,20 @@ var CF_STORY = {
       "symbol": "cardiac",
       "color": "gold",
       "planned": true,
-      "body": "We plan to differentiate human stem cells into cardiac muscle cells and explore a future co-culture with SCG neurons. These connections form part of the lab’s future development.",
+      "body": "We plan to differentiate human stem cells into cardiac muscle cells, then co-culture them with stem-cell-derived SCG neurons. These connections form part of the lab’s future development.",
+      "image": "",
+      "video": "",
+      "poster": "",
+      "credit": ""
+    },
+    "futureEns": {
+      "title": "Stem-cell-derived enteric neurons",
+      "label": "Enteric neurons",
+      "kind": "Planned differentiation",
+      "symbol": "ens",
+      "color": "blue",
+      "planned": true,
+      "body": "We plan to differentiate human stem cells into enteric neurons, the neurons of the gut’s own nervous system. This planned branch is distinct from the enteric neurons already in our co-culture work.",
       "image": "",
       "video": "",
       "poster": "",
@@ -7575,7 +7662,7 @@ var CF_STORY = {
       "nav": "Living library",
       "kicker": "01 / The starting point",
       "title": "Many models. One shared question.",
-      "body": "From individual cells to three-dimensional organoids, each preparation gives us a different window into cystic fibrosis.",
+      "body": "From primary neurons and stem cells to organoids, tissue preparations and the whole animal, each model offers a different window into cystic fibrosis.",
       "note": "Select a specimen to meet the models behind the work.",
       "status": "Data collection underway",
       "models": [
@@ -7674,7 +7761,7 @@ var CF_STORY = {
       "nav": "Gut connections",
       "kicker": "02 / Bring the components together",
       "title": "Connections change the question.",
-      "body": "We combine DRG neurons, enteric neurons and intestinal organoids in co-culture to study the relationships between these components.",
+      "body": "We bring DRG neurons, enteric neurons and intestinal organoids together in co-culture to study how these components interact.",
       "note": "Follow the links, then select each component to explore its role.",
       "status": "Data collection underway",
       "models": [
@@ -7729,16 +7816,16 @@ var CF_STORY = {
     },
     {
       "id": "signals",
-      "nav": "Read the signals",
+      "nav": "Watch movement",
       "kicker": "03 / Measure function",
-      "title": "Listen to activity. Watch movement.",
-      "body": "Electrical recordings, smooth muscle culture and the intestinal organ bath offer complementary ways to investigate function.",
-      "note": "Select a preparation to explore electrical activity and contraction.",
+      "title": "Watch movement. From cells to the whole animal.",
+      "body": "Smooth muscle culture, the intestinal organ bath and whole-animal gut transit offer complementary views of gut function, from cells to intact tissue to the whole animal, in separate experiments.",
+      "note": "Select a preparation to explore contraction and gut transit.",
       "status": "Data collection underway",
       "models": [
-        "recording",
         "muscle",
-        "bath"
+        "bath",
+        "transit"
       ],
       "positions": [
         [
@@ -7769,8 +7856,8 @@ var CF_STORY = {
         ]
       ],
       "links": [],
-      "caption": "Complementary preparations connect cellular activity with tissue-level function.",
-      "defaultModel": "recording"
+      "caption": "Complementary preparations connect cellular contraction, tissue-level motility and whole-animal gut transit.",
+      "defaultModel": "transit"
     },
     {
       "id": "brain",
@@ -7822,14 +7909,17 @@ var CF_STORY = {
       "nav": "Future connections",
       "kicker": "05 / The work ahead",
       "title": "The next connection starts here.",
-      "body": "We plan to differentiate human stem cells into neuronal cultures and cardiac muscle, and to bring SCG neurons together with cardiac muscle in a future co-culture.",
+      "body": "We plan to differentiate human stem cells into SCG neurons, cardiac muscle and enteric neurons, then co-culture the stem-cell-derived SCG neurons with stem-cell-derived cardiac muscle.",
       "note": "Support can help us develop the models and experiments needed to pursue these questions.",
       "status": "Future development",
+      /* Every node here is STEM-CELL-DERIVED and planned. The primary "scg" node
+         sat in the bottom-left slot until 26 Sep 2026, which put a primary-culture
+         photo into a diagram of future stem-cell work; futureEns replaced it. */
       "models": [
         "stem",
         "futureNeuron",
         "cardiac",
-        "scg"
+        "futureEns"
       ],
       "positions": [
         [
@@ -7879,24 +7969,43 @@ var CF_STORY = {
           "planned"
         ],
         [
-          "scg",
+          "stem",
+          "futureEns",
+          "planned"
+        ],
+        [
+          "futureNeuron",
           "cardiac",
           "planned"
         ]
       ],
-      "caption": "Dashed paths mark planned differentiation and co-culture.",
+      "caption": "Dashed paths mark planned differentiation from human stem cells, and the planned SCG–cardiac muscle co-culture.",
       "defaultModel": "cardiac"
     }
   ],
   "comparisons": {
+    /* Three genotype groups since 26 Sep 2026. This comparison covers ONE CFTR
+       mutation, F508del (deltaF508): "cystic fibrosis" here means two F508del
+       alleles, and the heterozygous carrier (one allele) is a second control
+       group. Keep the claim SCOPED TO THESE MODELS ("in these models"), not
+       lab-wide: the publications include CFTR-null swine work (2026, J Cyst
+       Fibros), which a blanket "we study no other mutation" would contradict.
+       Order matters -- it is the button order, wt -> het -> cf.
+       "notes" holds text for a SPECIFIC genotype + treatment pair; compare()
+       shows it under the two explanations. The selectors are independent, so
+       without a note a visitor could pick a pairing the lab does not plan. */
     "model": {
       "wt": {
-        "title": "Wild-type comparison",
-        "body": "Wild-type controls provide a reference for studying differences associated with cystic fibrosis. The comparison will be defined for each experimental model."
+        "title": "Wild-type controls",
+        "body": "Wild-type controls carry no F508del allele. They provide the baseline for studying differences associated with cystic fibrosis. The comparison will be defined for each experimental model."
+      },
+      "het": {
+        "title": "Heterozygous carriers (F508del/+)",
+        "body": "Carriers of one F508del allele form a second control group. Because they carry the F508del protein that ETI acts on, they are a more meaningful group in which to compare ETI treatment than wild-type controls, which have no F508del protein to correct."
       },
       "cf": {
-        "title": "Cystic fibrosis models",
-        "body": "Our research aims to investigate cystic fibrosis across these models and compare it with wild-type controls."
+        "title": "Cystic fibrosis · F508del",
+        "body": "In these models, cystic fibrosis means two copies of the F508del (ΔF508) mutation in CFTR. The comparison is specific to F508del and does not cover other CFTR mutation types."
       }
     },
     "treatment": {
@@ -7906,12 +8015,19 @@ var CF_STORY = {
       },
       "eti": {
         "title": "Trikafta / ETI",
-        "body": "Elexacaftor + tezacaftor + ivacaftor. ETI is one of the CFTR-modulator treatment combinations of interest in these research comparisons."
+        "body": "Elexacaftor + tezacaftor + ivacaftor. ETI acts on the F508del CFTR protein, so it is compared in the groups that carry F508del, the cystic fibrosis models and heterozygous carriers, rather than in wild-type controls."
       },
       "vtd": {
         "title": "Alyftrek / VTD",
         "body": "Vanzacaftor + tezacaftor + deutivacaftor. VTD is another CFTR-modulator treatment combination of interest in these research comparisons."
       }
+    },
+    /* Keyed "<model>+<treatment>". Only pairings the lab has ruled on belong
+       here. wt+eti is the lab's own design decision (26 Sep 2026). There is
+       deliberately no wt+vtd entry: the same reasoning may well apply to VTD,
+       but the lab has not said so, and this text states a study design. */
+    "notes": {
+      "wt+eti": "Not a planned comparison. ETI is compared in heterozygous carriers rather than in wild-type controls, because wild-type has no F508del protein for ETI to correct."
     }
   }
 };
@@ -7935,13 +8051,14 @@ var CF_STORY = {
   var nativeOK=!!(window.CSS&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
   var forceFallback=new URLSearchParams(location.search).get('cf-motion')==='fallback';
   var style=document.createElement('style');style.id='cfJourneyFrames';document.head.appendChild(style);
-  var bodies=[
-    'From primary neurons and stem cells to organoids and tissue preparations, each model offers a different window into cystic fibrosis.',
-    'We bring DRG neurons, enteric neurons and intestinal organoids together in co-culture to study how these components interact.',
-    'Electrical recordings, smooth muscle contraction and the intestinal organ bath offer complementary views of function, in separate preparations.',
-    data.chapters[3].body,
-    'We plan to differentiate human stem cells into neuronal and cardiac muscle cultures, then develop a future SCG–cardiac muscle co-culture.'
-  ];
+  /* Chapter bodies come from CF_STORY.chapters[].body -- the config is the ONE
+     copy. Until 26 Sep 2026 this was a hardcoded array that overrode the config
+     for chapters 01, 02, 03 and 05, so the two had drifted apart and editing the
+     config changed nothing a visitor saw. Do not reintroduce literal strings
+     here; change the chapter's "body" in CF_STORY instead. (The static
+     .cf-static-fallback list in the markup is the only other copy, and it is
+     only shown when this script cannot run.) */
+  var bodies=data.chapters.map(function(chapter){return chapter.body;});
   [['scg','main'],['ens','left'],['intestinal','right']].forEach(function(pair){
     var photo=intro.querySelector('.cine-photo-'+pair[1]);if(!photo)return;
     var m=data.models[pair[0]],image=photo.querySelector('img'),preview=m.video?(m.poster||m.image):m.image;
@@ -8435,6 +8552,9 @@ function createCFDetailMotion(options){
     section.querySelectorAll('[data-cf-model]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfModel===currentModel));});
     section.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cfTreatment===currentTreatment));});
     explanation('cfComparisonModel',data.comparisons.model[currentModel]);explanation('cfComparisonTreatment',data.comparisons.treatment[currentTreatment]);
+    // A caveat for this exact pairing, if the config has one (comparisons.notes).
+    var note=byId('cfComparisonNote'),caveat=(data.comparisons.notes||{})[currentModel+'+'+currentTreatment];
+    if(note){note.textContent=caveat||'';note.hidden=!caveat;}
   }
   section.querySelectorAll('[data-cf-model]').forEach(function(b){b.addEventListener('click',function(){currentModel=b.dataset.cfModel;compare();});});
   section.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.addEventListener('click',function(){currentTreatment=b.dataset.cfTreatment;compare();});});
@@ -8545,23 +8665,40 @@ function createCFDetailMotion(options){
     if(old&&old.width&&old.height&&placed)animate(indicator,[{transform:'translate('+(old.left-r.left)+'px,'+(old.top-r.top)+'px) scale('+(old.width/r.width)+','+(old.height/r.height)+')'},{transform:'translate(0,0) scale(1,1)'}],{duration:360,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
     placed=true;
   }
-  function select(key){
-    if(key===active)return;
-    var button=buttons.find(function(b){return b.dataset.gfFilter===key;});if(!button)return;
+  /* SHOW MORE (26 Sep 2026). The gallery carries every research, technique and
+     award image, so it keeps growing. Only PAGE tiles of the active filter are
+     shown; "Show more" reveals the next PAGE, and changing filter resets to the
+     first page. Un-revealed tiles take exactly the same hidden/inert/aria-hidden
+     state as filtered-out ones, so the lightbox -- which skips el.hidden when it
+     re-collects on every open -- browses precisely what is on screen. The filter
+     button counts are deliberately NOT paged: "Microscopy 9" means nine exist. */
+  var PAGE=6,shown=PAGE;
+  var moreWrap=el('div','gf-more-wrap'),more=el('button','gf-more');
+  more.type='button';more.setAttribute('aria-controls','galGrid');moreWrap.appendChild(more);
+  function pool(key){return tiles.filter(function(tile){return matches(tile,key);});}
+  function render(key,focusFallback,oldIndicator,instant){
     // Capture the current visual positions before cancelling an interrupted move.
-    var first=new Map(),oldIndicator=placed?indicator.getBoundingClientRect():null;
-    tiles.forEach(function(tile){if(!tile.hidden)first.set(tile,tile.getBoundingClientRect());});
-    cancelMotion();active=key;
-    buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
+    var first=new Map();
+    if(!instant)tiles.forEach(function(tile){if(!tile.hidden)first.set(tile,tile.getBoundingClientRect());});
+    cancelMotion();
+    var matched=pool(key),limit=Math.min(shown,matched.length);
     tiles.forEach(function(tile){
-      var visible=matches(tile,key);
-      if(!visible&&tile.contains(document.activeElement))button.focus({preventScroll:true});
+      var rank=matched.indexOf(tile),visible=rank>=0&&rank<limit;
+      if(!visible&&focusFallback&&tile.contains(document.activeElement))focusFallback.focus({preventScroll:true});
       tile.hidden=!visible;tile.inert=!visible;
-      if(visible){tile.removeAttribute('aria-hidden');tile.classList.add('in');tile.style.setProperty('--mx','0');tile.style.setProperty('--my','0');}
+      if(visible){tile.removeAttribute('aria-hidden');if(!instant){tile.classList.add('in');tile.style.setProperty('--mx','0');tile.style.setProperty('--my','0');}}
       else tile.setAttribute('aria-hidden','true');
     });
     var visible=tiles.filter(function(tile){return !tile.hidden;});
     grid.dataset.gfCount=String(visible.length);grid.dataset.gfFilter=key;
+    var left=matched.length-limit,next=Math.min(PAGE,left);
+    moreWrap.hidden=left<=0;
+    more.textContent='Show more';
+    var badge=el('span','gf-more-count','+'+next);badge.setAttribute('aria-hidden','true');more.appendChild(badge);
+    more.setAttribute('aria-label','Show '+next+' more gallery '+(next===1?'item':'items')+', '+left+' not yet shown');
+    var labelled=buttons.find(function(b){return b.dataset.gfFilter===key;});
+    status.textContent=visible.length+' of '+matched.length+(matched.length===1?' item':' items')+' · '+(labelled?labelled.dataset.gfLabel:'All');
+    if(instant)return visible;
     grid.classList.add('gf-has-filtered');
     // Commit the compact grid first, then animate the existing media tiles into it.
     var last=new Map();visible.forEach(function(tile){last.set(tile,tile.getBoundingClientRect());});
@@ -8573,10 +8710,27 @@ function createCFDetailMotion(options){
         animate(tile,[{transform:'translate('+dx+'px,'+dy+'px) scale('+sx+','+sy+')'},{transform:'translate(0,0) scale(1,1)'}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
       }else animate(tile,[{opacity:.15,transform:'translateY(22px) scale(.94)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:340,delay:Math.min(index*24,96),easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
     });
-    updateIndicator(oldIndicator);
-    status.textContent=visible.length+' of '+tiles.length+(tiles.length===1?' item':' items')+' · '+button.dataset.gfLabel;
+    if(oldIndicator!==undefined)updateIndicator(oldIndicator);
     safePlayVisible();
+    return visible;
   }
+  function select(key){
+    if(key===active)return;
+    var button=buttons.find(function(b){return b.dataset.gfFilter===key;});if(!button)return;
+    var oldIndicator=placed?indicator.getBoundingClientRect():null;
+    active=key;shown=PAGE;
+    buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});
+    render(key,button,oldIndicator,false);
+  }
+  more.addEventListener('click',function(){
+    var matched=pool(active),before=Math.min(shown,matched.length);
+    shown+=PAGE;
+    render(active,null,undefined,false);
+    // Move keyboard users onto the first newly shown tile rather than leaving
+    // them on the button. A video tile is not focusable, so focus stays put.
+    var firstNew=matched[before];
+    if(firstNew&&!firstNew.hidden&&firstNew.tabIndex>=0)firstNew.focus({preventScroll:false});
+  });
   definitions.forEach(function(definition){
     var count=tiles.filter(function(tile){return matches(tile,definition[0]);}).length;if(!count)return;
     var button=el('button','gf-filter'),label=el('span','gf-filter-label',definition[1]),number=el('span','gf-filter-count',String(count));
@@ -8590,8 +8744,12 @@ function createCFDetailMotion(options){
       event.preventDefault();buttons[next].focus({preventScroll:true});
     });
   });
-  status.textContent=tiles.length+' items · All';toolbar.appendChild(group);toolbar.appendChild(status);grid.before(toolbar);
-  grid.dataset.gfCount=String(tiles.length);grid.dataset.gfFilter='all';grid.dataset.gfReady='true';grid.classList.add('gf-managed');
+  toolbar.appendChild(group);toolbar.appendChild(status);grid.before(toolbar);grid.after(moreWrap);
+  grid.dataset.gfReady='true';grid.classList.add('gf-managed');
+  // First page, applied instantly: the gallery is far below the fold on load, so
+  // there is nothing to animate, and adding .in here would skip the tiles'
+  // normal scroll reveal. This also sets the status line and the button.
+  render('all',null,undefined,true);
   function settle(){cancelMotion();updateIndicator(null);}
   window.addEventListener('resize',settle,{passive:true});
   document.addEventListener('visibilitychange',function(){if(document.hidden){cancelMotion();safePlayVisible();}else{updateIndicator(null);safePlayVisible();}});
