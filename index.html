@@ -2447,6 +2447,29 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 @media(max-width:700px){#cfJourney .cf-j-observatory{grid-template-rows:minmax(0,1fr) auto}#cfJourney .cfj-open-badge{width:16px;height:16px;font-size:15px}#cfJourney .cfj-explore-cue{font-size:11px;padding:4px 8px;margin-top:3px}}
 @media(prefers-reduced-motion:reduce){#cfJourney .cfj-open-badge{transition:none}}
 
+
+/* Phones use tap-selected chapters and natural page height. Measured rows
+   include full labels and Planned badges, even when the text size increases. */
+@media(max-width:700px),(max-width:1000px) and (max-height:560px) and (pointer:coarse){
+  #cfJourney.is-static .cf-j-pin{display:flex;flex-direction:column;overflow:visible}
+  #cfJourney.is-static .cf-j-intro{order:0}
+  #cfJourney.is-static .cf-j-timeline{order:1;position:relative;inset:auto;height:auto;margin:20px 0 0;padding:12px;border:1px solid rgba(207,188,155,.2);border-radius:12px;background:#17191f}
+  #cfJourney.is-static #cfJourneyPosition{position:static;transform:none;width:auto;max-width:none;margin:0 0 12px;padding:0;border:0;border-radius:0;text-align:left}
+  #cfJourney.is-static .cf-j-stops{position:static;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  #cfJourney.is-static .cf-j-stops button{transform:none;min-width:0;min-height:44px;padding:10px 4px;border:1px solid rgba(207,188,155,.22);border-radius:7px;font-size:12px;overflow-wrap:anywhere}
+  #cfJourney.is-static .cf-j-stops button[aria-current='step']{border-color:var(--cfj-gold);background:rgba(207,188,155,.12)}
+  #cfJourney.is-static .cf-j-stops button:disabled,#cfJourney.is-static .cf-j-stop-dot,#cfJourney.is-static .cf-j-timeline-arc,#cfJourney.is-static .cfj-track-tip{display:none}
+  #cfJourney.is-static .cf-j-panel{order:2;margin-top:16px;scroll-margin-top:88px}
+  #cfJourney.is-static .cf-j-layout{height:auto;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;gap:16px}
+  #cfJourney.is-static .cf-j-copy{overflow:visible;padding:22px}
+  #cfJourney.is-static .cf-j-observatory{height:auto;min-height:0;grid-template-rows:auto auto auto;gap:6px;padding:0}
+  #cfJourney.is-static .cf-j-stage{height:var(--cfj-phone-stage-height,360px);min-height:0}
+  #cfJourney.is-static .cfj-node{width:min(120px,calc((100% - 64px)/3));gap:6px;padding:4px 2px 6px;--cfj-art-size:60px}
+  #cfJourney.is-static .cfj-node-art{width:60px;height:60px}
+  #cfJourney.is-static .cfj-node-name{font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+  #cfJourney.is-static .cfj-node-name,#cfJourney.is-static .cfj-node-flag{transform:none}
+  #cfJourney.is-static .cfj-explore-cue{margin:0}
+}
 </style>
 
 <!-- ========================= [3] PAGE STRUCTURE ========================= -->
@@ -4697,15 +4720,55 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       qsa("section").forEach(function(s){ s.classList.add("sec-on"); });
     }
 
-    // reveal observer — animates BOTH directions (re-hide on exit, re-reveal on return)
-    if(pre && "IntersectionObserver" in window){
-      var io=new IntersectionObserver(function(en){
-        if(navJump) return;                 /* held for the flight — see below */
-        en.forEach(function(e){ e.target.classList.toggle("in", e.isIntersecting); });
-      },{rootMargin:"0px 0px -8% 0px",threshold:0.06});
-      qsa(".reveal").forEach(function(el){ io.observe(el); });
+    /* Reveal from the resting layout, not the animated rectangle. Observing a
+       translated/scaled card and toggling it from isIntersecting creates a
+       feedback loop at the viewport edge, even when scrolling has stopped. */
+    var revealEls=qsa(".reveal"), revealEnabled=pre && "IntersectionObserver" in window;
+    function updateReveals(){
+      if(!revealEnabled || navJump) return;
+      var viewW=document.documentElement.clientWidth || window.innerWidth,
+          viewH=window.innerHeight, enterBottom=viewH*0.92,
+          scrollX=window.scrollX || window.pageXOffset || 0,
+          scrollY=window.scrollY || window.pageYOffset || 0;
+      // Read every layout box before changing classes; CSS/FLIP transforms do
+      // not affect offset geometry. These cards live in the document scroller.
+      var states=revealEls.map(function(el){
+        var width=el.offsetWidth, height=el.offsetHeight;
+        if(el.hidden || !width || !height) return false;
+        var left=0, top=0, node=el;
+        while(node){
+          left+=node.offsetLeft; top+=node.offsetTop;
+          node=node.offsetParent;
+          if(node){ left+=node.clientLeft; top+=node.clientTop; }
+        }
+        left-=scrollX; top-=scrollY;
+        // The hero has intentional scroll parallax, separate from its reveals.
+        if(hero && !reduce && hero.contains(el)) top+=scrollY*0.16;
+        var right=left+width, bottom=top+height;
+        // Keep a revealed card stable until its layout box fully leaves the
+        // viewport. Returning to it still replays the original entrance.
+        if(el.classList.contains("in"))
+          return right>0 && left<viewW && bottom>0 && top<viewH;
+        var visibleW=Math.max(0,Math.min(right,viewW)-Math.max(left,0)),
+            visibleH=Math.max(0,Math.min(bottom,enterBottom)-Math.max(top,0)),
+            capacity=Math.min(width,viewW)*Math.min(height,enterBottom);
+        return capacity>0 && visibleW*visibleH>=capacity*0.06;
+      });
+      revealEls.forEach(function(el,i){ el.classList.toggle("in",states[i]); });
+    }
+    if(revealEnabled){
+      // Intersection is only a wake-up hint for layout changes, never the
+      // source of reveal state. Each scheduled scroll frame checks the layout.
+      var io=new IntersectionObserver(onScroll,{rootMargin:"0px 0px -8% 0px",threshold:0.06});
+      revealEls.forEach(function(el){ io.observe(el); });
+      if("ResizeObserver" in window){
+        var revealSizes=new ResizeObserver(onScroll);
+        revealSizes.observe(document.body);
+        revealEls.forEach(function(el){ revealSizes.observe(el); });
+      }
+      window.addEventListener("pageshow",onScroll);
     } else {
-      qsa(".reveal").forEach(function(el){ el.classList.add("in"); });
+      revealEls.forEach(function(el){ el.classList.add("in"); });
     }
 
     /* ---- nav jumps resolve ON ARRIVAL, not in mid-flight -------------------
@@ -4742,7 +4805,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          what replays the current state, and without it the destination simply
          stays hidden. */
       if(secObs) qsa("section:not(.hero)").forEach(function(s){ secObs.unobserve(s); secObs.observe(s); });
-      if(io) qsa(".reveal").forEach(function(el){ io.unobserve(el); io.observe(el); });
+      onScroll();                         /* resolve stable reveal boxes at arrival */
       /* Re-check only the landing section after a navigation jump. */
       if(auraObserver) qsa("section[id]").forEach(function(el){auraObserver.unobserve(el);auraObserver.observe(el);});
     }
@@ -6930,6 +6993,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       requestAnimationFrame(function(){
         var sc=window.scrollY||window.pageYOffset;
         var docH=document.documentElement.scrollHeight-window.innerHeight;
+        updateReveals();
         if(prog) prog.style.width=(docH>0?Math.min(100,sc/docH*100):0)+"%";
         var background=backgroundStage(sc,docH), pp2=background.progress,
             qq =stageBetween(sc,"team","publications"),
@@ -8102,7 +8166,7 @@ var CF_STORY = {
   var observer=null,resizeObserver=null,focusReturn=null,lastWidth=0,lastHeight=0,lastGeometry='',currentModel='cf',currentTreatment='control';
   var flights=[],sharedIds=['scg','ens','intestinal'],copyAnimations=[];
   world.classList.add('cfj-motion');world.style.animationName='cfj-camera';
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),shortScreen=window.matchMedia('(max-height: 560px)');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),shortScreen=window.matchMedia('(max-height: 560px)'),phone=window.matchMedia('(max-width: 700px), (max-width: 1000px) and (max-height: 560px) and (pointer: coarse)');
   var nativeOK=!!(window.CSS&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
   var forceFallback=new URLSearchParams(location.search).get('cf-motion')==='fallback';
   var style=document.createElement('style');style.id='cfJourneyFrames';document.head.appendChild(style);
@@ -8378,12 +8442,39 @@ function createCFDetailMotion(options){
       e.preventDefault();nodes[list[to]].focus({preventScroll:true});
     });
   });
+  var phoneLayouts=[];
+  function measurePhoneLayouts(width){
+    if(!phone.matches){phoneLayouts=[];stage.style.removeProperty('--cfj-phone-stage-height');return;}
+    var pad=16,gap=28;
+    phoneLayouts=data.chapters.map(function(ch){
+      var rows=[],points={};
+      ch.models.forEach(function(id,i){
+        var slot=ch.mobile[i],row=rows.find(function(r){return r.slot===slot[1];});
+        if(!row){row={slot:slot[1],height:0,items:[]};rows.push(row);}
+        var button=nodes[id],height=button.offsetHeight;
+        row.height=Math.max(row.height,height);row.items.push({id:id,x:slot[0],width:button.offsetWidth});
+      });
+      rows.sort(function(a,b){return a.slot-b.slot;});
+      var top=pad;
+      rows.forEach(function(row){
+        row.items.forEach(function(item){
+          var half=item.width/2;
+          points[item.id]={x:Math.max(pad+half,Math.min(width-pad-half,item.x*width/100)),y:top+row.height/2,scale:1,opacity:1,angle:0};
+        });
+        top+=row.height+gap;
+      });
+      return {points:points,height:top-gap+pad};
+    });
+    var current=phoneLayouts[Math.max(0,chapter)];
+    stage.style.setProperty('--cfj-phone-stage-height',current.height+'px');
+  }
   function positions(index,compact){
     if(index===0)return [[17,16],[50,16],[83,16],[17,48],[50,48],[83,48],[17,80],[50,80],[83,80]];
     return compact?data.chapters[index].mobile:data.chapters[index].positions;
   }
   function nodeState(id,index,width,height){
     var ch=data.chapters[index],at=ch.models.indexOf(id),compact=width<450,scale=index===0?1:(compact?(index===3?(height<330?1.28:1.45):(index===4?(height<330?1.15:1.3):(height<330?1.38:1.6))):(index===4?1.35:1.55));
+    if(phone.matches && at>=0 && phoneLayouts[index])return Object.assign({},phoneLayouts[index].points[id]);
     if(at>=0){var p=positions(index,compact)[at];return{x:p[0]*width/100,y:p[1]*height/100,scale:scale,opacity:1,angle:0};}
     if(id==='brainSlice')return{x:width*.5,y:height*1.18,scale:.6,opacity:0,angle:0};
     var order=Object.keys(data.models).indexOf(id),side=order%2?-1:1;
@@ -8458,10 +8549,21 @@ function createCFDetailMotion(options){
     var x=a.x+ux*g,y=a.y+uy*g,ex=b.x-ux*g,ey=b.y-uy*g,bend=Math.min(40,d*.12);
     return 'M'+x.toFixed(2)+' '+y.toFixed(2)+' Q'+((x+ex)/2-uy*bend).toFixed(2)+' '+((y+ey)/2+ux*bend).toFixed(2)+' '+ex.toFixed(2)+' '+ey.toFixed(2);
   }
+  function connectionPoint(id,index,width,height){
+    var point=nodeState(id,index,width,height);
+    if(phone.matches){
+      var button=nodes[id],art=button.querySelector('.cfj-node-art');
+      point.x+=(art.offsetLeft+art.offsetWidth/2-button.offsetWidth/2)*point.scale;
+      point.y+=(art.offsetTop+art.offsetHeight/2-button.offsetHeight/2)*point.scale;
+    }else point.y-=14*point.scale;
+    return point;
+  }
   function layout(){
-    var width=stage.clientWidth,height=stage.clientHeight;if(!width||!height)return;
+    var width=stage.clientWidth;if(!width)return;
+    measurePhoneLayouts(width);
+    var height=stage.clientHeight;if(!height)return;
     var geometry=libraryGeometry(width,height),pinWidth=pin.clientWidth,pinHeight=pin.clientHeight;
-    var key=[width,height,pinWidth,pinHeight,geometry.origin.x,geometry.origin.y];
+    var key=[width,height,pinWidth,pinHeight,geometry.origin.x,geometry.origin.y,phone.matches?JSON.stringify(phoneLayouts):"desktop"];
     sharedIds.forEach(function(id){var t=geometry.targets[id];key.push(t.x,t.y,t.width,t.height);});
     key=key.join('|');var changed=key!==lastGeometry;lastGeometry=key;lastWidth=width;lastHeight=height;
     if(changed){
@@ -8478,8 +8580,9 @@ function createCFDetailMotion(options){
         var g=svg('g',{'class':'cfj-wire-group cfj-motion','data-cfj-chapter':ch.id,'data-cfj-active':String(index===chapter)});g.style.animationName='cfj-wires-'+index;
         var enter=index===0?0:holds[index]-.035,exit=index===4?1:ends[index];
         css+='@keyframes cfj-wires-'+index+'{0%{opacity:0}'+(Math.max(.001,enter-.01)*100)+'%{opacity:0}'+(enter*100)+'%{opacity:1}'+(exit*100)+'%{opacity:1}'+(Math.min(1,exit+.035)*100)+'%{opacity:0}100%{opacity:'+(index===4?1:0)+'}}';
-        ch.links.forEach(function(link,linkIndex){var a=nodeState(link[0],index,width,height),b=nodeState(link[1],index,width,height);a.y-=14*a.scale;b.y-=14*b.scale;
-          var d=curve(a,b,(width<450?30:52)*a.scale),planned=link[2]==='planned'?' is-planned':'';
+        ch.links.forEach(function(link,linkIndex){var a=connectionPoint(link[0],index,width,height),b=connectionPoint(link[1],index,width,height);
+          var radius=phone.matches?nodes[link[0]].querySelector('.cfj-node-art').offsetWidth/2+6:(width<450?30:52)*a.scale;
+          var d=curve(a,b,radius),planned=link[2]==='planned'?' is-planned':'';
           ['cfj-link-underlay','cfj-link','cfj-signal'].forEach(function(kind){
             var path=svg('path',{d:d,'class':kind+planned,pathLength:100,'data-cfj-from':link[0],'data-cfj-to':link[1]});
             if(kind==='cfj-signal')path.style.setProperty('--cfj-signal-delay',String(linkIndex*-.8)+'s');
@@ -8534,9 +8637,9 @@ function createCFDetailMotion(options){
       if(media[id]&&data.models[id].video){media[id].hidden=index<1;nodes[id].classList.toggle('has-media',index>0);}
     });
     buttons.forEach(function(b,i){b.setAttribute('aria-current',i===currentStop?'step':'false');b.setAttribute('aria-pressed',String(i===currentStop));});
-    put('cfJourneyPosition',String(currentStop+1).padStart(2,'0')+' / 06 · '+(index<0?'A closer look':data.chapters[index].nav));
+    put('cfJourneyPosition',String(phone.matches?Math.max(0,index)+1:currentStop+1).padStart(2,'0')+' / '+String(phone.matches?data.chapters.length:stops.length).padStart(2,'0')+' · '+(index<0?'A closer look':data.chapters[index].nav));
     if(announce)put('cfJourneyAnnouncement',index<0?'A closer look':data.chapters[index].nav);
-    enterCopy(previous,index);if(mode==='static'){paintStatic();journeyTrack.paint(progress);}mediaVisibility();
+    enterCopy(previous,index);if(mode==='static'){if(phone.matches)layout();paintStatic();journeyTrack.paint(progress);}mediaVisibility();
   }
   function chapterAt(p){var n=-1;thresholds.forEach(function(t,i){if(p>=t)n=i;});return n;}
   function applyProgress(p,announce){
@@ -8581,17 +8684,22 @@ function createCFDetailMotion(options){
   function resize(){detailMotion.cancel(true);measure();if(mode!=='static')requestRender();}
   function visibility(){if(document.hidden){detailMotion.cancel(true);cancel();}else requestRender();mediaVisibility();}
   function configure(){
+    var previousChapter=chapter;
+    // Keep keyboard/reading order aligned with the phone chapter controls.
+    var timeline=root.querySelector('.cf-j-timeline');
+    if(phone.matches){if(timeline.nextElementSibling!==panel)pin.insertBefore(timeline,panel);}
+    else if(pin.lastElementChild!==timeline)pin.appendChild(timeline);
     detailMotion.cancel(true);cancel();cancelCopyEnter();if(observer)observer.disconnect();if(resizeObserver)resizeObserver.disconnect();
     window.removeEventListener('scroll',requestRender);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);
     root.classList.remove('is-native','is-static');intro.classList.remove('is-native');
-    var staticMode=reduce.matches||shortScreen.matches||!window.IntersectionObserver||!window.requestAnimationFrame;
+    var staticMode=phone.matches||reduce.matches||shortScreen.matches||!window.IntersectionObserver||!window.requestAnimationFrame;
     mode=staticMode?'static':(nativeOK&&!forceFallback?'native':'fallback');root.classList.add('is-enhanced');
     root.classList.toggle('is-static',staticMode);root.classList.toggle('is-native',mode==='native');
     intro.classList.toggle('is-enhanced',!staticMode);section.classList.add('cf-cinema-active','cf-journey-active');
     Object.keys(nodes).forEach(function(id){nodes[id].style.removeProperty('transform');nodes[id].style.removeProperty('opacity');});groups.forEach(function(g){g.style.removeProperty('opacity');});
     buttons[0].disabled=staticMode;chapter=-2;lastGeometry='';measure();
     var r=root.getBoundingClientRect();near=r.bottom>-200&&r.top<window.innerHeight+200;
-    if(staticMode){activate(0,false);paintStatic();}
+    if(staticMode){activate(Math.max(0,previousChapter),false);paintStatic();}
     else{applyProgress((topInset-r.top)/travel,false);window.addEventListener('scroll',requestRender,{passive:true});}
     window.addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',visibility);
     if(window.IntersectionObserver){observer=new IntersectionObserver(function(){
@@ -8599,7 +8707,7 @@ function createCFDetailMotion(options){
       if(mode==='static'){var r=root.getBoundingClientRect();near=r.bottom>-200&&r.top<window.innerHeight+200;mediaVisibility();}
       else requestRender();
     },{rootMargin:'200px 0px'});observer.observe(root);}
-    if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(stage);resizeObserver.observe(pin);sharedIds.forEach(function(id){resizeObserver.observe(nodes[id]);});}
+    if(window.ResizeObserver){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(stage);resizeObserver.observe(pin);Object.keys(nodes).forEach(function(id){resizeObserver.observe(nodes[id]);});}
     mediaVisibility();
   }
   function explanation(id,item){var el=byId(id);if(!el)return;var strong=document.createElement('strong');strong.textContent=item.title+'. ';el.replaceChildren(strong,document.createTextNode(item.body));}
@@ -8615,7 +8723,7 @@ function createCFDetailMotion(options){
   section.querySelectorAll('[data-cf-treatment]').forEach(function(b){b.addEventListener('click',function(){currentTreatment=b.dataset.cfTreatment;compare();});});
   function watch(m){if(m.addEventListener)m.addEventListener('change',configure);else if(m.addListener)m.addListener(configure);}
   var journeyTrack=createJourneyTrack();
-  watch(reduce);watch(shortScreen);configure();compare();
+  watch(reduce);watch(shortScreen);watch(phone);configure();compare();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(resize);
   var appendix=byId('cfJourneyAppendix');if(appendix)appendix.classList.add('is-enhanced');
   // A direct fragment must land after the browser and introductory veil settle.
