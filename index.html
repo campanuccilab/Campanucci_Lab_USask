@@ -2448,8 +2448,37 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 @media(prefers-reduced-motion:reduce){#cfJourney .cfj-open-badge{transition:none}}
 
 
-/* Phones use tap-selected chapters and natural page height. Measured rows
-   include full labels and Planned badges, even when the text size increases. */
+/* Animated phones reserve the viewport for the diagram; full chapter copy
+   stays available in an accessible dialog. Static mode keeps natural rows. */
+#cfJourney .cf-j-info-button{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(207,188,155,.55);border-radius:50%;background:#20232b;color:var(--cfj-gold);font:500 21px/1 Georgia,serif;cursor:pointer}
+#cfJourney .cf-j-info-button:focus-visible{outline:2px solid var(--cfj-gold);outline-offset:3px}
+#cfChapterDetails{position:fixed;inset:0;width:min(560px,calc(100vw - 32px));max-height:calc(100svh - 40px);margin:auto;padding:24px;border:1px solid rgba(207,188,155,.4);border-radius:14px;background:#17191f;color:#f0ede7;overflow:auto;overscroll-behavior:contain}
+#cfChapterDetails::backdrop{background:rgba(6,8,13,.82)}
+#cfChapterDetails h3{margin:0 0 20px;padding-right:42px;font:400 28px/1.15 var(--serif,Georgia,serif)}
+#cfChapterDetails p{margin:0 0 16px;font:400 15px/1.7 var(--sans,Arial,sans-serif);color:#c9cad1}
+#cfChapterDetails button{position:absolute;top:12px;right:12px;width:44px;height:44px;border:1px solid rgba(207,188,155,.4);border-radius:50%;background:#20232b;color:#f0ede7;font-size:26px;cursor:pointer}
+#cfChapterDetails button:focus-visible{outline:2px solid #cfbc9b;outline-offset:3px}
+@media(max-width:700px),(max-width:1000px) and (max-height:560px) and (pointer:coarse){
+  #cfJourney:not(.is-static){--cfj-nav:68px;--cfj-bottom:8px}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:116px minmax(0,1fr);gap:4px}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-copy{padding:12px 60px 12px 14px;overflow:visible}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-kicker{font-size:9px;line-height:1.25;letter-spacing:.03em;margin:0 0 6px}
+  #cfJourney.is-enhanced:not(.is-static) #cfChapterTitle{font-size:20px;line-height:1.12;margin:0;letter-spacing:-.02em}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-body,#cfJourney.is-enhanced:not(.is-static) .cf-j-note,#cfJourney.is-enhanced:not(.is-static) .cf-j-status{display:none}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-observatory{padding:0;grid-template-rows:minmax(0,1fr) auto}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-stage{min-height:0}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-stage.cfj-scroll-room{overflow-x:hidden;overflow-y:auto}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-stage.cfj-scroll-room .cf-j-world{overflow:hidden;overflow:clip}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-world{animation:none!important;transform:none}
+  #cfJourney.is-enhanced:not(.is-static) .cfj-node{width:min(120px,calc((100% - 40px)/3));gap:4px;padding:2px 2px 4px;--cfj-art-size:var(--cfj-phone-art-size,56px)}
+  #cfJourney.is-enhanced:not(.is-static) .cfj-node-art{width:var(--cfj-art-size);height:var(--cfj-art-size)}
+  #cfJourney.is-enhanced:not(.is-static) .cfj-node-name{font-size:12px;line-height:1.25;padding:2px;overflow-wrap:anywhere;transform:none}
+  #cfJourney.is-enhanced:not(.is-static) .cfj-node-flag{font-size:9px;line-height:1.2;padding:2px 3px;transform:none}
+  #cfJourney.is-enhanced:not(.is-static) .cfj-explore-cue{font-size:10px;line-height:1.3;padding:2px 4px;margin:0}
+  #cfJourney.is-enhanced:not(.is-static) .cf-j-stops button{transform:none;min-width:0;min-height:44px;font-size:10px;line-height:1.2;gap:3px;padding:4px 0}
+  #cfJourney.is-enhanced:not(.is-static) #cfJourneyPosition{font-size:10px;line-height:1.2;padding:3px 8px}
+}
+
 @media(max-width:700px),(max-width:1000px) and (max-height:560px) and (pointer:coarse){
   #cfJourney.is-static .cf-j-pin{display:flex;flex-direction:column;overflow:visible}
   #cfJourney.is-static .cf-j-intro{order:0}
@@ -2614,6 +2643,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
           <p class="cf-j-body" id="cfChapterBody">From primary neurons and stem cells to organoids, tissue preparations and the whole animal, each model offers a different window into cystic fibrosis.</p>
           <p class="cf-j-note" id="cfChapterNote">Select a specimen to meet the models behind the work.</p>
           <span class="cf-j-status" id="cfChapterStatus">Data collection underway</span>
+          <button class="cf-j-info-button" id="cfChapterInfo" type="button" aria-label="Read chapter details" aria-haspopup="dialog" aria-controls="cfChapterDetails" hidden>i</button>
         </div>
         <div class="cf-j-observatory">
           <div class="cf-j-stage" id="cfStage" data-chapter="library" role="group" aria-label="Explore the research models" aria-describedby="cfExploreCue cfStageCaption">
@@ -2646,6 +2676,11 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   <button class="cf-j-detail-close" id="cfDetailClose" type="button" aria-label="Close specimen detail"><span aria-hidden="true">×</span></button>
   <div class="cf-j-detail-copy"><p class="cf-j-kicker" id="cfDetailKind">Current culture</p><h4 id="cfDetailTitle">Human stem cells</h4><p id="cfDetailBody">Human stem cell cultures are part of our living library.</p></div>
   <div id="cfDetailMedia"></div>
+</dialog>
+<dialog id="cfChapterDetails" aria-labelledby="cfChapterDetailsTitle">
+  <button id="cfChapterDetailsClose" type="button" aria-label="Close chapter details">×</button>
+  <h3 id="cfChapterDetailsTitle">Research chapter</h3>
+  <div id="cfChapterDetailsBody"></div>
 </dialog>
 <div class="cf-j-appendix cf-program-card cf-story" id="cfJourneyAppendix">
   <div class="cf-comparison">
@@ -8167,6 +8202,17 @@ var CF_STORY = {
   var flights=[],sharedIds=['scg','ens','intestinal'],copyAnimations=[];
   world.classList.add('cfj-motion');world.style.animationName='cfj-camera';
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)'),shortScreen=window.matchMedia('(max-height: 560px)'),phone=window.matchMedia('(max-width: 700px), (max-width: 1000px) and (max-height: 560px) and (pointer: coarse)');
+  var chapterInfoButton=document.getElementById('cfChapterInfo'),chapterDialog=document.getElementById('cfChapterDetails');
+  var chapterDialogTitle=document.getElementById('cfChapterDetailsTitle'),chapterDialogBody=document.getElementById('cfChapterDetailsBody');
+  function closeChapterInfo(){if(chapterDialog.open){if(chapterDialog.close)chapterDialog.close();else chapterDialog.removeAttribute('open');}}
+  chapterInfoButton.addEventListener('click',function(){
+    var ch=data.chapters[Math.max(0,chapter)];chapterDialogTitle.textContent=ch.title;chapterDialogBody.replaceChildren();
+    [ch.body,ch.note,ch.status].forEach(function(text){if(!text)return;var p=document.createElement('p');p.textContent=text;chapterDialogBody.appendChild(p);});
+    if(chapterDialog.showModal)chapterDialog.showModal();else chapterDialog.setAttribute('open','');
+    document.getElementById('cfChapterDetailsClose').focus({preventScroll:true});
+  });
+  document.getElementById('cfChapterDetailsClose').addEventListener('click',closeChapterInfo);
+  chapterDialog.addEventListener('close',function(){if(!chapterInfoButton.hidden)chapterInfoButton.focus({preventScroll:true});requestRender();});
   var nativeOK=!!(window.CSS&&CSS.supports('animation-timeline: view()')&&CSS.supports('animation-range: contain 0% contain 100%')&&CSS.supports('view-timeline-inset: 100px 0px'));
   var forceFallback=new URLSearchParams(location.search).get('cf-motion')==='fallback';
   var style=document.createElement('style');style.id='cfJourneyFrames';document.head.appendChild(style);
@@ -8442,31 +8488,56 @@ function createCFDetailMotion(options){
       e.preventDefault();nodes[list[to]].focus({preventScroll:true});
     });
   });
-  var phoneLayouts=[];
+  var phoneLayouts=[],phoneCanvasHeight=0;
   function measurePhoneLayouts(width){
-    if(!phone.matches){phoneLayouts=[];stage.style.removeProperty('--cfj-phone-stage-height');return;}
-    var pad=16,gap=28;
-    phoneLayouts=data.chapters.map(function(ch){
-      var rows=[],points={};
+    if(!phone.matches){
+      phoneLayouts=[];phoneCanvasHeight=0;
+      stage.style.removeProperty('--cfj-phone-stage-height');stage.style.removeProperty('--cfj-phone-art-size');
+      stage.classList.remove('cfj-scroll-room');world.style.removeProperty('height');return;
+    }
+    var animated=mode!=='static',pad=animated?8:16,gap=animated?8:28,height=stage.clientHeight;
+    var chapterRows=data.chapters.map(function(ch,index){
+      var rows=[];
       ch.models.forEach(function(id,i){
-        var slot=ch.mobile[i],row=rows.find(function(r){return r.slot===slot[1];});
+        // The animated library fits three rows; the natural-height fallback uses five.
+        var slot=animated&&index===0?[(i%3+.5)*100/3,Math.floor(i/3)]:ch.mobile[i];
+        var row=rows.find(function(r){return r.slot===slot[1];});
         if(!row){row={slot:slot[1],height:0,items:[]};rows.push(row);}
-        var button=nodes[id],height=button.offsetHeight;
-        row.height=Math.max(row.height,height);row.items.push({id:id,x:slot[0],width:button.offsetWidth});
+        var button=nodes[id],art=button.querySelector('.cfj-node-art');
+        var contentHeight=button.offsetHeight-(animated?art.offsetHeight:0);
+        row.height=Math.max(row.height,contentHeight);row.items.push({id:id,x:slot[0],width:button.offsetWidth});
       });
-      rows.sort(function(a,b){return a.slot-b.slot;});
-      var top=pad;
+      return rows.sort(function(a,b){return a.slot-b.slot;});
+    });
+    function totalHeight(rows){return rows.reduce(function(sum,row){return sum+row.height;},0)+gap*(rows.length-1)+pad*2;}
+    if(animated){
+      var artSize=56;
+      chapterRows.forEach(function(rows){artSize=Math.min(artSize,Math.floor((height-totalHeight(rows))/rows.length));});
+      artSize=Math.max(32,artSize);stage.style.setProperty('--cfj-phone-art-size',artSize+'px');
+      chapterRows.forEach(function(rows){rows.forEach(function(row){row.height+=artSize;});});
+      // Large text can exceed even the smallest artwork. Keep it readable in
+      // a scrollable diagram without disabling the page's animated journey.
+      phoneCanvasHeight=Math.max(height,Math.max.apply(null,chapterRows.map(totalHeight)));
+      stage.style.removeProperty('--cfj-phone-stage-height');
+      stage.classList.toggle('cfj-scroll-room',phoneCanvasHeight>height);
+      world.style.height=phoneCanvasHeight+'px';
+    }else{
+      phoneCanvasHeight=0;stage.classList.remove('cfj-scroll-room');
+      stage.style.removeProperty('--cfj-phone-art-size');world.style.removeProperty('height');
+    }
+    phoneLayouts=chapterRows.map(function(rows){
+      var points={},needed=totalHeight(rows),canvasHeight=animated?phoneCanvasHeight:needed;
+      var rowGap=gap+(rows.length>1?(canvasHeight-needed)/(rows.length-1):0),top=pad+(rows.length===1?(canvasHeight-needed)/2:0);
       rows.forEach(function(row){
         row.items.forEach(function(item){
           var half=item.width/2;
           points[item.id]={x:Math.max(pad+half,Math.min(width-pad-half,item.x*width/100)),y:top+row.height/2,scale:1,opacity:1,angle:0};
         });
-        top+=row.height+gap;
+        top+=row.height+rowGap;
       });
-      return {points:points,height:top-gap+pad};
+      return {points:points,height:canvasHeight};
     });
-    var current=phoneLayouts[Math.max(0,chapter)];
-    stage.style.setProperty('--cfj-phone-stage-height',current.height+'px');
+    if(!animated)stage.style.setProperty('--cfj-phone-stage-height',phoneLayouts[Math.max(0,chapter)].height+'px');
   }
   function positions(index,compact){
     if(index===0)return [[17,16],[50,16],[83,16],[17,48],[50,48],[83,48],[17,80],[50,80],[83,80]];
@@ -8561,7 +8632,7 @@ function createCFDetailMotion(options){
   function layout(){
     var width=stage.clientWidth;if(!width)return;
     measurePhoneLayouts(width);
-    var height=stage.clientHeight;if(!height)return;
+    var height=phoneCanvasHeight||stage.clientHeight;if(!height)return;
     var geometry=libraryGeometry(width,height),pinWidth=pin.clientWidth,pinHeight=pin.clientHeight;
     var key=[width,height,pinWidth,pinHeight,geometry.origin.x,geometry.origin.y,phone.matches?JSON.stringify(phoneLayouts):"desktop"];
     sharedIds.forEach(function(id){var t=geometry.targets[id];key.push(t.x,t.y,t.width,t.height);});
@@ -8615,6 +8686,7 @@ function createCFDetailMotion(options){
   }
   function activate(index,announce){
     if(index===chapter)return;var previous=chapter;chapter=index;currentStop=index+1;
+    stage.scrollTop=0; // Each chapter, including the returning photo flight, starts aligned.
     panel.setAttribute('aria-hidden',String(index<0));
     var hideIntro=mode!=='static'&&index>=0;
     if(hideIntro&&intro.contains(document.activeElement))buttons[currentStop].focus({preventScroll:true});
@@ -8637,7 +8709,7 @@ function createCFDetailMotion(options){
       if(media[id]&&data.models[id].video){media[id].hidden=index<1;nodes[id].classList.toggle('has-media',index>0);}
     });
     buttons.forEach(function(b,i){b.setAttribute('aria-current',i===currentStop?'step':'false');b.setAttribute('aria-pressed',String(i===currentStop));});
-    put('cfJourneyPosition',String(phone.matches?Math.max(0,index)+1:currentStop+1).padStart(2,'0')+' / '+String(phone.matches?data.chapters.length:stops.length).padStart(2,'0')+' · '+(index<0?'A closer look':data.chapters[index].nav));
+    put('cfJourneyPosition',String(phone.matches&&mode==='static'?Math.max(0,index)+1:currentStop+1).padStart(2,'0')+' / '+String(phone.matches&&mode==='static'?data.chapters.length:stops.length).padStart(2,'0')+' · '+(index<0?'A closer look':data.chapters[index].nav));
     if(announce)put('cfJourneyAnnouncement',index<0?'A closer look':data.chapters[index].nav);
     enterCopy(previous,index);if(mode==='static'){if(phone.matches)layout();paintStatic();journeyTrack.paint(progress);}mediaVisibility();
   }
@@ -8649,7 +8721,7 @@ function createCFDetailMotion(options){
   }
   function measure(){topInset=parseFloat(getComputedStyle(pin).top)||0;travel=Math.max(1,root.offsetHeight-pin.offsetHeight);layout();journeyTrack.measure();}
   function render(){
-    frame=0;if(mode==='static'||document.hidden||dialog.open)return;
+    frame=0;if(mode==='static'||document.hidden||dialog.open||chapterDialog.open)return;
     // A tall sticky runway can receive stale intersection notifications. Its live
     // rectangle is the source of truth for both CSS-fallback progress and chapter UI.
     var r=root.getBoundingClientRect(),wasNear=near,next=clamp((topInset-r.top)/travel);
@@ -8657,7 +8729,7 @@ function createCFDetailMotion(options){
     if(near||next!==progress)applyProgress(next,false);
     if(near!==wasNear)mediaVisibility();
   }
-  function requestRender(){if(mode!=='static'&&!document.hidden&&!dialog.open&&!frame)frame=requestAnimationFrame(render);}
+  function requestRender(){if(mode!=='static'&&!document.hidden&&!dialog.open&&!chapterDialog.open&&!frame)frame=requestAnimationFrame(render);}
   function cancel(){if(frame){cancelAnimationFrame(frame);frame=0;}}
   function scrollToStop(index,focus,immediate){
     index=Math.max(mode==='static'?1:0,Math.min(stops.length-1,index));
@@ -8685,14 +8757,15 @@ function createCFDetailMotion(options){
   function visibility(){if(document.hidden){detailMotion.cancel(true);cancel();}else requestRender();mediaVisibility();}
   function configure(){
     var previousChapter=chapter;
-    // Keep keyboard/reading order aligned with the phone chapter controls.
+    var staticMode=reduce.matches||shortScreen.matches||!window.IntersectionObserver||!window.requestAnimationFrame;
+    closeChapterInfo();stage.scrollTop=0;chapterInfoButton.hidden=!(phone.matches&&!staticMode);
+    // Static phones place chapter controls before the naturally scrolling panel.
     var timeline=root.querySelector('.cf-j-timeline');
-    if(phone.matches){if(timeline.nextElementSibling!==panel)pin.insertBefore(timeline,panel);}
+    if(phone.matches&&staticMode){if(timeline.nextElementSibling!==panel)pin.insertBefore(timeline,panel);}
     else if(pin.lastElementChild!==timeline)pin.appendChild(timeline);
     detailMotion.cancel(true);cancel();cancelCopyEnter();if(observer)observer.disconnect();if(resizeObserver)resizeObserver.disconnect();
     window.removeEventListener('scroll',requestRender);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);
     root.classList.remove('is-native','is-static');intro.classList.remove('is-native');
-    var staticMode=phone.matches||reduce.matches||shortScreen.matches||!window.IntersectionObserver||!window.requestAnimationFrame;
     mode=staticMode?'static':(nativeOK&&!forceFallback?'native':'fallback');root.classList.add('is-enhanced');
     root.classList.toggle('is-static',staticMode);root.classList.toggle('is-native',mode==='native');
     intro.classList.toggle('is-enhanced',!staticMode);section.classList.add('cf-cinema-active','cf-journey-active');
