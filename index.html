@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Campanucci Lab — Neuroscience &amp; Electrophysiology · University of Saskatchewan</title>
-<meta name="description" content="The Campanucci Lab (Dr. Veronica Campanucci, College of Medicine, University of Saskatchewan) studies neuronal activity: cystic fibrosis CFTR modulators, honey bee neurobiology, and diabetes.">
+<meta name="description" content="The Campanucci Lab (Dr. Veronica Campanucci, College of Medicine, University of Saskatchewan) studies neuronal physiology: cystic fibrosis CFTR modulators, honey bee neurobiology, and diabetes.">
 <!-- TAB ICON, inlined as a data: URI. Not a favicon.ico, and that is not a
      style preference: the site is served from a repository SUBPATH
      (/Campanucci_Lab_USask/), so a browser's implicit probe goes to the
@@ -2301,6 +2301,13 @@ html.pre-reveal section#cf-research.cf-cinema-active{opacity:1!important;transit
 #cfSpecimenDetail .cf-j-kicker{margin:0 54px 16px 0}
 #cfSpecimenDetail #cfDetailTitle{margin:0 34px 18px 0;font:400 clamp(28px,4vw,42px)/1.1 var(--serif,Georgia,serif);letter-spacing:-.035em;color:#f0ede7}
 #cfSpecimenDetail #cfDetailBody{margin:0;max-width:68ch;font:400 15px/1.75 var(--sans,Arial,sans-serif);color:#c9cad1}
+#cfSpecimenDetail #cfDetailExplanation{margin-top:24px;border-top:1px solid rgba(207,188,155,.2);padding-top:2px}
+#cfSpecimenDetail .cfj-detail-label{margin:22px 0 8px;color:#cfbc9b;font:600 11px/1.5 var(--mono,monospace);letter-spacing:.08em;text-transform:uppercase}
+#cfSpecimenDetail .cfj-detail-question,#cfSpecimenDetail .cfj-detail-approach{margin:0;color:#c9cad1;font:400 15px/1.75 var(--sans,Arial,sans-serif)}
+#cfSpecimenDetail .cfj-detail-question{color:#f0ede7;font-weight:600}
+#cfSpecimenDetail .cfj-detail-interpretation{margin:20px 0 0;padding:14px 16px;border-left:2px solid #cfbc9b;background:rgba(207,188,155,.05);color:#babcc6;font:400 13px/1.7 var(--sans,Arial,sans-serif)}
+#cfSpecimenDetail .cfj-detail-references{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font:400 12px/1.6 var(--sans,Arial,sans-serif)}
+#cfSpecimenDetail .cfj-detail-references a{color:#cfbc9b;text-underline-offset:3px}
 #cfSpecimenDetail .cfj-detail-figure,#cfSpecimenDetail .cf-detail-media{margin:24px 0 0;padding:0}
 #cfSpecimenDetail #cfDetailMedia img,#cfSpecimenDetail #cfDetailMedia video{display:block;width:100%;max-width:100%;height:auto;max-height:52svh;object-fit:contain;opacity:1;filter:none;mask-image:none;background:#08090c;border-radius:8px}
 #cfSpecimenDetail #cfDetailMedia figcaption{padding:12px 0 0;font:400 12px/1.6 var(--sans,Arial,sans-serif);color:#babcc6}
@@ -2558,7 +2565,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         <p class="eyebrow reveal" style="--d:80ms" data-c="hero.eyebrow">Neuroscience &middot; Electrophysiology &middot; Translational</p>
         <h1 class="reveal" style="--d:180ms" data-c="welcome.title">Welcome to the Campanucci Lab</h1>
         <p class="tagline reveal" style="--d:280ms" data-c="hero.title">What does the neuron say &mdash; let's find out!</p>
-        <p class="lead reveal" style="--d:380ms" data-c="hero.lead">We study <b>neuronal activity</b> across health and disease, from single-channel currents to whole-organism behavior.</p>
+        <p class="lead reveal" style="--d:380ms" data-c="hero.lead">We study <b>neuronal physiology</b> across health and disease, from single-channel currents to whole-organism behavior.</p>
         <div class="hero-cta reveal" style="--d:500ms">
           <a href="#research" class="btn btn-primary" data-c="hero.button1">Explore our research →</a>
           <a href="#join" class="btn btn-ghost" data-c="hero.button2">Join the lab</a>
@@ -2655,7 +2662,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         <div class="cf-j-copy" id="cfChapterText">
           <p class="cf-j-kicker" id="cfChapterKicker">01 / The starting point</p>
           <h4 id="cfChapterTitle">Many models.<br>One shared question.</h4>
-          <p class="cf-j-body" id="cfChapterBody">From primary neurons and stem cells to organoids, tissue preparations and the whole animal, each model offers a different window into cystic fibrosis.</p>
+          <p class="cf-j-body" id="cfChapterBody">We study sensory, autonomic and central neurons alongside intestinal epithelium, muscle and human-derived brain tissue. Comparing these models helps us ask where CF-associated changes begin and how modulators affect each component.</p>
           <p class="cf-j-note" id="cfChapterNote">Select a specimen to meet the models behind the work.</p>
           <span class="cf-j-status" id="cfChapterStatus">Data collection underway</span>
           <button class="cf-j-info-button" id="cfChapterInfo" type="button" aria-label="Read chapter details" aria-haspopup="dialog" aria-controls="cfChapterDetails" hidden>i</button>
@@ -2691,6 +2698,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   <button class="cf-j-detail-close" id="cfDetailClose" type="button" aria-label="Close specimen detail"><span aria-hidden="true">×</span></button>
   <div class="cf-j-detail-copy"><p class="cf-j-kicker" id="cfDetailKind">Current culture</p><h4 id="cfDetailTitle">Human stem cells</h4><p id="cfDetailBody">Human stem cell cultures are part of our living library.</p></div>
   <div id="cfDetailMedia"></div>
+  <div id="cfDetailExplanation"></div>
 </dialog>
 <dialog id="cfChapterDetails" aria-labelledby="cfChapterDetailsTitle">
   <button id="cfChapterDetailsClose" type="button" aria-label="Close chapter details">×</button>
@@ -2709,10 +2717,10 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 <div class="cf-static-fallback">
     <ol>
       <li><h4>Living library</h4><p>Our cultures include human stem cells; primary DRG, SCG, enteric and hippocampal neurons; intestinal organoids; human-stem-cell-derived brain organoids; and smooth muscle. Intestinal organ-bath work provides a separate tissue preparation, and whole-animal gut transit extends the work to the whole animal.</p></li>
-      <li><h4>Gut-on-a-chip</h4><p>Our gut-on-a-chip model brings DRG neurons, enteric neurons and intestinal organoids together to study how these components interact.</p></li>
-      <li><h4>Watch movement</h4><p>Smooth muscle culture, the intestinal organ bath and whole-animal gut transit offer complementary views of gut function, from cells to intact tissue to the whole animal, in separate experiments.</p></li>
-      <li><h4>Brain questions</h4><p>Data collection is underway in our brain research, using brain slices, hippocampal neurons and human-stem-cell-derived brain organoids to investigate CF and responses to CFTR modulators.</p></li>
-      <li><h4>Future connections</h4><p>We plan to differentiate human stem cells into SCG neurons, cardiac muscle, enteric neurons and hippocampal pyramidal neurons, then co-culture the stem-cell-derived SCG neurons with stem-cell-derived cardiac muscle.</p></li>
+      <li><h4>Gut-on-a-chip</h4><p>Our gut-on-a-chip combines DRG sensory neurons, enteric neurons and intestinal organoids. Studying components separately and together helps us ask whether CF or modulators change neuronal physiology, the gut lining or communication between them.</p></li>
+      <li><h4>Watch movement</h4><p>Does a motility difference begin in muscle cells, emerge within intestinal tissue, or depend on the intact animal? Smooth-muscle culture, organ-bath recordings and gut-transit measurements address these questions at complementary scales.</p></li>
+      <li><h4>Brain questions</h4><p>We compare direct modulator exposure in hippocampal cultures with brain slices collected after systemic treatment, and add human-stem-cell-derived brain organoids. Together, these models test how CF and modulators may influence neuronal physiology.</p></li>
+      <li><h4>Future connections</h4><p>We plan human stem-cell-derived sympathetic, enteric and hippocampal neurons and cardiac muscle. A future SCG-like neuron–cardiac co-culture will ask whether responses begin in the nerve cells, the muscle cells or their interaction.</p></li>
     </ol>
     <p>Across these models, our research aims to compare cystic fibrosis models homozygous for F508del with heterozygous carriers and wild-type controls, and to investigate responses across treatment conditions, including Trikafta (ETI) and Alyftrek (VTD).</p>
   </div>
@@ -3026,7 +3034,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   hero: {
     eyebrow: "Neuroscience &middot; Electrophysiology",
     title: "From single cells to living systems",
-    lead:    "We study <b>neuronal activity</b> across health and disease, from single-channel currents to whole-organism behavior. Our flagship program investigates <b>CFTR modulators for cystic fibrosis</b>, alongside curiosity-driven work in <b>honey bees</b> and <b>diabetes</b>.",
+    lead:    "We study <b>neuronal physiology</b> across health and disease, from single-channel currents to whole-organism behavior. Our flagship program investigates <b>CFTR modulators for cystic fibrosis</b>, alongside curiosity-driven work in <b>honey bees</b> and <b>diabetes</b>.",
     button1: "Explore our research &rarr;",
     button2: "Join the lab",
     supportButton: "Support our research",
@@ -3077,7 +3085,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       alt: "Fluorescence microscopy of sensory neurites extending toward a swine airway organoid, with green neurites, blue nuclei and red actin.",
       title: "Searching for Connection",
       caption: "Sensory neurites extend toward a swine airway organoid. This co-culture model lets the lab investigate nerve–epithelium interactions.",
-      credit: "Image: Marissa Jones &middot; USask Research Image Contest winner, 2026"
+      credit: "Image: Marissa Jones &middot; In collaboration with Dr. Juan Ianowski Lab &middot; USask Research Image Contest winner, 2026"
     },
     programs: [
       { colour:"teal", icon:"wave", label:"Flagship program",
@@ -3239,7 +3247,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       { place:"Winner", year:"2026", category:"More than Meets the Eye",
         title:"Searching for Connection",
         image:"images/Co-culture.webp",
-        credit:"Marissa Jones", role:"Master&rsquo;s student, Anatomy, Physiology &amp; Pharmacology",
+        credit:"Marissa Jones", collaboration:"In collaboration with Dr. Juan Ianowski Lab", role:"Master&rsquo;s student, Anatomy, Physiology &amp; Pharmacology",
         blurb:"A swine airway organoid sits in the distance as a sensory neuron begins to chart its course toward it. Captured by spinning-disk confocal fluorescence microscopy, peripherin-labelled neurites glow green as they extend and gather at the organoid boundary, drawn toward this living target. Blue nuclei (DAPI) are scattered, while red actin reveals the scaffolding that shapes this miniature airway system. This co-culture model is built to explore if nerves form selective connections with specific airway epithelia cell types and whether those connections help regulate ion transport in the lung." },
       { place:"Runner-up", year:"2025", category:"More than Meets the Eye",
         title:"Be careful of what you are doing, the cells are watching!",
@@ -3336,7 +3344,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       ["Brain organoid neuron · patch-clamp recording", "big", "images/Brain-organoid-patch-clamp.png", "microscopy", 0, {ratio:"16 / 9",position:"47% 43%"}],
       ["Intestinal segment contraction", "big", "images/Intestinal-organ-bath-contraction.mp4", "videos", 0, {ratio:"16 / 9",poster:"images/Intestinal-organ-bath-contraction.jpg"}],
       ["Brain organoid · bright-field", "big", "images/Brain-organoid-brightfield.png", "microscopy", 0, {ratio:"4 / 3",position:"50% 50%"}],
-      ["Co-culture · award winner 2026",       "big", "images/Co-culture.webp", "microscopy"],
+      ["Co-culture · Marissa Jones, in collaboration with Dr. Juan Ianowski Lab",       "big", "images/Co-culture.webp", "microscopy"],
       ["SCG neurons · award runner-up 2025",   "big", "images/SCG.webp",        "microscopy"],
       /* Two DIFFERENT enteric images, not a duplicate: ENS.webp is a dense
          network of many neurons (used by the research journey's enteric node),
@@ -3669,6 +3677,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
           '<span class="sig-wrap"><span class="sig-name">'+esc(a.credit)+'</span>'+
             '<span class="quill" aria-hidden="true">'+QUILL+'</span></span></div>'+
         (a.role?'<p class="award-role">'+a.role+'</p>':'')+
+        (a.collaboration?'<p class="award-role award-collaboration">'+esc(a.collaboration)+'</p>':'')+
         '<p class="award-meta">USask Research Image Contest'+
           (a.category?' &middot; '+a.category:'')+' &middot; '+markPh(a.year)+'</p>'+
       '</figcaption></figure>';
@@ -7587,7 +7596,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     var button=el('button','r2-explore-button','Explore image ↗');button.type='button';button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-label','Explore '+title);frame.after(button);
     button.addEventListener('click',function(){
       focusSource=button;px=py=.5;zoom.value='2.5';value.textContent='2.5×';heading.textContent=title;
-      credit.textContent=creditNode?'Image: '+creditNode.textContent:'';hint.textContent='Move over the image or drag to inspect. Keyboard: arrow keys move the lens; Home centers it.';
+      credit.textContent=(creditNode?'Image: '+creditNode.textContent:'')+(award.querySelector('.award-collaboration')?' · '+award.querySelector('.award-collaboration').textContent:'');hint.textContent='Move over the image or drag to inspect. Keyboard: arrow keys move the lens; Home centers it.';
       original.alt=title;original.src=source.currentSrc||source.src;lens.style.backgroundImage='url('+JSON.stringify(original.src)+')';lens.hidden=true;
       dialog.showModal();stage.focus({preventScroll:true});scheduleLens();
     });
@@ -7630,7 +7639,9 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "stem",
       "color": "blue",
-      "body": "Human stem cell cultures are part of our living library and the starting point for the lab’s stem-cell-derived models: brain organoids today, with differentiation into SCG neurons, enteric neurons, hippocampal pyramidal neurons and cardiac muscle planned.",
+      "body": "Human stem cells can renew themselves and differentiate into specialized cell types. They provide the starting material for our human brain organoids and the human neuronal and cardiac models we plan to develop.",
+      "question": "How do CF-associated differences appear in human-derived models, and how do those models respond to CFTR modulators?",
+      "approach": "We use human stem cells to generate brain organoids now. Future differentiation into sympathetic, enteric and hippocampal neurons and cardiac muscle will let us study individual cell types and selected interactions between them.",
       "image": "images/StemCells.webp",
       "video": "",
       "poster": "",
@@ -7643,7 +7654,11 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "drg",
       "color": "blue",
-      "body": "Dorsal root ganglion (DRG) neurons are one of our primary neuronal cultures. We combine DRG neurons with enteric neurons and intestinal organoids in our gut-on-a-chip model to study how these components interact.",
+      "body": "Dorsal root ganglia (DRG) contain primary sensory neurons. Gut-projecting DRG neurons relay information from the intestine into spinal circuits that communicate with the brain, forming one sensory route within the gut–brain axis.",
+      "question": "Do CF and modulators change sensory-neuron excitability directly, or through signals from enteric neurons and the intestinal lining?",
+      "approach": "We study DRG neurons separately and with enteric neurons and intestinal organoids. Comparing individual components with co-cultures helps locate changes in the sensory neurons, the epithelium or communication between them.",
+      "interpretation": "This model tests selected gut–nerve interactions. Neuronal contact alone does not establish a functional connection.",
+      "references": [{"label":"Gut sensory pathways","url":"https://pubmed.ncbi.nlm.nih.gov/40890079/"},{"label":"Neuro-epithelial co-culture","url":"https://www.nature.com/articles/s41378-023-00615-y"}],
       "image": "images/DRG.webp",
       "video": "",
       "poster": "",
@@ -7656,7 +7671,11 @@ var CF_STORY = {
       "kind": "Current culture · primary",
       "symbol": "scg",
       "color": "violet",
-      "body": "Superior cervical ganglion (SCG) neurons are part of our primary neuronal culture work, and this image is from a primary culture. Deriving SCG neurons from human stem cells is a separate, planned line of work.",
+      "body": "Superior cervical ganglion (SCG) neurons are sympathetic neurons: part of the autonomic system that adjusts organ function. Primary SCG cultures give us an experimentally accessible model of sympathetic neuronal physiology.",
+      "question": "Could CF or a modulator affect cardiac regulation through sympathetic neurons, heart muscle cells, or their interaction?",
+      "approach": "Our current primary SCG cultures address the neuronal side of this question. A planned co-culture of human stem-cell-derived SCG-like sympathetic neurons and cardiac muscle will let us examine each cell type separately and then together.",
+      "interpretation": "SCG neurons are used here as a sympathetic model. Much of the heart’s sympathetic supply arises from stellate and middle-cervical ganglia; contributions vary by species.",
+      "references": [{"label":"Sympathetic neuron–cardiac co-culture","url":"https://pubmed.ncbi.nlm.nih.gov/23080484/"},{"label":"Cardiac sympathetic anatomy","url":"https://pubmed.ncbi.nlm.nih.gov/2628461/"}],
       "image": "images/SCG.webp",
       "video": "",
       "poster": "",
@@ -7669,7 +7688,10 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "ens",
       "color": "blue",
-      "body": "Enteric neurons provide a model of the nervous system of the gut. Our co-culture work brings these neurons together with DRG neurons and intestinal organoids.",
+      "body": "Enteric neurons form the gut’s local nervous system. Sensory neurons, interneurons and motor neurons within enteric circuits coordinate functions such as intestinal movement and secretion.",
+      "question": "Does CF alter local gut-neuron function, and do modulators change how these neurons respond to signals from the intestinal lining or sensory neurons?",
+      "approach": "We examine enteric neurons alone and in co-culture with DRG neurons and intestinal organoids. Separating and recombining the components helps distinguish changes within enteric neurons from changes driven by their cellular partners.",
+      "references": [{"label":"Neuro-epithelial co-culture","url":"https://www.nature.com/articles/s41378-023-00615-y"}],
       "image": "images/ENS.webp",
       "video": "",
       "poster": "",
@@ -7682,7 +7704,11 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "hippocampal",
       "color": "violet",
-      "body": "Hippocampal neurons are part of our primary neuronal culture library. Alongside brain slices and stem-cell-derived brain organoids, they support our ongoing investigation of CF and responses to CFTR modulators.",
+      "body": "The hippocampus contributes to learning and memory. Primary hippocampal cultures give us direct access to neuronal electrical activity and let us apply modulators without requiring them to cross a blood–brain barrier.",
+      "question": "Do CF genotype and direct modulator exposure change neuronal excitability?",
+      "approach": "We use electrophysiology to investigate neuronal responses under defined culture conditions. Direct exposure helps separate cellular responses from the absorption, metabolism and brain entry that determine exposure in an intact animal.",
+      "interpretation": "Culture exposure does not establish the concentration reached in the human brain or explain reported neuropsychiatric symptoms. Those reports motivate the question.",
+      "references": [{"label":"Primary neuronal exposure study","url":"https://www.jci.org/articles/view/176328"}],
       "image": "",
       "video": "",
       "poster": "",
@@ -7694,7 +7720,10 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "intestinal",
       "color": "gold",
-      "body": "Intestinal organoid cultures are a component of our DRG–enteric neuron–intestinal organoid co-cultures. They allow us to investigate connections between neuronal and intestinal models.",
+      "body": "Intestinal organoids model the gut epithelium in three dimensions. This lining regulates ion and fluid transport, including CFTR-dependent processes, and exchanges signals with nearby nerves.",
+      "question": "Does a change begin in the CF intestinal epithelium, in the neurons that interact with it, or in communication between the two?",
+      "approach": "Organoids studied alone provide an epithelial comparison. Combining them with enteric and DRG neurons lets us investigate how CF-associated epithelial differences and modulator responses influence the connected culture.",
+      "references": [{"label":"CFTR function in intestinal organoids","url":"https://www.nature.com/articles/nm.3201"},{"label":"Neuro-epithelial co-culture","url":"https://www.nature.com/articles/s41378-023-00615-y"}],
       "image": "images/Organoid2026.webp",
       "video": "",
       "poster": "",
@@ -7707,7 +7736,11 @@ var CF_STORY = {
       "kind": "Current culture · human-stem-cell-derived",
       "symbol": "brain",
       "color": "violet",
-      "body": "These brain organoids are derived from human stem cells. Together with hippocampal neuronal cultures and brain slices, they form part of our ongoing brain research into CF and responses to CFTR modulators.",
+      "body": "Human-stem-cell-derived brain organoids are three-dimensional neural cultures. Their human cells and developing tissue organization add a complementary perspective to primary neuronal cultures and animal brain slices.",
+      "question": "How do CF-associated differences and CFTR-modulator exposure affect neuronal function in a human neural model?",
+      "approach": "We investigate cellular activity and organization in these organoids to ask which responses are also seen in human-derived neural tissue. This helps connect experimental mechanisms to questions relevant to people with CF.",
+      "interpretation": "Organoids reproduce selected features of developing brain tissue. They do not recreate a complete adult brain, an intact blood–brain barrier or psychiatric symptoms.",
+      "references": [{"label":"Human organoid model limitations","url":"https://pubmed.ncbi.nlm.nih.gov/31996853/"}],
       "image": "images/Brain-organoid-brightfield.png",
       "imageAlt": "Bright-field image of a human-stem-cell-derived brain organoid.",
       "video": "",
@@ -7720,7 +7753,10 @@ var CF_STORY = {
       "kind": "Current culture",
       "symbol": "muscle",
       "color": "gold",
-      "body": "Smooth muscle culture lets us observe contraction at the cellular level. This preparation complements intestinal organ-bath studies; it is shown here as a separate experiment.",
+      "body": "Intestinal smooth muscle generates the force that moves gut contents. Culturing these cells allows us to examine contraction at the cellular level, separately from the intact tissue and its local nerve circuits.",
+      "question": "Do CF-associated differences or modulator responses arise within the muscle cells themselves?",
+      "approach": "We study cultured muscle alongside separate organ-bath and whole-animal experiments. This comparison helps distinguish a cellular contraction response from changes that depend on tissue organization or signals from other cells.",
+      "references": [{"label":"CF intestinal muscle physiology","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC3504652/"}],
       "image": "",
       "video": "",
       "poster": "",
@@ -7732,7 +7768,11 @@ var CF_STORY = {
       "kind": "Current tissue preparation",
       "symbol": "bath",
       "color": "gold",
-      "body": "The intestinal organ bath studies contraction in an intact tissue preparation. This provides a tissue-level view alongside the lab’s cultured-cell experiments.",
+      "body": "An intestinal organ bath keeps an isolated gut segment in controlled conditions so we can measure its contractile behaviour. The attached video shows an intestinal segment contracting in the experimental preparation.",
+      "question": "How do CF and modulators change contraction when muscle and local tissue interactions are retained?",
+      "approach": "We compare tissue contraction and responses to experimental treatments, then relate them to smooth-muscle culture and whole-animal gut transit. These complementary measurements help locate where a motility difference may originate.",
+      "interpretation": "An intact segment contains several interacting cell types; contraction alone cannot identify which cell type caused a change.",
+      "references": [{"label":"Organ-bath studies in CF swine","url":"https://doi.org/10.1016/j.jcf.2025.07.007"}],
       "image": "",
       "video": "images/Intestinal-organ-bath-contraction.mp4",
       "poster": "images/Intestinal-organ-bath-contraction.jpg",
@@ -7749,7 +7789,10 @@ var CF_STORY = {
       "kind": "Measurement approach · in vivo",
       "symbol": "transit",
       "color": "blue",
-      "body": "Whole-animal gut transit follows how contents move along the intestine in the whole animal. It adds an in vivo view of gut function to our cellular and tissue-level measurements, and is shown here as a separate experiment.",
+      "body": "Whole-animal gut transit measures the movement of contents through the digestive tract. It captures the combined influence of muscle, nerves, secretion and the animal’s wider physiology.",
+      "question": "Do changes found in cells and isolated intestinal tissue correspond to altered movement through the intact gut?",
+      "approach": "We compare whole-animal transit with findings from smooth-muscle cultures and organ-bath experiments. Transit shows the integrated outcome; the complementary models help investigate the cellular processes behind it.",
+      "references": [{"label":"CF intestinal muscle physiology","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC3504652/"}],
       "image": "",
       "video": "",
       "poster": "",
@@ -7767,7 +7810,10 @@ var CF_STORY = {
       "symbol": "scg",
       "color": "violet",
       "planned": true,
-      "body": "We plan to differentiate human stem cells into superior cervical ganglion (SCG) neurons. This has not been done yet and is distinct from our primary SCG cultures. The stem-cell-derived SCG neurons will then be co-cultured with stem-cell-derived cardiac muscle.",
+      "body": "We plan to generate human stem-cell-derived sympathetic neurons with an SCG-like identity. This future model is distinct from the primary SCG cultures already used in the lab.",
+      "question": "How might a CF genotype or modulator response in sympathetic neurons change the signals reaching cardiac muscle?",
+      "approach": "After establishing the neuronal model, we plan to study it separately and in co-culture with stem-cell-derived cardiac muscle. This will help distinguish neuronal responses from responses that require neuron–muscle interaction.",
+      "references": [{"label":"Sympathetic neuron–cardiac co-culture","url":"https://pubmed.ncbi.nlm.nih.gov/23080484/"}],
       "image": "",
       "video": "",
       "poster": "",
@@ -7780,7 +7826,10 @@ var CF_STORY = {
       "symbol": "cardiac",
       "color": "gold",
       "planned": true,
-      "body": "We plan to differentiate human stem cells into cardiac muscle cells, then co-culture them with stem-cell-derived SCG neurons. These connections form part of the lab’s future development.",
+      "body": "Cardiac muscle cells turn electrical excitation into contraction. Human stem-cell-derived cardiac muscle is a planned model for studying the muscle side of sympathetic regulation of the heart.",
+      "question": "Could CF or modulator exposure change cardiac-cell function directly, through sympathetic neurons, or through both?",
+      "approach": "We plan to compare cardiac cells alone with cells co-cultured with stem-cell-derived SCG-like sympathetic neurons. Studying each component separately and together can help identify where a response begins.",
+      "references": [{"label":"Sympathetic neuron–cardiac co-culture","url":"https://pubmed.ncbi.nlm.nih.gov/23080484/"}],
       "image": "",
       "video": "",
       "poster": "",
@@ -7793,7 +7842,10 @@ var CF_STORY = {
       "symbol": "ens",
       "color": "blue",
       "planned": true,
-      "body": "We plan to differentiate human stem cells into enteric neurons, the neurons of the gut’s own nervous system. This planned branch is distinct from the enteric neurons already in our co-culture work.",
+      "body": "Human stem-cell-derived enteric neurons are a planned extension of our gut models. They would add a human-derived neuronal component alongside the enteric primary cultures already in use.",
+      "question": "Which CF-associated changes in gut-neuron communication can we investigate in human-derived enteric neurons?",
+      "approach": "We plan to establish the differentiated neurons and characterize their function before integrating them into selected co-cultures. The aim is to examine neuronal responses separately from those of their epithelial partners.",
+      "references": [{"label":"Neuro-epithelial co-culture","url":"https://www.nature.com/articles/s41378-023-00615-y"}],
       "image": "",
       "video": "",
       "poster": "",
@@ -7809,7 +7861,10 @@ var CF_STORY = {
       "symbol": "hippocampal",
       "color": "violet",
       "planned": true,
-      "body": "We plan to differentiate human stem cells into hippocampal pyramidal neurons. This planned branch is distinct from the primary hippocampal neuronal cultures already in our brain research.",
+      "body": "Human stem-cell-derived hippocampal pyramidal neurons are a planned model of a defined central neuronal population. This work would complement our current primary hippocampal cultures and brain organoids.",
+      "question": "Do responses found in primary cultures also occur in a human-derived hippocampal neuronal model?",
+      "approach": "We plan to establish and characterize these cells, then investigate their electrical responses to CF genotype and direct modulator exposure. This adds a human cellular comparison to the ongoing brain research.",
+      "interpretation": "Direct culture exposure would still leave drug delivery across the blood–brain barrier as a separate question.",
       "image": "",
       "video": "",
       "poster": "",
@@ -7821,7 +7876,11 @@ var CF_STORY = {
       "kind": "Current tissue preparation",
       "symbol": "brain",
       "color": "gold",
-      "body": "Brain slices complement hippocampal neuronal cultures and human-stem-cell-derived brain organoids in our ongoing brain research. This image shows an immunostained dentate gyrus within its tissue context.",
+      "body": "Brain slices retain aspects of local tissue organization and neuronal circuitry. We collect slices after intraperitoneal modulator administration to examine brain physiology following treatment of the intact animal.",
+      "question": "How does neuronal activity differ after systemic modulator treatment, and how does this compare with direct exposure in culture?",
+      "approach": "Before tissue collection, drug exposure depends on absorption, metabolism and entry across the blood–brain barrier. Recordings from the resulting slices let us examine responses after that systemic exposure. The image shows an immunostained dentate gyrus.",
+      "interpretation": "Intraperitoneal dosing does not bypass the blood–brain barrier. Once isolated, a slice no longer has an intact circulating barrier; its responses can reflect both direct and indirect effects of earlier treatment.",
+      "references": [{"label":"Systemic dosing and brain penetration","url":"https://pubmed.ncbi.nlm.nih.gov/29700231/"}],
       "image": "images/Dentate-gyrus-immuno.png",
       "video": "",
       "poster": "",
@@ -7836,8 +7895,8 @@ var CF_STORY = {
       "nav": "Living library",
       "kicker": "01 / The starting point",
       "title": "Many models. One shared question.",
-      "body": "From primary neurons and stem cells to organoids, tissue preparations and the whole animal, each model offers a different window into cystic fibrosis.",
-      "note": "Select a specimen to meet the models behind the work.",
+      "body": "We study sensory, autonomic and central neurons alongside intestinal epithelium, muscle and human-derived brain tissue. Comparing these models helps us ask where CF-associated changes begin and how modulators affect each component.",
+      "note": "Select a model to explore what it represents, why we use it and the question it helps answer.",
       "status": "Data collection underway",
       "models": [
         "stem",
@@ -7934,9 +7993,9 @@ var CF_STORY = {
       "id": "gut",
       "nav": "Gut-on-a-chip",
       "kicker": "02 / Bring the components together",
-      "title": "Gut-on-a-chip model.",
-      "body": "Our gut-on-a-chip model brings DRG neurons, enteric neurons and intestinal organoids together to study how these components interact.",
-      "note": "Follow the links, then select each component to explore its role.",
+      "title": "Where does the change begin?",
+      "body": "Our gut-on-a-chip combines DRG sensory neurons, enteric neurons and intestinal organoids. Studying components separately and together helps us ask whether CF or modulators change neuronal physiology, the gut lining or communication between them.",
+      "note": "Select each component to explore its role in the experiment.",
       "status": "Data collection underway",
       "models": [
         "drg",
@@ -7985,7 +8044,7 @@ var CF_STORY = {
           "drg"
         ]
       ],
-      "caption": "Co-culture relationships — explore how the components interact.",
+      "caption": "Lines represent interactions being investigated in co-culture, not confirmed pathways or a complete gut–brain axis.",
       "defaultModel": "ens"
     },
     {
@@ -7993,8 +8052,8 @@ var CF_STORY = {
       "nav": "Watch movement",
       "kicker": "03 / Measure function",
       "title": "Watch movement. From cells to the whole animal.",
-      "body": "Smooth muscle culture, the intestinal organ bath and whole-animal gut transit offer complementary views of gut function, from cells to intact tissue to the whole animal, in separate experiments.",
-      "note": "Select a preparation to explore contraction and gut transit.",
+      "body": "Does a motility difference begin in muscle cells, emerge within intestinal tissue, or depend on the intact animal? Smooth-muscle culture, organ-bath recordings and gut-transit measurements address these questions at complementary scales.",
+      "note": "Select a preparation to see what its measurements can reveal.",
       "status": "Data collection underway",
       "models": [
         "muscle",
@@ -8030,7 +8089,7 @@ var CF_STORY = {
         ]
       ],
       "links": [],
-      "caption": "Complementary preparations connect cellular contraction, tissue-level motility and whole-animal gut transit.",
+      "caption": "Separate experiments connect cellular contraction, tissue-level responses and whole-animal transit.",
       "defaultModel": "transit"
     },
     {
@@ -8038,8 +8097,8 @@ var CF_STORY = {
       "nav": "Brain questions",
       "kicker": "04 / Investigate brain function",
       "title": "From brain cells to brain tissue.",
-      "body": "Data collection is underway in our brain research. Brain slices, hippocampal neurons and human-stem-cell-derived brain organoids help us investigate CF and responses to CFTR modulators.",
-      "note": "Investigating possible mechanisms relevant to reported neuropsychiatric symptoms.",
+      "body": "We compare direct modulator exposure in hippocampal cultures with brain slices collected after systemic treatment, and add human-stem-cell-derived brain organoids. Together, these models test how CF and modulators may influence neuronal physiology.",
+      "note": "Reported neuropsychiatric events motivate this research; the biological mechanisms remain under investigation.",
       "status": "Data collection underway",
       "models": [
         "hippocampal",
@@ -8075,7 +8134,7 @@ var CF_STORY = {
         ]
       ],
       "links": [],
-      "caption": "Brain slices and cultured models offer complementary views of the brain.",
+      "caption": "Direct cellular exposure, prior systemic treatment and human-derived tissue provide complementary experimental views.",
       "defaultModel": "brainSlice"
     },
     {
@@ -8083,8 +8142,8 @@ var CF_STORY = {
       "nav": "Future connections",
       "kicker": "05 / The work ahead",
       "title": "The next connection starts here.",
-      "body": "We plan to differentiate human stem cells into SCG neurons, cardiac muscle, enteric neurons and hippocampal pyramidal neurons, then co-culture the stem-cell-derived SCG neurons with stem-cell-derived cardiac muscle.",
-      "note": "Support can help us develop the models and experiments needed to pursue these questions.",
+      "body": "We plan human stem-cell-derived sympathetic, enteric and hippocampal neurons and cardiac muscle. A future SCG-like neuron–cardiac co-culture will ask whether responses begin in the nerve cells, the muscle cells or their interaction.",
+      "note": "These differentiation and co-culture models are planned; current primary cultures remain part of the ongoing work.",
       "status": "Future development",
       /* Every node here is STEM-CELL-DERIVED and planned. The primary "scg" node
          sat in the bottom-left slot until 26 Sep 2026, which put a primary-culture
@@ -8213,7 +8272,7 @@ var CF_STORY = {
       },
       "het": {
         "title": "Heterozygous for F508del",
-        "body": "Carriers heterozygous for F508del form a second control group. Because they carry the F508del protein that ETI and VTD act on, they are a more meaningful group in which to compare these treatments than wild-type controls, which have no F508del protein to correct."
+        "body": "Carriers heterozygous for F508del form a second control group. In our study design, they provide a group carrying F508del in which to compare ETI and VTD responses alongside homozygous CF models. Wild-type models provide the untreated reference."
       },
       "cf": {
         "title": "Cystic fibrosis · homozygous for F508del",
@@ -8227,11 +8286,11 @@ var CF_STORY = {
       },
       "eti": {
         "title": "Trikafta / ETI",
-        "body": "Elexacaftor + tezacaftor + ivacaftor. ETI acts on the F508del CFTR protein, so it is compared in the groups that carry F508del, homozygous cystic fibrosis models and heterozygous carriers, rather than in wild-type controls."
+        "body": "Elexacaftor + tezacaftor + ivacaftor. In our study design, ETI is compared in F508del-homozygous CF models and heterozygous carriers. Wild-type models provide the untreated reference."
       },
       "vtd": {
         "title": "Alyftrek / VTD",
-        "body": "Vanzacaftor + tezacaftor + deutivacaftor. Like ETI, VTD acts on the F508del CFTR protein, so it is compared in homozygous cystic fibrosis models and heterozygous carriers rather than in wild-type controls."
+        "body": "Vanzacaftor + tezacaftor + deutivacaftor. In our study design, VTD is compared in F508del-homozygous CF models and heterozygous carriers. Wild-type models provide the untreated reference."
       }
     },
     /* Keyed "<model>+<treatment>". Only pairings the lab has ruled on belong
@@ -8239,8 +8298,8 @@ var CF_STORY = {
        are both CFTR modulators acting on F508del, so neither is compared in
        wild-type. */
     "notes": {
-      "wt+eti": "Not a planned comparison. ETI is compared in heterozygous carriers rather than in wild-type controls, because wild-type has no F508del protein for ETI to correct.",
-      "wt+vtd": "Not a planned comparison. VTD is compared in heterozygous carriers rather than in wild-type controls, because wild-type has no F508del protein for VTD to correct."
+      "wt+eti": "Not a planned comparison in this study. ETI is tested in the F508del groups; this design choice does not imply that ETI cannot affect wild-type cells.",
+      "wt+vtd": "Not a planned comparison in this study. VTD is tested in the F508del groups; this design choice does not imply that VTD cannot affect wild-type cells."
     }
   }
 };
@@ -8506,6 +8565,12 @@ function createCFDetailMotion(options){
     var detailOrigin=detailMotion.capture(nodes[id]);
     selected=id;var m=data.models[id];focusReturn=nodes[id];
     put('cfDetailKind',m.kind);put('cfDetailTitle',m.title);put('cfDetailBody',m.body);
+    var explanation=byId('cfDetailExplanation');explanation.replaceChildren();
+    function detailText(tag,cls,text){var element=document.createElement(tag);element.className=cls;element.textContent=text;explanation.appendChild(element);}
+    if(m.question){detailText('h5','cfj-detail-label','Why this model');detailText('p','cfj-detail-question',m.question);}
+    if(m.approach){detailText('h5','cfj-detail-label',m.planned?'What we plan':'How we use it');detailText('p','cfj-detail-approach',m.approach);}
+    if(m.interpretation)detailText('p','cfj-detail-interpretation',m.interpretation);
+    if(m.references&&m.references.length){var references=document.createElement('p');references.className='cfj-detail-references';m.references.forEach(function(reference){var link=document.createElement('a');link.href=reference.url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=reference.label+' ↗';references.appendChild(link);});explanation.appendChild(references);}
     Object.keys(detailMedia).forEach(function(key){detailMedia[key].hidden=key!==id;});
     var figure=makeMedia(id,true);if(figure){figure.hidden=false;if(!figure.parentElement)byId('cfDetailMedia').appendChild(figure);}
     nodes[id].setAttribute('aria-expanded','true');
