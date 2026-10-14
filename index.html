@@ -1837,6 +1837,10 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 .r2-tech-detail[hidden]{display:none}
 .r2-tech-figure{margin:0;min-width:0;align-self:start;background:var(--bg);border-radius:7px;overflow:hidden;border:1px solid var(--hair)}
 .r2-tech-figure img{display:block;width:100%;height:200px;object-fit:cover}
+.gal.gal-full-frame{background:var(--bg)}
+.gal.gal-full-frame img{box-sizing:border-box;padding:12px 12px 58px}
+.gal.gal-full-frame.has-photo img,.gal.gal-full-frame.has-photo:hover img{transform:none}
+.r2-tech-figure.r2-tech-full img{height:320px;object-fit:contain}
 .r2-tech-figure figcaption{font:11px/1.5 var(--sans);color:var(--sub);padding:10px 12px}
 .r2-tech-symbol{height:160px;display:grid;place-items:center;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 15%,transparent),transparent 70%);color:var(--accent-ink)}
 .r2-tech-symbol svg{width:64px;height:64px}
@@ -3310,6 +3314,13 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          they fell through to "bench" and the Microscopy filter button vanished
          because no tile classified as microscopy any more. Stating it beats
          widening that regex: it cannot break on the next rename. */
+      /* Supplied 14 Oct 2026. Optional sixth field preserves the complete frame,
+         including microscopy scale bars; originals also open in the lightbox. */
+      ["Brain organoid · bright-field", "big", "images/Brain-organoid-brightfield.png", "microscopy", 0, "contain"],
+      ["Brain organoid neuron · patch-clamp recording", "big", "images/Brain-organoid-patch-clamp.png", "microscopy", 0, "contain"],
+      ["Fluorescence microscopy", "big", "images/Fluorescence-microscopy-2026.png", "microscopy", 0, "contain"],
+      ["PCR thermal cycler", "big", "images/PCR-thermal-cycler.jpg", "bench", 0, "contain"],
+      ["Cell culture incubators", "big", "images/Cell-culture-incubators.jpg", "bench", 0, "contain"],
       ["Co-culture · award winner 2026",       "big", "images/Co-culture.webp", "microscopy"],
       ["SCG neurons · award runner-up 2025",   "big", "images/SCG.webp",        "microscopy"],
       /* Two DIFFERENT enteric images, not a duplicate: ENS.webp is a dense
@@ -3936,7 +3947,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
      is "" are skipped here, not painted. ("Under the scope" used to be pushed
      on at this point, invisible to anyone editing the config; since 26 Sep 2026
      it is an ordinary entry at the end of the list.) */
-  var galItems=(SITE.gallery.list||[]).filter(function(g){return !!g[2];}).map(function(g){ return [g[0],g[1],g[2],g[3],g[4]]; });
+  var galItems=(SITE.gallery.list||[]).filter(function(g){return !!g[2];}).map(function(g){ return [g[0],g[1],g[2],g[3],g[4],g[5]]; });
   var gg=document.getElementById("galGrid");
   var GALKINDS=["rig","calcium","stain","trace","organoid","blot","bee","culture"];
   gg.innerHTML=galItems.map(function(g,i){
@@ -3944,7 +3955,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
        gives a silent looping clip instead. Recognised by extension, so a
        filename typed into `gallery.list` does the right
        thing — no extra field to remember. */
-    var src=g[2], alt=String(g[0]).replace(/"/g,""), rotation=g[4]===180?180:0, inner;
+    var src=g[2], alt=String(g[0]).replace(/"/g,""), rotation=g[4]===180?180:0, fullFrame=g[5]==="contain", inner;
     /* encodeURI, because real filenames have spaces in them ("Bee_feeding -
        Trim.mp4") and an unencoded space breaks the src on file:// pages. It is
        a no-op on paths that need no escaping. */
@@ -3957,9 +3968,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       inner='<video src="'+url+'" autoplay '+
             'loop muted playsinline preload="auto" aria-label="'+alt+'"></video>';
     } else {
-      inner='<img src="'+url+'" alt="'+alt+'" loading="lazy" decoding="async" data-gallery-rotation="'+rotation+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;rotate:'+rotation+'deg">';
+      inner='<img src="'+url+'" alt="'+alt+'" loading="lazy" decoding="async" data-gallery-rotation="'+rotation+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:'+(fullFrame?'contain':'cover')+';rotate:'+rotation+'deg">';
     }
-    return '<div class="gal '+g[1]+'" data-category="'+(['microscopy','bench','videos'].indexOf(g[3])>=0?g[3]:'')+'" data-kind="'+GALKINDS[i%GALKINDS.length]+'">'+inner+
+    return '<div class="gal '+g[1]+(fullFrame?' gal-full-frame':'')+'" data-category="'+(['microscopy','bench','videos'].indexOf(g[3])>=0?g[3]:'')+'" data-kind="'+GALKINDS[i%GALKINDS.length]+'">'+inner+
            '<span class="cap">'+g[0]+'</span></div>';
   }).join("");
 
@@ -4420,6 +4431,17 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       var im=el.querySelector("img");
       if(!im) return null;
       var r=im.getBoundingClientRect();
+      if(el.classList.contains('gal-full-frame')){
+        if(!im.naturalWidth || !im.naturalHeight || !im.offsetWidth || !im.offsetHeight)return null;
+        /* Contained photos fly from the actual visible image, not its padded tile. */
+        var cs=getComputedStyle(im),sx=r.width/im.offsetWidth,sy=r.height/im.offsetHeight,
+            pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0,
+            pt=parseFloat(cs.paddingTop)||0,pb=parseFloat(cs.paddingBottom)||0,
+            cw=im.clientWidth-pl-pr,ch=im.clientHeight-pt-pb,
+            fit=Math.min(cw/im.naturalWidth,ch/im.naturalHeight),
+            w=im.naturalWidth*fit,h=im.naturalHeight*fit;
+        return w>0&&h>0?{left:r.left+(pl+(cw-w)/2)*sx,top:r.top+(pt+(ch-h)/2)*sy,width:w*sx,height:h*sy}:null;
+      }
       return (r.width>0 && r.height>0) ? r : null;
     }
 
@@ -7448,13 +7470,13 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
      is Ussing-chamber work the lab does not do, and was a verbatim copy of
      card 2's text. */
   var techniqueDetails=[
-    {image:'images/lab14.jpeg',caption:'Brain slice recording',text:'Measure neuronal activity with patch-clamp and brain slice recordings.',link:'#research',label:'Explore our research'},
-    {image:'images/ENS.webp',caption:'Enteric neurons',text:'Grow primary neurons, such as these enteric neurons, and cell lines for functional, molecular and pharmacological study.',link:'#research',label:'Explore our research'},
+    {image:'images/Brain-organoid-patch-clamp.png',caption:'Brain organoid neuron · patch-clamp recording',fullFrame:true,text:'Measure neuronal activity with patch-clamp and brain slice recordings.',link:'#research',label:'Explore our research'},
+    {image:'images/Cell-culture-incubators.jpg',caption:'Cell culture incubators',fullFrame:true,text:'Grow primary neurons and cell lines for functional, molecular and pharmacological study.',link:'#research',label:'Explore our research'},
     {image:'images/Organoid.webp',caption:'Intestinal organoid',text:'Study epithelial and tissue function using organoids and gut-on-a-chip models.',link:'#research',label:'Explore our research'},
     {text:'Measure the contractile responses of intact intestinal tissue to drugs in the organ bath.',link:'#research',label:'Explore our research',caption:'Tissue physiology'},
     {image:'images/SCG.webp',caption:'SCG neuron · Image: Minh Vu',text:'Examine cellular and protein changes using immunofluorescence and Western blotting.',link:'#awards',label:'Explore the award images'},
     {image:'images/WesternBlot.jpeg',caption:'Western blot at the bench',text:'Examine cellular and protein changes using immunofluorescence and Western blotting.',link:'#research',label:'Explore our research'},
-    {text:'Quantitative and endpoint PCR for genotyping, expression profiling, and variant work.',link:'#contact',label:'Discuss a collaboration',caption:'Molecular analysis'},
+    {image:'images/PCR-thermal-cycler.jpg',fullFrame:true,text:'Quantitative and endpoint PCR for genotyping, expression profiling, and variant work.',link:'#contact',label:'Discuss a collaboration',caption:'PCR thermal cycler'},
     {text:'Connect cellular findings with whole-animal gut transit, intestinal motility, behaviour and humanized mouse models.',link:'#research',label:'Explore our research',caption:'Whole-organism studies'}
   ];
   var techGrid=document.getElementById('techGrid'),cards=techGrid?all('.tech',techGrid):[];
@@ -7464,7 +7486,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     button.type='button';button.setAttribute('aria-expanded','false');button.setAttribute('aria-label','Explore '+name);
     var detail=el('div','r2-tech-detail');detail.id='r2-tech-detail-'+i;detail.hidden=true;button.setAttribute('aria-controls',detail.id);
     var figure=el('figure','r2-tech-figure');
-    if(info.image){var image=el('img');image.src=encodeURI(info.image);image.alt=info.caption;image.loading='lazy';figure.appendChild(image);}
+    if(info.image){var image=el('img');image.src=encodeURI(info.image);image.alt=info.caption;image.loading='lazy';image.decoding='async';if(info.fullFrame)figure.classList.add('r2-tech-full');figure.appendChild(image);}
     else {var symbol=card.querySelector('.ic').cloneNode(true);symbol.className='r2-tech-symbol';symbol.setAttribute('aria-hidden','true');figure.appendChild(symbol);}
     figure.appendChild(el('figcaption','',info.caption));detail.appendChild(figure);
     var copy=el('div','r2-tech-copy');copy.appendChild(el('p','r2-detail-label',i===6?'At the bench':'In our research'));copy.appendChild(el('p','',info.text));
@@ -7650,7 +7672,8 @@ var CF_STORY = {
       "symbol": "brain",
       "color": "violet",
       "body": "These brain organoids are derived from human stem cells. Together with hippocampal neuronal cultures and brain slices, they form part of our ongoing brain research into CF and responses to CFTR modulators.",
-      "image": "",
+      "image": "images/Brain-organoid-brightfield.png",
+      "imageAlt": "Bright-field image of a human-stem-cell-derived brain organoid.",
       "video": "",
       "poster": "",
       "credit": ""
