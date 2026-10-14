@@ -1840,7 +1840,17 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 .gal.gal-full-frame{background:var(--bg)}
 .gal.gal-full-frame img{box-sizing:border-box;padding:12px 12px 58px}
 .gal.gal-full-frame.has-photo img,.gal.gal-full-frame.has-photo:hover img{transform:none}
-.r2-tech-figure.r2-tech-full img{height:auto;max-height:320px;object-fit:contain}
+/* Subject-shaped frames remove letterboxing without altering source photos. */
+#galGrid.gf-managed,#galGrid.gf-managed[data-gf-count='2']{grid-auto-rows:auto;align-items:start}
+#galGrid.gf-managed>.gal:not(.gal-curated){height:clamp(200px,18vw,280px)}
+#galGrid.gf-managed>.gal.gal-curated{height:auto;min-height:0;aspect-ratio:auto;background:var(--surface,var(--bg))}
+.gal-curated .gal-media{position:relative;aspect-ratio:var(--gal-ratio,1);overflow:hidden}
+.gal.gal-curated.has-photo img,.gal.gal-curated.has-photo:hover img{transform:none}
+.gal.gal-curated .cap{position:static;display:flex;align-items:center;min-height:58px;box-sizing:border-box;padding:14px 16px;background:var(--bg);font-size:13px;line-height:1.45}
+.r2-tech-media{display:grid;gap:16px;min-width:0;align-self:start}
+.r2-tech-figure.r2-tech-full img{height:auto;max-height:none;aspect-ratio:var(--tech-ratio,1);object-fit:cover;object-position:var(--tech-position,50% 50%)}
+.r2-tech-figure video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#08090a}
+@media(max-width:640px){#galGrid.gf-managed>.gal:not(.gal-curated){height:250px}}
 .r2-tech-figure figcaption{font:11px/1.5 var(--sans);color:var(--sub);padding:10px 12px}
 .r2-tech-symbol{height:160px;display:grid;place-items:center;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 15%,transparent),transparent 70%);color:var(--accent-ink)}
 .r2-tech-symbol svg{width:64px;height:64px}
@@ -2335,6 +2345,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 #cfJourney .cfj-node.has-poster .cfj-node-art>svg{visibility:hidden}
 #cfJourney .cfj-video-poster{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--cfj-object-position,50% 50%);border-radius:50%;opacity:1;z-index:1}
 #cfJourney .cfj-node-media{z-index:2}
+#cfJourney [data-cf-specimen="bath"] .cfj-node-art img,#cfJourney [data-cf-specimen="bath"] .cfj-node-art video{object-fit:contain;background:#0b0c0f}
 #cfJourney .cfj-video-badge{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;max-width:calc(100% - 10px);padding:3px 6px;border:1px solid rgba(207,188,155,.34);border-radius:20px;background:#15171e;color:#f0ede7;font:500 10px/1.2 var(--sans,Arial,sans-serif);white-space:nowrap}
 @media(max-height:720px) and (max-width:700px){#cfJourney:not(.is-static) .cf-j-layout{grid-template-rows:230px minmax(0,1fr)}#cfJourney:not(.is-static) .cf-j-copy{padding:20px 24px}#cfJourney:not(.is-static) .cf-j-status{margin-top:7px;padding-top:6px;font-size:10px}}
 #cfJourney .cfj-node{--cfj-art-size:92px}
@@ -3314,13 +3325,17 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          they fell through to "bench" and the Microscopy filter button vanished
          because no tile classified as microscopy any more. Stating it beats
          widening that regex: it cannot break on the next rename. */
-      /* Supplied 14 Oct 2026. Optional sixth field preserves the complete frame,
-         including microscopy scale bars; originals also open in the lightbox. */
-      ["Brain organoid · bright-field", "big", "images/Brain-organoid-brightfield.png", "microscopy", 0, "contain"],
-      ["Brain organoid neuron · patch-clamp recording", "big", "images/Brain-organoid-patch-clamp.png", "microscopy", 0, "contain"],
-      ["Fluorescence microscopy", "big", "images/Fluorescence-microscopy-2026.png", "microscopy", 0, "contain"],
-      ["PCR thermal cycler", "big", "images/PCR-thermal-cycler.jpg", "bench", 0, "contain"],
-      ["Cell culture incubators", "big", "images/Cell-culture-incubators.jpg", "bench", 0, "contain"],
+      /* The optional sixth field sets a subject-specific media frame. Captions
+         sit below these images; full originals remain available in the lightbox.
+         Scientific imagery is not retouched. The contraction clip runs forward
+         at its original speed, with both tissue attachment points visible. */
+      ["PCR thermal cycler", "big", "images/PCR-thermal-cycler.jpg", "bench", 0, {ratio:"1",position:"50% 50%"}],
+      ["Cell culture incubators", "big", "images/Cell-culture-incubators.jpg", "bench", 0, {ratio:"1",position:"50% 48%"}],
+      ["Fluorescence microscopy", "big", "images/Fluorescence-microscopy-2026.png", "microscopy", 0, {ratio:"1",position:"50% 50%"}],
+      ["Organ bath setup", "big", "images/Organ-bath-setup.jpg", "bench", 0, {ratio:"16 / 9",position:"50% 65%"}],
+      ["Brain organoid neuron · patch-clamp recording", "big", "images/Brain-organoid-patch-clamp.png", "microscopy", 0, {ratio:"16 / 9",position:"47% 43%"}],
+      ["Intestinal segment contraction", "big", "images/Intestinal-organ-bath-contraction.mp4", "videos", 0, {ratio:"16 / 9",poster:"images/Intestinal-organ-bath-contraction.jpg"}],
+      ["Brain organoid · bright-field", "big", "images/Brain-organoid-brightfield.png", "microscopy", 0, {ratio:"4 / 3",position:"50% 50%"}],
       ["Co-culture · award winner 2026",       "big", "images/Co-culture.webp", "microscopy"],
       ["SCG neurons · award runner-up 2025",   "big", "images/SCG.webp",        "microscopy"],
       /* Two DIFFERENT enteric images, not a duplicate: ENS.webp is a dense
@@ -3345,7 +3360,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          recognised by the file extension, nothing else to set. Keep clips
          small (this one is 0.74 MB): the whole site has to open off a USB
          stick, and backup.ps1 keeps 12 copies of everything. */
-      ["Honey bee feeding",      "big",  "images/Bee_feeding - Trim.mp4"],
+      ["Honey bee feeding", "big", "images/Bee_feeding - Trim.mp4", "videos", 0, {ratio:"16 / 9"}],
       ["Cell culture",           "sm",   ""],
       /* "tall" because the photo is a 3:4 portrait and tall is the only tile
          shaped for one — 1 column by 2 rows is ~0.80 against the photo's
@@ -3955,7 +3970,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
        gives a silent looping clip instead. Recognised by extension, so a
        filename typed into `gallery.list` does the right
        thing — no extra field to remember. */
-    var src=g[2], alt=String(g[0]).replace(/"/g,""), rotation=g[4]===180?180:0, fullFrame=g[5]==="contain", inner;
+    var src=g[2], alt=String(g[0]).replace(/"/g,""), rotation=g[4]===180?180:0, fullFrame=g[5]==="contain", frame=g[5]&&typeof g[5]==="object"?g[5]:null, inner;
     /* encodeURI, because real filenames have spaces in them ("Bee_feeding -
        Trim.mp4") and an unencoded space breaks the src on file:// pages. It is
        a no-op on paths that need no escaping. */
@@ -3966,11 +3981,12 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       /* Every gallery video autoplays silently and loops, including future entries.
          Preload the clip to reduce buffering at the loop boundary. */
       inner='<video src="'+url+'" autoplay '+
-            'loop muted playsinline preload="auto" aria-label="'+alt+'"></video>';
+            'loop muted playsinline preload="auto"'+(frame&&frame.poster?' poster="'+encodeURI(frame.poster)+'"':'')+' aria-label="'+alt+'"></video>';
     } else {
-      inner='<img src="'+url+'" alt="'+alt+'" loading="lazy" decoding="async" data-gallery-rotation="'+rotation+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:'+(fullFrame?'contain':'cover')+';rotate:'+rotation+'deg">';
+      inner='<img src="'+url+'" alt="'+alt+'" loading="lazy" decoding="async" data-gallery-rotation="'+rotation+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:'+(fullFrame?'contain':'cover')+';object-position:'+(frame&&frame.position?frame.position:'50% 50%')+';rotate:'+rotation+'deg">';
     }
-    return '<div class="gal '+g[1]+(fullFrame?' gal-full-frame':'')+'" data-category="'+(['microscopy','bench','videos'].indexOf(g[3])>=0?g[3]:'')+'" data-kind="'+GALKINDS[i%GALKINDS.length]+'">'+inner+
+    if(frame)inner='<div class="gal-media" style="--gal-ratio:'+frame.ratio+'">'+inner+'</div>';
+    return '<div class="gal '+g[1]+(fullFrame?' gal-full-frame':'')+(frame?' gal-curated':'')+'" data-category="'+(['microscopy','bench','videos'].indexOf(g[3])>=0?g[3]:'')+'" data-kind="'+GALKINDS[i%GALKINDS.length]+'">'+inner+
            '<span class="cap">'+g[0]+'</span></div>';
   }).join("");
 
@@ -3990,7 +4006,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     }
     gg.addEventListener("mousemove",function(e){
       var t=e.target.closest?e.target.closest(".gal"):null;
-      if(t && !t.querySelector("img")) t=null;
+      if(t && (!t.querySelector("img") || t.classList.contains("gal-curated"))) t=null;
       /* recentre the tile being left, or it keeps its last offset frozen in
          place for as long as the cursor is elsewhere in the grid */
       if(t!==galHot){ galRest(galHot); galHot=t; }
@@ -4431,16 +4447,18 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       var im=el.querySelector("img");
       if(!im) return null;
       var r=im.getBoundingClientRect();
-      if(el.classList.contains('gal-full-frame')){
+      if(el.classList.contains('gal-full-frame') || el.classList.contains('gal-curated')){
         if(!im.naturalWidth || !im.naturalHeight || !im.offsetWidth || !im.offsetHeight)return null;
-        /* Contained photos fly from the actual visible image, not its padded tile. */
+        /* Match the rendered source image, including its fit and focal position. */
         var cs=getComputedStyle(im),sx=r.width/im.offsetWidth,sy=r.height/im.offsetHeight,
             pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0,
             pt=parseFloat(cs.paddingTop)||0,pb=parseFloat(cs.paddingBottom)||0,
             cw=im.clientWidth-pl-pr,ch=im.clientHeight-pt-pb,
-            fit=Math.min(cw/im.naturalWidth,ch/im.naturalHeight),
-            w=im.naturalWidth*fit,h=im.naturalHeight*fit;
-        return w>0&&h>0?{left:r.left+(pl+(cw-w)/2)*sx,top:r.top+(pt+(ch-h)/2)*sy,width:w*sx,height:h*sy}:null;
+            fit=(cs.objectFit==='cover'?Math.max:Math.min)(cw/im.naturalWidth,ch/im.naturalHeight),
+            w=im.naturalWidth*fit,h=im.naturalHeight*fit,
+            pos=cs.objectPosition.split(' '),px=parseFloat(pos[0])/100,py=parseFloat(pos[1])/100;
+        if(!isFinite(px))px=.5;if(!isFinite(py))py=.5;
+        return w>0&&h>0?{left:r.left+(pl+(cw-w)*px)*sx,top:r.top+(pt+(ch-h)*py)*sy,width:w*sx,height:h*sy}:null;
       }
       return (r.width>0 && r.height>0) ? r : null;
     }
@@ -7470,13 +7488,13 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
      is Ussing-chamber work the lab does not do, and was a verbatim copy of
      card 2's text. */
   var techniqueDetails=[
-    {image:'images/Brain-organoid-patch-clamp.png',caption:'Brain organoid neuron · patch-clamp recording',fullFrame:true,text:'Measure neuronal activity with patch-clamp and brain slice recordings.',link:'#research',label:'Explore our research'},
-    {image:'images/Cell-culture-incubators.jpg',caption:'Cell culture incubators',fullFrame:true,text:'Grow primary neurons and cell lines for functional, molecular and pharmacological study.',link:'#research',label:'Explore our research'},
+    {image:'images/Brain-organoid-patch-clamp.png',caption:'Brain organoid neuron · patch-clamp recording',fullFrame:true,ratio:'3 / 2',position:'47% 43%',text:'Measure neuronal activity with patch-clamp and brain slice recordings.',link:'#research',label:'Explore our research'},
+    {image:'images/Cell-culture-incubators.jpg',caption:'Cell culture incubators',fullFrame:true,ratio:'1',position:'50% 48%',text:'Grow primary neurons and cell lines for functional, molecular and pharmacological study.',link:'#research',label:'Explore our research'},
     {image:'images/Organoid.webp',caption:'Intestinal organoid',text:'Study epithelial and tissue function using organoids and gut-on-a-chip models.',link:'#research',label:'Explore our research'},
-    {text:'Measure the contractile responses of intact intestinal tissue to drugs in the organ bath.',link:'#research',label:'Explore our research',caption:'Tissue physiology'},
+    {image:'images/Organ-bath-setup.jpg',caption:'Organ bath setup',fullFrame:true,ratio:'4 / 3',position:'50% 65%',video:'images/Intestinal-organ-bath-contraction.mp4',poster:'images/Intestinal-organ-bath-contraction.jpg',videoCaption:'Intestinal segment contraction · real-time recording',text:'Measure the contractile responses of intact intestinal tissue to drugs in the organ bath. The setup holds intestinal segments while their contractions are recorded. Watch a segment contract in the video below the apparatus.',link:'#research',label:'Explore our research'},
     {image:'images/SCG.webp',caption:'SCG neuron · Image: Minh Vu',text:'Examine cellular and protein changes using immunofluorescence and Western blotting.',link:'#awards',label:'Explore the award images'},
     {image:'images/WesternBlot.jpeg',caption:'Western blot at the bench',text:'Examine cellular and protein changes using immunofluorescence and Western blotting.',link:'#research',label:'Explore our research'},
-    {image:'images/PCR-thermal-cycler.jpg',fullFrame:true,text:'Quantitative and endpoint PCR for genotyping, expression profiling, and variant work.',link:'#contact',label:'Discuss a collaboration',caption:'PCR thermal cycler'},
+    {image:'images/PCR-thermal-cycler.jpg',fullFrame:true,ratio:'1',position:'50% 50%',text:'Quantitative and endpoint PCR for genotyping, expression profiling, and variant work.',link:'#contact',label:'Discuss a collaboration',caption:'PCR thermal cycler'},
     {text:'Connect cellular findings with whole-animal gut transit, intestinal motility, behaviour and humanized mouse models.',link:'#research',label:'Explore our research',caption:'Whole-organism studies'}
   ];
   var techGrid=document.getElementById('techGrid'),cards=techGrid?all('.tech',techGrid):[];
@@ -7485,10 +7503,26 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     var name=card.querySelector('h3').textContent,button=el('button','r2-tech-toggle','Explore technique');
     button.type='button';button.setAttribute('aria-expanded','false');button.setAttribute('aria-label','Explore '+name);
     var detail=el('div','r2-tech-detail');detail.id='r2-tech-detail-'+i;detail.hidden=true;button.setAttribute('aria-controls',detail.id);
-    var figure=el('figure','r2-tech-figure');
+    var media=el('div','r2-tech-media'),figure=el('figure','r2-tech-figure');
+    figure.style.setProperty('--tech-ratio',info.ratio||'1');figure.style.setProperty('--tech-position',info.position||'50% 50%');
     if(info.image){var image=el('img');image.src=encodeURI(info.image);image.alt=info.caption;image.loading='lazy';image.decoding='async';if(info.fullFrame)figure.classList.add('r2-tech-full');figure.appendChild(image);}
     else {var symbol=card.querySelector('.ic').cloneNode(true);symbol.className='r2-tech-symbol';symbol.setAttribute('aria-hidden','true');figure.appendChild(symbol);}
-    figure.appendChild(el('figcaption','',info.caption));detail.appendChild(figure);
+    figure.appendChild(el('figcaption','',info.caption));media.appendChild(figure);
+    if(info.video){
+      var videoFigure=el('figure','r2-tech-figure'),clip=el('video');
+      clip.src=encodeURI(info.video);clip.poster=encodeURI(info.poster||'');
+      clip.autoplay=true;clip.loop=true;clip.muted=true;clip.defaultMuted=true;clip.playsInline=true;clip.preload='auto';
+      ['autoplay','loop','muted','playsinline'].forEach(function(a){clip.setAttribute(a,'');});
+      clip.setAttribute('aria-label',info.videoCaption);
+      var clipInView=!('IntersectionObserver' in window);
+      function playClip(){if(detail.hidden||document.hidden||!clipInView){clip.pause();return;}var play=clip.play();if(play&&play.catch)play.catch(function(){});}
+      clip.addEventListener('play',playClip);
+      if('IntersectionObserver' in window){var clipObserver=new IntersectionObserver(function(entries){clipInView=entries[0].isIntersecting;playClip();},{threshold:0});clipObserver.observe(clip);}
+      clip.addEventListener('canplay',playClip);clip.addEventListener('ended',function(){clip.currentTime=0;playClip();});
+      document.addEventListener('visibilitychange',function(){if(document.hidden)clip.pause();else playClip();});
+      videoFigure.appendChild(clip);videoFigure.appendChild(el('figcaption','',info.videoCaption));media.appendChild(videoFigure);
+    }
+    detail.appendChild(media);
     var copy=el('div','r2-tech-copy');copy.appendChild(el('p','r2-detail-label',i===6?'At the bench':'In our research'));copy.appendChild(el('p','',info.text));
     var link=el('a','r2-detail-link',info.label+' →');link.href=info.link;copy.appendChild(link);detail.appendChild(copy);
     card.appendChild(button);card.appendChild(detail);
@@ -7498,6 +7532,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         cards.forEach(function(c){
           var d=c.querySelector('.r2-tech-detail'),b=c.querySelector('.r2-tech-toggle');if(!d)return;
           var isOpen=c===card&&opening;d.hidden=!isOpen;c.classList.toggle('r2-expanded',isOpen);b.setAttribute('aria-expanded',String(isOpen));b.textContent=isOpen?'Close details':'Explore technique';b.setAttribute('aria-label',(isOpen?'Close details for ':'Explore ')+c.querySelector('h3').textContent);
+          var video=d.querySelector('video');if(video&&!isOpen)video.pause();
+          if(c===card&&isOpen&&info.video)playClip();
         });
       });
     });
@@ -7698,8 +7734,8 @@ var CF_STORY = {
       "color": "gold",
       "body": "The intestinal organ bath studies contraction in an intact tissue preparation. This provides a tissue-level view alongside the lab’s cultured-cell experiments.",
       "image": "",
-      "video": "",
-      "poster": "",
+      "video": "images/Intestinal-organ-bath-contraction.mp4",
+      "poster": "images/Intestinal-organ-bath-contraction.jpg",
       "credit": ""
     },
     /* Chapter 03 measures gut function at three scales: cells (smooth muscle
