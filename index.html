@@ -2353,6 +2353,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 #cfJourney .cfj-video-poster{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--cfj-object-position,50% 50%);border-radius:50%;opacity:1;z-index:1}
 #cfJourney .cfj-node-media{z-index:2}
 #cfJourney [data-cf-specimen="bath"] .cfj-node-art img,#cfJourney [data-cf-specimen="bath"] .cfj-node-art video{object-fit:contain;background:#0b0c0f}
+/* Keep the culture field and its scale bar inside the circular preview. */
+#cfJourney [data-cf-specimen="muscle"] .cfj-node-art img,#cfJourney [data-cf-specimen="muscle"] .cfj-node-art video{object-fit:contain;box-sizing:border-box;padding:10%;background:#0b0c0f}
 #cfJourney .cfj-video-badge{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;max-width:calc(100% - 10px);padding:3px 6px;border:1px solid rgba(207,188,155,.34);border-radius:20px;background:#15171e;color:#f0ede7;font:500 10px/1.2 var(--sans,Arial,sans-serif);white-space:nowrap}
 @media(max-height:720px) and (max-width:700px){#cfJourney:not(.is-static) .cf-j-layout{grid-template-rows:230px minmax(0,1fr)}#cfJourney:not(.is-static) .cf-j-copy{padding:20px 24px}#cfJourney:not(.is-static) .cf-j-status{margin-top:7px;padding-top:6px;font-size:10px}}
 #cfJourney .cfj-node{--cfj-art-size:92px}
@@ -3335,8 +3337,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          widening that regex: it cannot break on the next rename. */
       /* The optional sixth field sets a subject-specific media frame. Captions
          sit below these images; full originals remain available in the lightbox.
-         Scientific imagery is not retouched. The contraction clip runs forward
-         at its original speed, with both tissue attachment points visible. */
+         Scientific imagery is not retouched. Contraction clips run forward
+         at their original speed, with complete microscopy frames preserved. */
+      ["Cultured smooth muscle · contraction", "big", "images/Smooth-muscle-culture-contraction.mp4", "videos", 0, {ratio:"1290 / 934",poster:"images/Smooth-muscle-culture-contraction.jpg"}],
       ["PCR thermal cycler", "big", "images/PCR-thermal-cycler.jpg", "bench", 0, {ratio:"1",position:"50% 50%"}],
       ["Cell culture incubators", "big", "images/Cell-culture-incubators.jpg", "bench", 0, {ratio:"1",position:"50% 48%"}],
       ["Fluorescence microscopy", "big", "images/Fluorescence-microscopy-2026.png", "microscopy", 0, {ratio:"1",position:"50% 50%"}],
@@ -4032,6 +4035,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   if(gg){
     var vids=gg.querySelectorAll("video");
     function kick(v){
+      var tile=v.closest(".gal");
+      if(document.hidden || (tile && tile.hidden)){if(!v.paused)v.pause();return;}
       if(!v.paused && !v.ended) return;
       var p=v.play(); if(p&&p.catch) p.catch(function(){});
     }
@@ -7758,9 +7763,9 @@ var CF_STORY = {
       "approach": "We study cultured muscle alongside separate organ-bath and whole-animal experiments. This comparison helps distinguish a cellular contraction response from changes that depend on tissue organization or signals from other cells.",
       "references": [{"label":"CF intestinal muscle physiology","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC3504652/"}],
       "image": "",
-      "video": "",
-      "poster": "",
-      "credit": ""
+      "video": "images/Smooth-muscle-culture-contraction.mp4",
+      "poster": "images/Smooth-muscle-culture-contraction.jpg",
+      "credit": "Cultured smooth muscle contracting · real-time recording"
     },
     "bath": {
       "title": "Intestinal organ bath",
