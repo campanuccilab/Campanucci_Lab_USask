@@ -1840,17 +1840,24 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 .gal.gal-full-frame{background:var(--bg)}
 .gal.gal-full-frame img{box-sizing:border-box;padding:12px 12px 58px}
 .gal.gal-full-frame.has-photo img,.gal.gal-full-frame.has-photo:hover img{transform:none}
-/* Subject-shaped frames remove letterboxing without altering source photos. */
+/* Consistent preview windows; the viewer retains complete original media. */
 #galGrid.gf-managed,#galGrid.gf-managed[data-gf-count='2']{grid-auto-rows:auto;align-items:start}
-#galGrid.gf-managed>.gal:not(.gal-curated){height:clamp(200px,18vw,280px)}
 #galGrid.gf-managed>.gal.gal-curated{height:auto;min-height:0;aspect-ratio:auto;background:var(--surface,var(--bg))}
-.gal-curated .gal-media{position:relative;aspect-ratio:var(--gal-ratio,1);overflow:hidden}
+.gal-curated .gal-media{position:relative;aspect-ratio:4/3;overflow:hidden}
 .gal.gal-curated.has-photo img,.gal.gal-curated.has-photo:hover img{transform:none}
-.gal.gal-curated .cap{position:static;display:flex;align-items:center;min-height:58px;box-sizing:border-box;padding:14px 16px;background:var(--bg);font-size:13px;line-height:1.45}
+.gal.gal-curated .cap{position:static;display:flex;align-items:center;height:68px;box-sizing:border-box;padding:14px 16px;background:var(--bg);font-size:13px;line-height:1.45;overflow:hidden}
+.gal.gal-curated .cap>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gal.has-video{cursor:zoom-in}
+.gal.has-video::before{content:attr(data-video-state);position:absolute;top:14px;left:14px;z-index:1;padding:6px 9px;border:1px solid rgba(255,255,255,.25);border-radius:5px;background:rgba(16,17,20,.75);color:#fff;font:600 10px/1.3 var(--sans);pointer-events:none}
+.gal.has-video::after{content:'↗';position:absolute;right:14px;top:14px;color:white;background:rgba(16,17,20,.6);width:28px;height:28px;line-height:28px;text-align:center;border:1px solid rgba(255,255,255,.25);border-radius:50%;pointer-events:none}
+.lb video{display:block;max-width:min(92vw,1400px);max-height:80vh;width:auto;height:auto;object-fit:contain;border-radius:12px;background:#08090a;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb img[hidden],.lb video[hidden]{display:none}
+.lb-focus-boundary{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:640px){.lb video{max-height:72vh}}
 .r2-tech-media{display:grid;gap:16px;min-width:0;align-self:start}
 .r2-tech-figure.r2-tech-full img{height:auto;max-height:none;aspect-ratio:var(--tech-ratio,1);object-fit:cover;object-position:var(--tech-position,50% 50%)}
 .r2-tech-figure video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#08090a}
-@media(max-width:640px){#galGrid.gf-managed>.gal:not(.gal-curated){height:250px}}
+
 .r2-tech-figure figcaption{font:11px/1.5 var(--sans);color:var(--sub);padding:10px 12px}
 .r2-tech-symbol{height:160px;display:grid;place-items:center;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 15%,transparent),transparent 70%);color:var(--accent-ink)}
 .r2-tech-symbol svg{width:64px;height:64px}
@@ -2352,9 +2359,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 #cfJourney .cfj-node.has-poster .cfj-node-art>svg{visibility:hidden}
 #cfJourney .cfj-video-poster{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--cfj-object-position,50% 50%);border-radius:50%;opacity:1;z-index:1}
 #cfJourney .cfj-node-media{z-index:2}
-#cfJourney [data-cf-specimen="bath"] .cfj-node-art img,#cfJourney [data-cf-specimen="bath"] .cfj-node-art video{object-fit:contain;background:#0b0c0f}
-/* Keep the culture field and its scale bar inside the circular preview. */
-#cfJourney [data-cf-specimen="muscle"] .cfj-node-art img,#cfJourney [data-cf-specimen="muscle"] .cfj-node-art video{object-fit:contain;box-sizing:border-box;padding:10%;background:#0b0c0f}
+#cfJourney [data-cf-specimen="bath"] .cfj-node-art img,#cfJourney [data-cf-specimen="bath"] .cfj-node-art video{object-fit:cover;padding:0;object-position:50% 50%;background:#0b0c0f}
+/* Circular previews fill their frame; details preserve the complete field. */
+#cfJourney .cfj-node-art img,#cfJourney .cfj-node-art video{object-fit:cover;box-sizing:border-box;padding:0;background:#0b0c0f}
 #cfJourney .cfj-video-badge{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;max-width:calc(100% - 10px);padding:3px 6px;border:1px solid rgba(207,188,155,.34);border-radius:20px;background:#15171e;color:#f0ede7;font:500 10px/1.2 var(--sans,Arial,sans-serif);white-space:nowrap}
 @media(max-height:720px) and (max-width:700px){#cfJourney:not(.is-static) .cf-j-layout{grid-template-rows:230px minmax(0,1fr)}#cfJourney:not(.is-static) .cf-j-copy{padding:20px 24px}#cfJourney:not(.is-static) .cf-j-status{margin-top:7px;padding-top:6px;font-size:10px}}
 #cfJourney .cfj-node{--cfj-art-size:92px}
@@ -2875,14 +2882,17 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
 </section>
 
 <!-- ======================== [6] GALLERY LIGHTBOX ========================= -->
-<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery photo">
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery media">
+  <span class="lb-focus-boundary" tabindex="0" data-lb-boundary="start"></span>
   <button class="lb-btn lb-x"    id="lbClose" aria-label="Close">&#10005;</button>
-  <button class="lb-btn lb-prev" id="lbPrev"  aria-label="Previous photo">&#8249;</button>
-  <button class="lb-btn lb-next" id="lbNext"  aria-label="Next photo">&#8250;</button>
+  <button class="lb-btn lb-prev" id="lbPrev"  aria-label="Previous item">&#8249;</button>
+  <button class="lb-btn lb-next" id="lbNext"  aria-label="Next item">&#8250;</button>
   <figure>
     <img id="lbImg" alt="">
+    <video id="lbVideo" hidden muted loop playsinline controls preload="metadata"></video>
     <figcaption id="lbCap"></figcaption>
   </figure>
+  <span class="lb-focus-boundary" tabindex="0" data-lb-boundary="end"></span>
 </div>
 
 <footer>
@@ -3335,10 +3345,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          they fell through to "bench" and the Microscopy filter button vanished
          because no tile classified as microscopy any more. Stating it beats
          widening that regex: it cannot break on the next rename. */
-      /* The optional sixth field sets a subject-specific media frame. Captions
-         sit below these images; full originals remain available in the lightbox.
-         Scientific imagery is not retouched. Contraction clips run forward
-         at their original speed, with complete microscopy frames preserved. */
+      /* The optional sixth field supplies a focal position and video poster.
+         Every preview uses the same 4:3 window and caption band. Full original
+         photos and real-time clips remain available in the media viewer. */
       ["Cultured smooth muscle · contraction", "big", "images/Smooth-muscle-culture-contraction.mp4", "videos", 0, {ratio:"1290 / 934",poster:"images/Smooth-muscle-culture-contraction.jpg"}],
       ["PCR thermal cycler", "big", "images/PCR-thermal-cycler.jpg", "bench", 0, {ratio:"1",position:"50% 50%"}],
       ["Cell culture incubators", "big", "images/Cell-culture-incubators.jpg", "bench", 0, {ratio:"1",position:"50% 48%"}],
@@ -3982,7 +3991,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
        gives a silent looping clip instead. Recognised by extension, so a
        filename typed into `gallery.list` does the right
        thing — no extra field to remember. */
-    var src=g[2], alt=String(g[0]).replace(/"/g,""), rotation=g[4]===180?180:0, fullFrame=g[5]==="contain", frame=g[5]&&typeof g[5]==="object"?g[5]:null, inner;
+    var src=g[2], alt=String(g[0]).replace(/"/g,""), rotation=g[4]===180?180:0, frame=g[5]&&typeof g[5]==="object"?g[5]:null, inner;
     /* encodeURI, because real filenames have spaces in them ("Bee_feeding -
        Trim.mp4") and an unencoded space breaks the src on file:// pages. It is
        a no-op on paths that need no escaping. */
@@ -3990,16 +3999,16 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     if(!src){
       inner='<canvas></canvas>';
     } else if(/\.(mp4|webm|ogv|mov|m4v)$/i.test(src)){
-      /* Every gallery video autoplays silently and loops, including future entries.
-         Preload the clip to reduce buffering at the loop boundary. */
-      inner='<video src="'+url+'" autoplay '+
-            'loop muted playsinline preload="auto"'+(frame&&frame.poster?' poster="'+encodeURI(frame.poster)+'"':'')+' aria-label="'+alt+'"></video>';
+      /* One visibility controller starts silent looping clips when their preview
+         enters view. Metadata-only loading keeps distant clips lightweight. */
+      inner='<video src="'+url+'" '+
+            'loop muted playsinline preload="metadata"'+(frame&&frame.poster?' poster="'+encodeURI(frame.poster)+'"':'')+' aria-label="'+alt+'"></video>';
     } else {
-      inner='<img src="'+url+'" alt="'+alt+'" loading="lazy" decoding="async" data-gallery-rotation="'+rotation+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:'+(fullFrame?'contain':'cover')+';object-position:'+(frame&&frame.position?frame.position:'50% 50%')+';rotate:'+rotation+'deg">';
+      inner='<img src="'+url+'" alt="'+alt+'" loading="lazy" decoding="async" data-gallery-rotation="'+rotation+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:'+(frame&&frame.position?frame.position:'50% 50%')+';rotate:'+rotation+'deg">';
     }
-    if(frame)inner='<div class="gal-media" style="--gal-ratio:'+frame.ratio+'">'+inner+'</div>';
-    return '<div class="gal '+g[1]+(fullFrame?' gal-full-frame':'')+(frame?' gal-curated':'')+'" data-category="'+(['microscopy','bench','videos'].indexOf(g[3])>=0?g[3]:'')+'" data-kind="'+GALKINDS[i%GALKINDS.length]+'">'+inner+
-           '<span class="cap">'+g[0]+'</span></div>';
+    inner='<div class="gal-media">'+inner+'</div>';
+    return '<div class="gal '+g[1]+' gal-curated" data-category="'+(['microscopy','bench','videos'].indexOf(g[3])>=0?g[3]:'')+'" data-kind="'+GALKINDS[i%GALKINDS.length]+'">'+inner+
+           '<span class="cap"><span>'+g[0]+'</span></span></div>';
   }).join("");
 
   /* ---- tile parallax: feed the cursor position to the CSS above ----
@@ -4031,31 +4040,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     gg.addEventListener("mouseleave",function(){ galRest(galHot); galHot=null; });
   }
 
-  /* Continuous playback for all gallery videos; scrolling never pauses a clip. */
-  if(gg){
-    var vids=gg.querySelectorAll("video");
-    function kick(v){
-      var tile=v.closest(".gal");
-      if(document.hidden || (tile && tile.hidden)){if(!v.paused)v.pause();return;}
-      if(!v.paused && !v.ended) return;
-      var p=v.play(); if(p&&p.catch) p.catch(function(){});
-    }
-    vids.forEach(function(v){
-      v.muted=true; v.defaultMuted=true; v.loop=true; v.autoplay=true; v.playsInline=true;
-      v.addEventListener("canplay",function(){ kick(v); });
-      v.addEventListener("ended",function(){ v.currentTime=0; kick(v); });
-      kick(v);
-    });
-    function resumeGalleryVideos(){
-      if(document.hidden) return;
-      vids.forEach(kick);
-    }
-    document.addEventListener("visibilitychange",resumeGalleryVideos);
-    window.addEventListener("pageshow",resumeGalleryVideos);
-    /* Retry after interaction if browser autoplay policy blocked the first attempt. */
-    document.addEventListener("pointerdown",resumeGalleryVideos,{once:true});
-    document.addEventListener("keydown",resumeGalleryVideos,{once:true});
-  }
+  /* Gallery playback is owned by #gallery-filter-interactions below. */
 
   function paintGal(el){
     var kind=el.getAttribute("data-kind");
@@ -4374,11 +4359,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
   })();
 
   /* ======================== [6] PHOTO LIGHTBOX ============================ */
-  /* Click a photo to view it full size. Serves TWO groups — the gallery tiles
-     and the Meet-the-team portraits — from one lightbox. Only items that
-     actually have a photo become clickable; generated placeholder tiles and
-     initials-only avatars are left inert, which is why every path checks for a
-     real <img> first.
+  /* Click gallery media, team portraits or award images to view full size.
+     Generated placeholders and initials-only avatars remain inert.
      The group you click in is the group you page through with the arrows, so
      portraits and gallery shots never get shuffled together.
      Written from scratch on purpose: no library, so the file stays portable. */
@@ -4386,6 +4368,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     var box=document.getElementById("lightbox");
     if(!box) return;
     var img=document.getElementById("lbImg"),
+        video=document.getElementById("lbVideo"),
         cap=document.getElementById("lbCap"),
         shots=[], idx=0, lastFocus=null, photoRotation=0;
     /* root  = the grid that was clicked
@@ -4397,10 +4380,11 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       root.querySelectorAll(sel).forEach(function(el){
         if(el.hidden) return; // Gallery filters also limit lightbox navigation.
 
-        var im=el.querySelector("img");
-        if(im){
-          el.classList.add("has-photo");
-          shots.push({el:el, src:im.getAttribute("src"), cap:capOf(el), rotation:im.getAttribute("data-gallery-rotation")==="180"?180:0});
+        var im=el.querySelector("img"),clip=el.querySelector("video"),media=im||clip;
+        if(media){
+          el.classList.add(clip?"has-video":"has-photo");
+          if(clip)el.dataset.videoState="Video · Loop";
+          shots.push({el:el,src:media.getAttribute("src"),cap:capOf(el),rotation:im&&im.getAttribute("data-gallery-rotation")==="180"?180:0,video:!!clip,poster:clip?clip.getAttribute("poster")||"":""});
         }
       });
       var many=shots.length>1;
@@ -4453,7 +4437,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
        motion, a thumbnail that cannot be measured, an image that fails to
        decode. None of them can leave the lightbox stuck invisible - see the
        opacity note below. */
-    var FLY_IN=260, FLY_OUT=200, cancelFly=null;
+    var FLY_IN=260, FLY_OUT=200, cancelFly=null, cancelLaunch=null;
 
     /* the on-screen rect of a source item's picture, or null if it has none */
     function thumbRect(el){
@@ -4533,23 +4517,45 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         if(!e.target.closest) return;
         if(group.hit && !e.target.closest(group.hit)) return;
         var el=e.target.closest(group.sel);
-        if(!el || !el.querySelector("img")) return;
+        if(!el || !el.querySelector("img,video")) return;
         openFrom(group,el);
       });
     }
     function show(i){
       if(!shots.length) return;
       idx=(i+shots.length)%shots.length;
-      photoRotation=shots[idx].rotation||0;
-      img.style.transform="rotate("+photoRotation+"deg)";
-      img.src=shots[idx].src; img.alt=shots[idx].cap; cap.textContent=shots[idx].cap;
+      if(cancelLaunch)cancelLaunch();
+      if(cancelFly)cancelFly();
+      box.style.opacity="";
+      var shot=shots[idx];
+      photoRotation=shot.rotation||0;
+      video.pause();video.removeAttribute("src");video.load();
+      img.hidden=shot.video;video.hidden=!shot.video;cap.textContent=shot.cap;
+      box.setAttribute("aria-label",shot.video?"Gallery video":"Gallery photo");
+      if(shot.video){
+        img.removeAttribute("src");
+        video.muted=true;video.defaultMuted=true;video.loop=true;video.playsInline=true;
+        video.poster=shot.poster;video.src=shot.src;video.setAttribute("aria-label",shot.cap);
+        playDetail();
+      }else{
+        img.style.transform="rotate("+photoRotation+"deg)";
+        img.src=shot.src;img.alt=shot.cap;
+      }
+      document.dispatchEvent(new Event("galleryviewerchange"));
     }
+    function playDetail(){
+      if(!box.classList.contains("open")||video.hidden||document.hidden)return;
+      try{var promise=video.play();if(promise&&promise.catch)promise.catch(function(){});}catch(e){}
+    }
+    video.addEventListener("canplay",playDetail);
+    video.addEventListener("ended",function(){video.currentTime=0;playDetail();});
+    document.addEventListener("visibilitychange",function(){if(document.hidden)video.pause();else playDetail();});
     function open(i,srcEl){
       lastFocus=document.activeElement;
       box.classList.add("open"); document.body.style.overflow="hidden";
       show(i); document.getElementById("lbClose").focus();
 
-      if(reduce) return;
+      if(reduce || shots[idx].video) return;
       var from=thumbRect(srcEl);
       if(!from) return;              /* nothing to fly from - open as before */
 
@@ -4563,11 +4569,16 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       var armed=true;
       function launch(){
         if(!armed) return;
-        armed=false;
+        armed=false;cancelLaunch=null;
         img.removeEventListener("load",launch);
         img.removeEventListener("error",launch);
         fly(thumbRect(srcEl)||from, 1, function(){});
       }
+      cancelLaunch=function(){
+        armed=false;cancelLaunch=null;
+        img.removeEventListener("load",launch);img.removeEventListener("error",launch);
+        box.style.opacity="";
+      };
       /* The picture is already on screen in the thumbnail, so it is in cache -
          but assigning .src still leaves `complete` false until it decodes, and
          there is nothing to fly TO until the full image has a size. */
@@ -4575,15 +4586,17 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       else { img.addEventListener("load",launch); img.addEventListener("error",launch); }
     }
     function close(){
+      if(cancelLaunch)cancelLaunch();
       function done(){
         box.classList.remove("open"); document.body.style.overflow="";
-        img.removeAttribute("src");
+        img.removeAttribute("src");video.pause();video.removeAttribute("src");video.load();video.hidden=true;
+        document.dispatchEvent(new Event("galleryviewerchange"));
         if(lastFocus && lastFocus.focus) lastFocus.focus();
       }
       /* fly back to whichever picture is showing NOW - the arrows may have
          paged well away from the one that was clicked */
       var back=shots.length?thumbRect(shots[idx].el):null;
-      if(reduce || !back){ if(cancelFly) cancelFly(); done(); return; }
+      if(reduce || !back || shots[idx].video){ if(cancelFly) cancelFly(); done(); return; }
       fly(back,-1,done);
     }
     wire(GALLERY);
@@ -4593,11 +4606,19 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     document.getElementById("lbPrev").addEventListener("click",function(){ show(idx-1); });
     document.getElementById("lbNext").addEventListener("click",function(){ show(idx+1); });
     box.addEventListener("click",function(e){ if(e.target===box) close(); });
+    /* Boundaries preserve normal Tab traversal through native video controls. */
+    box.querySelector('[data-lb-boundary="start"]').addEventListener('focus',function(){
+      var focusable=Array.from(box.querySelectorAll('button,video[controls]')).filter(function(el){return !el.hidden&&el.getClientRects().length;});
+      focusable[focusable.length-1].focus();
+    });
+    box.querySelector('[data-lb-boundary="end"]').addEventListener('focus',function(){document.getElementById('lbClose').focus();});
     document.addEventListener("keydown",function(e){
       if(!box.classList.contains("open")) return;
-      if(e.key==="Escape") close();
-      else if(e.key==="ArrowLeft")  show(idx-1);
-      else if(e.key==="ArrowRight") show(idx+1);
+      if(e.key==="Escape"){e.preventDefault();close();}
+      else if(e.target!==video){
+        if(e.key==="ArrowLeft"){e.preventDefault();show(idx-1);}
+        else if(e.key==="ArrowRight"){e.preventDefault();show(idx+1);}
+      }
     });
   })();
 
@@ -8998,11 +9019,29 @@ function createCFDetailMotion(options){
     return /(?:^|\/)(?:ENS|Organoid|SCG|Co-culture)\.(?:webp|png|jpe?g)(?:[?#]|$)/i.test(src)?'microscopy':'bench';
   }
   function matches(tile,key){return key==='all'||(key==='videos'?!!tile.querySelector('video'):tile.dataset.gfCategory===key);}
-  function safePlayVisible(){
-    tiles.forEach(function(tile){var video=tile.querySelector('video');if(!video)return;if(tile.hidden){if(!video.paused)video.pause();return;}if(document.hidden)return;if(!video.paused&&!video.ended)return;
-      try{var promise=video.play();if(promise&&promise.catch)promise.catch(function(){});}catch(e){}
+  /* One controller handles filters, viewport entry, browser suspension and
+     playback retries. A rejected autoplay attempt is retried on interaction. */
+  var clipStates=new Map(),playFrame=0;
+  function mayPlay(tile,video){
+    if(tile.hidden||document.hidden||document.getElementById('lightbox').classList.contains('open'))return false;
+    var r=video.getBoundingClientRect();
+    return r.width>0&&r.height>0&&r.bottom>0&&r.top<window.innerHeight&&r.right>0&&r.left<window.innerWidth;
+  }
+  function safePlayVisible(retry){
+    clipStates.forEach(function(state,video){
+      var tile=state.tile;
+      if(!mayPlay(tile,video)){if(!video.paused)video.pause();return;}
+      if(retry===true){state.blocked=false;if(state.pending)state.retryPending=true;}
+      if(state.pending||state.blocked||(!video.paused&&!video.ended))return;
+      video.muted=true;video.defaultMuted=true;video.loop=true;video.playsInline=true;video.preload='auto';
+      state.pending=true;state.retryPending=false;
+      function ready(){state.pending=false;state.retryPending=false;if(!mayPlay(tile,video)){video.pause();return;}tile.dataset.videoState='Video · Loop';if(video.paused)requestPlay();}
+      function failed(error){var retryAfterAbort=state.retryPending&&error&&error.name==='AbortError';state.pending=false;state.retryPending=false;state.blocked=!retryAfterAbort;if(retryAfterAbort)requestPlay();else if(mayPlay(tile,video))tile.dataset.videoState='Tap to play';}
+      try{var promise=video.play();if(promise&&promise.then)promise.then(ready,failed);else ready();}catch(e){failed();}
     });
   }
+  function requestPlay(){if(playFrame)return;playFrame=requestAnimationFrame(function(){playFrame=0;safePlayVisible();});}
+  var clipObserver=window.IntersectionObserver?new IntersectionObserver(function(){safePlayVisible(true);},{threshold:[0,.01,.25]}):null;
   function cancelMotion(){animations.forEach(function(animation){animation.cancel();});animations=[];}
   function animate(node,frames,options){
     if(reduce.matches||document.hidden||typeof node.animate!=='function')return;
@@ -9015,10 +9054,19 @@ function createCFDetailMotion(options){
   status.id='galleryFilterStatus';status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.setAttribute('aria-atomic','true');
   tiles.forEach(function(tile){
     tile.dataset.gfCategory=classify(tile);
-    var clip=tile.querySelector('video');if(clip)clip.addEventListener('canplay',safePlayVisible);
-    if(tile.querySelector('img')){
+    var clip=tile.querySelector('video');
+    if(clip){
+      clip.muted=true;clip.defaultMuted=true;clip.loop=true;clip.playsInline=true;
+      clipStates.set(clip,{tile:tile,pending:false,blocked:false,retryPending:false});
+      tile.classList.add('has-video');tile.dataset.videoState='Video · Loop';
+      clip.addEventListener('canplay',requestPlay);
+      clip.addEventListener('pause',requestPlay);
+      clip.addEventListener('ended',function(){clip.currentTime=0;safePlayVisible(true);});
+      if(clipObserver)clipObserver.observe(clip);
+    }
+    if(tile.querySelector('img,video')){
       var caption=tile.querySelector('.cap');tile.tabIndex=0;tile.setAttribute('role','button');tile.setAttribute('aria-haspopup','dialog');
-      tile.setAttribute('aria-label','View '+(caption?caption.textContent.trim():'gallery image'));
+      tile.setAttribute('aria-label','View '+(caption?caption.textContent.trim():'gallery media'));
       tile.addEventListener('keydown',function(event){if(event.target!==tile||tile.hidden)return;if(event.key==='Enter'||event.key===' '){event.preventDefault();tile.click();}});
     }
   });
@@ -9063,7 +9111,7 @@ function createCFDetailMotion(options){
     more.setAttribute('aria-label','Show '+next+' more gallery '+(next===1?'item':'items')+', '+left+' not yet shown');
     var labelled=buttons.find(function(b){return b.dataset.gfFilter===key;});
     status.textContent=visible.length+' of '+matched.length+(matched.length===1?' item':' items')+' · '+(labelled?labelled.dataset.gfLabel:'All');
-    if(instant)return visible;
+    if(instant){safePlayVisible();return visible;}
     grid.classList.add('gf-has-filtered');
     // Commit the compact grid first, then animate the existing media tiles into it.
     var last=new Map();visible.forEach(function(tile){last.set(tile,tile.getBoundingClientRect());});
@@ -9076,7 +9124,7 @@ function createCFDetailMotion(options){
       }else animate(tile,[{opacity:.15,transform:'translateY(22px) scale(.94)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:340,delay:Math.min(index*24,96),easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
     });
     if(oldIndicator!==undefined)updateIndicator(oldIndicator);
-    safePlayVisible();
+    safePlayVisible(true);
     return visible;
   }
   function select(key){
@@ -9092,7 +9140,7 @@ function createCFDetailMotion(options){
     shown+=PAGE;
     render(active,null,undefined,false);
     // Move keyboard users onto the first newly shown tile rather than leaving
-    // them on the button. A video tile is not focusable, so focus stays put.
+    // them on the button. Images and videos share the same full-size viewer.
     var firstNew=matched[before];
     if(firstNew&&!firstNew.hidden&&firstNew.tabIndex>=0)firstNew.focus({preventScroll:false});
   });
@@ -9115,10 +9163,14 @@ function createCFDetailMotion(options){
   // there is nothing to animate, and adding .in here would skip the tiles'
   // normal scroll reveal. This also sets the status line and the button.
   render('all',null,undefined,true);
-  function settle(){cancelMotion();updateIndicator(null);}
+  function settle(){cancelMotion();updateIndicator(null);safePlayVisible(true);}
   window.addEventListener('resize',settle,{passive:true});
-  document.addEventListener('visibilitychange',function(){if(document.hidden){cancelMotion();safePlayVisible();}else{updateIndicator(null);safePlayVisible();}});
-  window.addEventListener('pageshow',function(){settle();safePlayVisible();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)cancelMotion();else updateIndicator(null);safePlayVisible(true);});
+  window.addEventListener('pageshow',settle);
+  document.addEventListener('galleryviewerchange',function(){safePlayVisible(true);});
+  document.addEventListener('pointerdown',function(){safePlayVisible(true);},{passive:true});
+  document.addEventListener('keydown',function(){safePlayVisible(true);});
+  if(!clipObserver)window.addEventListener('scroll',requestPlay,{passive:true});
   if(reduce.addEventListener)reduce.addEventListener('change',settle);else if(reduce.addListener)reduce.addListener(settle);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){updateIndicator(null);});
   updateIndicator(null);
