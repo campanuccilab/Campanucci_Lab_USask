@@ -1840,6 +1840,32 @@ html.pre-reveal section.sec-on .chapter-label::after{transform:scaleX(1);transit
 .gal.gal-full-frame{background:var(--bg)}
 .gal.gal-full-frame img{box-sizing:border-box;padding:12px 12px 58px}
 .gal.gal-full-frame.has-photo img,.gal.gal-full-frame.has-photo:hover img{transform:none}
+
+/* Conference album, with the same preview proportions and full-photo viewer. */
+#conferences{display:block;min-height:0;overflow-x:clip}
+.conference-album{min-width:0}
+.conference-feature{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,3vw,48px);align-items:center}
+#conferences .conference-copy{margin:0;padding:clamp(24px,3vw,42px);min-width:0}
+#conferences .conference-copy h2{max-width:15ch}
+#conferences .conference-purpose{font:600 18px/1.5 var(--sans);color:var(--accent-ink);margin-top:26px}
+.conference-explore{display:inline-flex;align-items:center;gap:16px;min-height:44px;margin-top:18px;font:600 13px/1.5 var(--sans);color:var(--accent-ink);text-decoration:underline;text-underline-offset:6px}
+.conference-feature-media{min-width:0}
+.conference-collection-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:36px 0 20px;padding-top:24px;border-top:1px solid var(--hair)}
+.conference-collection-head h3{font:400 clamp(23px,2vw,29px)/1.25 var(--serif);letter-spacing:-.02em;margin:0}
+.conference-collection-head p{font:11px/1.5 var(--mono);color:var(--sub);margin:0}
+.conference-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;scroll-margin-top:110px}
+#conferences .conference-photo{display:block;appearance:none;padding:0;width:100%;min-width:0;min-height:0;height:auto;aspect-ratio:auto;grid-column:auto;grid-row:auto;overflow:hidden;text-align:left;color:var(--fg);font:inherit;background:var(--bg);border:1px solid var(--hair);border-radius:8px;cursor:zoom-in}
+#conferences .conference-photo[hidden]{display:none!important}
+#conferences .conference-photo .gal-media{display:block;aspect-ratio:4/3;position:relative;overflow:hidden}
+#conferences .conference-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none}
+#conferences .conference-photo:hover{border-color:var(--accent-ink)}
+#conferences .conference-photo:focus-visible{outline:2px solid var(--accent-ink);outline-offset:5px}
+.conference-more-wrap{text-align:center;margin-top:28px}
+.conference-more-wrap:has(button[hidden]){display:none}
+@media(max-width:900px){.conference-feature{grid-template-columns:minmax(0,1fr);gap:22px}#conferences .conference-copy h2{max-width:none}.conference-feature-media{width:100%;max-width:780px;margin-inline:auto}}
+@media(max-width:740px){.conference-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.conference-collection-head{margin-top:26px}#conferences .conference-photo .cap{padding:12px;font-size:12px}}
+@media(max-width:420px){.conference-grid{grid-template-columns:minmax(0,1fr)}#conferences .conference-copy{padding:24px}.conference-more-wrap .btn{width:100%}}
+
 /* Consistent preview windows; the viewer retains complete original media. */
 #galGrid.gf-managed,#galGrid.gf-managed[data-gf-count='2']{grid-auto-rows:auto;align-items:start}
 #galGrid.gf-managed>.gal.gal-curated{height:auto;min-height:0;aspect-ratio:auto;background:var(--surface,var(--bg))}
@@ -2812,8 +2838,35 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       <p class="eyebrow chapter-label" data-c="gallery.eyebrow">Gallery</p>
       <h2 data-c="gallery.heading">Life at the bench</h2>
       <p>Microscopy, rigs, and the day-to-day of the lab.</p>
+      <a class="conference-explore" href="#conferences">NACFC 2026 Conference <span aria-hidden="true">↗</span></a>
     </div>
     <div class="gal-grid" id="galGrid"></div>
+  </div>
+</section>
+
+<!-- CONFERENCES -->
+<section id="conferences" aria-labelledby="conferenceHeading">
+  <div class="wrap">
+    <div class="conference-album" id="conferenceAlbum">
+      <div class="conference-feature">
+        <div class="sec-head conference-copy">
+          <p class="eyebrow chapter-label" data-c="conferences.eyebrow">Beyond the bench</p>
+          <h2 id="conferenceHeading" data-c="conferences.heading">NACFC 2026 Conference</h2>
+          <p class="conference-purpose" data-c="conferences.purpose">Professional development for trainees</p>
+          <p data-c="conferences.intro">Conferences give our trainees opportunities to present their research, exchange ideas, and build connections across the cystic fibrosis community.</p>
+          <a class="conference-explore" href="#conferencePhotoGrid">Explore the conference moments <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="conference-feature-media" id="conferenceFeatured"></div>
+      </div>
+      <div class="conference-collection-head">
+        <h3>Moments from the conference</h3>
+        <p id="conferenceCount" role="status" aria-live="polite"></p>
+      </div>
+      <div class="conference-grid" id="conferencePhotoGrid"></div>
+      <div class="conference-more-wrap">
+        <button class="btn btn-ghost" id="conferenceMore" type="button" aria-expanded="false" aria-controls="conferencePhotoGrid">View all conference photos</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2998,6 +3051,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
          off the camera and stays in the folder unreferenced; the site points
          at the 1600px export. Already 4:3, so nothing is cropped off it. */
       ["Lab gathering 2026",     "images/Lab17-deck.jpg", "50% 50%"],
+      ["NACFC 2026 · Together at NACFC 2026", "images/NACFC-2026-together-preview.webp", "50% 50%"],
+      ["NACFC 2026 · At the posters", "images/NACFC-2026-at-the-posters-preview.webp", "50% 50%"],
+      ["NACFC 2026 · Lab members at NACFC 2026", "images/NACFC-2026-lab-members-preview.webp", "50% 78%"],
       ["At the bench",           "images/Lab4.jpeg",  "50% 30%"],
       ["At the rigs",            "images/Lab5.jpeg",  "50% 52%"],
       ["Thumbs up",              "images/Lab6.jpeg",  "50% 58%"],
@@ -3393,6 +3449,25 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       ["Brain slice recording",  "tall", "images/lab14.jpeg"],
       /* Also in the welcome deck. Was hardcoded in the renderer until 26 Sep 2026. */
       ["Under the scope",        "sm",   "images/Lab8.jpeg"]
+    ]
+  },
+
+  /* Conference albums: previews stay lightweight; the viewer opens the full photo. */
+  conferences: {
+    eyebrow: "Beyond the bench",
+    heading: "NACFC 2026 Conference",
+    purpose: "Professional development for trainees",
+    intro: "Conferences give our trainees opportunities to present their research, exchange ideas, and build connections across the cystic fibrosis community.",
+    photos: [
+      {"caption": "Together at NACFC 2026", "preview": "images/NACFC-2026-together-preview.webp", "image": "images/NACFC-2026-together.webp", "position": "50% 50%"},
+      {"caption": "At the posters", "preview": "images/NACFC-2026-at-the-posters-preview.webp", "image": "images/NACFC-2026-at-the-posters.webp", "position": "50% 50%"},
+      {"caption": "Research presentation", "preview": "images/NACFC-2026-research-presentation-preview.webp", "image": "images/NACFC-2026-research-presentation.webp", "position": "50% 62%"},
+      {"caption": "Poster discussions", "preview": "images/NACFC-2026-poster-discussions-preview.webp", "image": "images/NACFC-2026-poster-discussions.webp", "position": "50% 55%"},
+      {"caption": "Lab members at NACFC 2026", "preview": "images/NACFC-2026-lab-members-preview.webp", "image": "images/NACFC-2026-lab-members.webp", "position": "50% 78%"},
+      {"caption": "Conference photo booth", "preview": "images/NACFC-2026-photo-booth-preview.webp", "image": "images/NACFC-2026-photo-booth.webp", "position": "50% 50%"},
+      {"caption": "Conference connections", "preview": "images/NACFC-2026-conference-connections-preview.webp", "image": "images/NACFC-2026-conference-connections.webp", "position": "50% 50%"},
+      {"caption": "Scientific session", "preview": "images/NACFC-2026-scientific-session-preview.webp", "image": "images/NACFC-2026-scientific-session.webp", "position": "50% 45%"},
+      {"caption": "Poster session", "preview": "images/NACFC-2026-poster-session-preview.webp", "image": "images/NACFC-2026-poster-session.webp", "position": "50% 55%"}
     ]
   },
 
@@ -4012,6 +4087,31 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
            '<span class="cap"><span>'+g[0]+'</span></span></div>';
   }).join("");
 
+  /* A self-contained conference album shares the media viewer with the gallery. */
+  (function(){
+    var album=document.getElementById("conferenceAlbum"),featured=document.getElementById("conferenceFeatured"),grid=document.getElementById("conferencePhotoGrid"),more=document.getElementById("conferenceMore"),count=document.getElementById("conferenceCount");
+    var photos=SITE.conferences&&SITE.conferences.photos||[];
+    if(!album||!photos.length)return;
+    photos.forEach(function(photo,i){
+      var tile=document.createElement("button");tile.type="button";tile.className="gal gal-curated conference-photo";
+      tile.setAttribute("aria-label","View NACFC 2026 · "+photo.caption);tile.setAttribute("aria-haspopup","dialog");
+      var media=document.createElement("span");media.className="gal-media";
+      var image=document.createElement("img");image.src=encodeURI(photo.preview);image.dataset.fullSrc=encodeURI(photo.image);image.alt="NACFC 2026 · "+photo.caption;image.loading="lazy";image.decoding="async";image.style.objectPosition=photo.position||"50% 50%";
+      media.appendChild(image);tile.appendChild(media);
+      var caption=document.createElement("span");caption.className="cap";var label=document.createElement("span");label.textContent=photo.caption;caption.appendChild(label);tile.appendChild(caption);
+      tile.hidden=i>3;
+      (i===0?featured:grid).appendChild(tile);
+    });
+    function updateCount(){var shown=album.querySelectorAll(".conference-photo:not([hidden])").length;count.textContent=shown+" of "+photos.length+" photos · Click to explore";}
+    updateCount();more.hidden=photos.length<=4;more.textContent="View all "+photos.length+" conference photos";
+    more.addEventListener("click",function(){
+      var hidden=Array.from(grid.querySelectorAll(".conference-photo[hidden]"));hidden.forEach(function(tile){tile.hidden=false;});
+      more.setAttribute("aria-expanded","true");more.hidden=true;more.parentElement.hidden=true;updateCount();
+      if(hidden.length)hidden[0].focus({preventScroll:true});
+      window.dispatchEvent(new Event("resize"));
+    });
+  })();
+
   /* ---- tile parallax: feed the cursor position to the CSS above ----
      Delegated to the grid, so re-rendering the tiles needs no re-wiring, and
      one listener covers however many tiles there are. --mx/--my run -1..1
@@ -4375,17 +4475,17 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     /* root  = the grid that was clicked
        sel   = what one clickable item looks like inside it
        capOf = how to caption an item                                        */
-    function collect(root,sel,capOf){
+    function collect(root,sel,capOf,includeHidden){
       shots=[];
       if(!root) return;
       root.querySelectorAll(sel).forEach(function(el){
-        if(el.hidden) return; // Gallery filters also limit lightbox navigation.
+        if(el.hidden&&!includeHidden) return; // Gallery filters limit navigation; a conference album can browse every photo.
 
         var im=el.querySelector("img"),clip=el.querySelector("video"),media=im||clip;
         if(media){
           el.classList.add(clip?"has-video":"has-photo");
           if(clip)el.dataset.videoState="Video · Loop";
-          shots.push({el:el,src:media.getAttribute("src"),cap:capOf(el),rotation:im&&im.getAttribute("data-gallery-rotation")==="180"?180:0,video:!!clip,poster:clip?clip.getAttribute("poster")||"":""});
+          shots.push({el:el,src:media.getAttribute("data-full-src")||media.getAttribute("src"),cap:capOf(el),rotation:im&&im.getAttribute("data-gallery-rotation")==="180"?180:0,video:!!clip,poster:clip?clip.getAttribute("poster")||"":""});
         }
       });
       var many=shots.length>1;
@@ -4396,6 +4496,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     /* the two groups, each described once */
     var GALLERY={ root:gg, sel:".gal",
                   cap:function(el){ return txt(el,".cap"); } },
+        CONFERENCES={root:document.getElementById("conferenceAlbum"),sel:".conference-photo",includeHidden:true,
+                     cap:function(el){return "NACFC 2026 · "+txt(el,".cap");}},
         /* `hit` narrows what counts as a click. A team card is mostly text —
            the name, the role, the PI's whole bio — so the click has to land on
            the portrait itself. Without this, selecting a line of the bio would
@@ -4416,7 +4518,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
                     var t=txt(el,".award-title"), c=txt(el,".sig-name");
                     return c ? t+" — "+c : t; } };
     function openFrom(group,el){
-      collect(group.root,group.sel,group.cap);
+      collect(group.root,group.sel,group.cap,group.includeHidden);
       for(var i=0;i<shots.length;i++){ if(shots[i].el===el){ open(i,el); return; } }
     }
 
@@ -4513,7 +4615,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       if(!group.root) return;
       /* mark what is clickable up front so the zoom-in cursor is right before
          anyone clicks; re-collected on click in case the grid was re-rendered */
-      collect(group.root,group.sel,group.cap);
+      collect(group.root,group.sel,group.cap,group.includeHidden);
       group.root.addEventListener("click",function(e){
         if(!e.target.closest) return;
         if(group.hit && !e.target.closest(group.hit)) return;
@@ -4557,6 +4659,9 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
       show(i); document.getElementById("lbClose").focus();
 
       if(reduce || shots[idx].video) return;
+      /* A full-size album image may need a network load. Keep the dialog and
+         Close button visible while it arrives instead of hiding them for a flight. */
+      if(srcEl && srcEl.querySelector("img[data-full-src]") && (!img.complete || !img.naturalWidth)) return;
       var from=thumbRect(srcEl);
       if(!from) return;              /* nothing to fly from - open as before */
 
@@ -4603,6 +4708,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     wire(GALLERY);
     wire(TEAM);
     wire(AWARDS);
+    wire(CONFERENCES);
     document.getElementById("lbClose").addEventListener("click",close);
     document.getElementById("lbPrev").addEventListener("click",function(){ show(idx-1); });
     document.getElementById("lbNext").addEventListener("click",function(){ show(idx+1); });
@@ -4813,6 +4919,8 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
         mark(el,"r-tile", i*40);
       });
     })();
+    mark(document.querySelector(".conference-feature-media"),"r-rise",0);
+    stagger(qsa(".conference-grid .conference-photo:not([hidden])"),0,40,"r-rise");
     mark(document.querySelector("#join .join-copy"),"r-left",0);
     stagger(qsa("#join .role-card"),70,55,"r-right");
     mark(document.querySelector("#contact .contact-grid > div"),"r-left",0);
@@ -7176,6 +7284,7 @@ html.pre-reveal section#cf-research.cf-cinema-active,html.pre-reveal section#cf-
     // scrollspy — highlight the nav link for the section in view
     var navMap={}; qsa('.nav-links a[href^="#"]').forEach(function(a){ navMap[a.getAttribute("href").slice(1)]=a; });
     navMap["cf-research"]=navMap.research;
+    navMap.conferences=navMap.gallery;
     if("IntersectionObserver" in window){
       var so=new IntersectionObserver(function(es){
         es.forEach(function(e){
